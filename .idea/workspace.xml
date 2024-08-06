@@ -10,76 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6a19c728-5485-481b-9950-08d47e1e709d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/webContexts.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mvnw" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mvnw.cmd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/dao/DaoEstudiante.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/dao/DaoMateria.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/database/DatabaseConnection.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/model/Administrador.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/model/Docente.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/model/Estudiante.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Administrador/AprobarRegistroS.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Administrador/DeshabilitarDocenteS.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Administrador/LoginAdminS.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Administrador/PaginaPrincipalAdmnistradorS.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Administrador/consultarInformacionS.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Docente/CalificarEstuditeS.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Docente/CrearHorarioS.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Docente/EditarDocente.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Docente/LoginDocenteS.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Docente/PaginaPrincipalDocenteS.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Docente/RegistroDocentesS.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Docente/SeleccionMateriasDocenteS.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Docente/informacionAsesoriaS.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/EncodingFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Estudiante/CalificarAlDocenteS.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Estudiante/ConfirmarAsesoriaS.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Estudiante/EditarEstudiante.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Estudiante/HorarioEstudianteS.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Estudiante/LoginEstudianteS.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Estudiante/PaginaPrincipalEstudianteS.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Estudiante/RegistroEstudianteS.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Estudiante/buscarMateriaS.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Materia/AgregarMateriasS.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Materia/EliminarMateria.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Materia/EstadoMateriaS.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Materia/GetMateriaS.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/JS/main.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/css/cssFuenteLetra.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/css/cssIndex.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/css/cssInicioSesion.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/css/cssPlantillaBarra.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/index.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/vistas/Admin/AgregarMaterias.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/vistas/Admin/AprobarRegistro.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/vistas/Admin/ConsultarInformacion.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/vistas/Admin/GestionAsesorias.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/vistas/Admin/GestionDeMaterias.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/vistas/Admin/LoginAdmin.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/vistas/Admin/PaginaPrincipalAdmin.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/vistas/Docente/CalificarEstudiante.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/vistas/Docente/CrearHorario.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/vistas/Docente/HistorialDocente.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/vistas/Docente/LoginDocente.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/vistas/Docente/PaginaPrincipalDocente.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/vistas/Docente/RegistroDocente.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/vistas/Docente/SeleccionMateriasDocente.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/vistas/Estudiante/CalificarAlDocente.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/vistas/Estudiante/HistorialEstudiante.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/vistas/Estudiante/HorarioEstudiante.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/vistas/Estudiante/LoginEstudiante.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/vistas/Estudiante/PaginaPrincipalEstudiante.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/vistas/Estudiante/RegistroEstudiante.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/vistas/Estudiante/buscarMateria.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -121,30 +52,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.DaoDocente.executor": "Run",
-    "Application.DaoMateria.executor": "Run",
-    "Application.DatabaseConnection.executor": "Run",
-    "DefaultHtmlFileTemplate": "HTML File",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "Tomcat Server.Tomcat 9.0.90.executor": "Run",
-    "Tomcat Server.Unnamed.executor": "Run",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/16844/OneDrive/Escritorio/SGAA_1/SGAA_10",
-    "list.type.of.created.stylesheet": "CSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Artifacts",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.DaoDocente.executor&quot;: &quot;Run&quot;,
+    &quot;Application.DaoMateria.executor&quot;: &quot;Run&quot;,
+    &quot;Application.DatabaseConnection.executor&quot;: &quot;Run&quot;,
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;Tomcat Server.Tomcat 9.0.90.executor&quot;: &quot;Run&quot;,
+    &quot;Tomcat Server.Unnamed.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/16844/OneDrive/Escritorio/SGAA_1/SGAA_10&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Tomcat Server.Tomcat 9.0.90">
     <configuration name="DatabaseConnection" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="mx.edu.utez.sgaa.database.DatabaseConnection" />
@@ -379,7 +310,8 @@
       <workItem from="1722828279983" duration="5386000" />
       <workItem from="1722900431216" duration="1816000" />
       <workItem from="1722902346390" duration="6982000" />
-      <workItem from="1722914735017" duration="8031000" />
+      <workItem from="1722914735017" duration="8802000" />
+      <workItem from="1722963025599" duration="26000" />
     </task>
     <servers />
   </component>
