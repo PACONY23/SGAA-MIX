@@ -39,29 +39,6 @@ public class DaoDocente {
         return result;
     }
 
-    public int eliminarDocente(String matricula) throws ClassNotFoundException {
-        String DELETE_DOCENTE_SQL = "DELETE FROM docentes WHERE matricula = ?;";
-        int result = 0;
-
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-
-            try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD)) {
-                PreparedStatement preparedStatement = connection.prepareStatement(DELETE_DOCENTE_SQL);
-                preparedStatement.setString(1, matricula);
-                System.out.println(preparedStatement);
-
-                result = preparedStatement.executeUpdate();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        return result;
-    }
-
     public Docente loginDocente(String matricula, String password) throws ClassNotFoundException {
         String LOGIN_SQL = "SELECT * FROM docentes WHERE matricula = ? AND contraseña = ?;";
         Docente docente1 = null;
