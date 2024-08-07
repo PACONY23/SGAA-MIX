@@ -127,12 +127,12 @@
 <div class="login-container" class="bg-pan-tr">
     <h1>Bienvenido</h1>
     <h2>ESTUDIANTE</h2>
-    <form action="<%=context%>/LoginEstudianteS" method="post"> <!-- cambiar el metodo al post, get solo fue momentáneo-->
+    <form action="<%=context%>/LoginEstudiantesS" method="post"> <!-- cambiar el metodo al post, get solo fue momentáneo-->
         <input type="text" name="matricula" placeholder="Matrícula" required>
         <input type="password" name="password" placeholder="Contraseña" required>
         <button type="submit">Iniciar sesión</button>
     </form>
-    <a href="<%=context%>/vistas/Estudiante/RegistroEstudiante.jsp">Crea tu cuenta...</a>
+    <a href="<%=context%>/RedirectRegistroEstudiante">Crea tu cuenta...</a>
 </div>
 </body>
 </html>

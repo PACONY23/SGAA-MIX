@@ -1,5 +1,6 @@
 package mx.edu.utez.sgaa.dao;
 
+import mx.edu.utez.sgaa.database.DatabaseConnection;
 import mx.edu.utez.sgaa.model.Docente;
 import java.sql.*;
 import java.util.ArrayList;
@@ -9,6 +10,10 @@ public class DaoDocente {
     private static final String JDBC_URL = "jdbc:mysql://localhost:3306/estudiante";
     private static final String JDBC_USER = "root";
     private static final String JDBC_PASSWORD = "root";
+    private Connection con;
+    private PreparedStatement pstm;
+    private ResultSet rs;
+    private final DatabaseConnection DATA_BASE_CONNECTION = new DatabaseConnection();
 
     public int RegistrarDocente(Docente docente) throws ClassNotFoundException {
         String INSERT_DOCENTES_SQL = "INSERT INTO docentes (matricula, contraseña, nombre, apellido, correoElectronico, estatus, admission) VALUES (?, ?, ?, ?, ?, ?, ?);";
@@ -65,6 +70,54 @@ public class DaoDocente {
 
         return docente1;
     }
+
+    public List<Docente> DocentesSinAdmitir() {
+        List<Docente> docentes = new ArrayList<>();
+        String sql = "SELECT * FROM Docentes WHERE admision = false";
+        try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
+             PreparedStatement stmt = connection.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                Docente docente = new Docente();
+                docente.setId(rs.getInt("idDocente"));
+                docente.setMatricula(rs.getString("Matricula"));
+                docente.setNombres(rs.getString("Nombre"));
+                docente.setApellidos(rs.getString("Apellido"));
+                docente.setAdmission(rs.getBoolean("admision"));
+                docentes.add(docente);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return docentes;
+    }
+
+
+    public boolean eliminarDocente(int id) throws ClassNotFoundException {
+        String DELETE_DOCENTE_SQL = "DELETE FROM docentes WHERE idDocente = ?;";
+        int result = 0;
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD)) {
+                PreparedStatement preparedStatement = connection.prepareStatement(DELETE_DOCENTE_SQL);
+                preparedStatement.setInt(1, id);
+                System.out.println(preparedStatement);
+
+                result = preparedStatement.executeUpdate();
+                return result > 0; // Devuelve true si se eliminó al menos un registro
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return false;
+            }
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 
     public boolean actualizarDocente(Docente docente) {
         String UPDATE_SQL = "UPDATE docentes SET nombre = ?, apellido = ?, correoElectronico = ?, estatus = ? WHERE matricula = ?;";
@@ -187,6 +240,20 @@ public class DaoDocente {
             e.printStackTrace();
         }
         return docentes;
+    }
+
+    public boolean admitirDocente(int id) {
+        try {
+            con = DATA_BASE_CONNECTION.getConnection();
+            String sql = "UPDATE Docentes SET admision = true WHERE idDocente = ?";
+            pstm = con.prepareStatement(sql);
+            pstm.setInt(1, id);
+            int result = pstm.executeUpdate();
+            return result > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
 }

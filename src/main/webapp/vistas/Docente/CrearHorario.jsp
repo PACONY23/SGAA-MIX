@@ -1,3 +1,6 @@
+<%@ page import="mx.edu.utez.sgaa.dao.DaoMateria" %>
+<%@ page import="mx.edu.utez.sgaa.model.Materia" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%String context = request.getContextPath();%>
 <!DOCTYPE html>
@@ -175,6 +178,69 @@
 <div class="contenido">
     <div id='calendar'></div>
 
+    <!-- Modal para crear asesoría -->
+    <div class="modal fade" id="crearAsesoriaModal" tabindex="-1" aria-labelledby="crearAsesoriaModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="crearAsesoriaModalLabel">Crear Asesoría</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="crearAsesoriaForm">
+                        <div class="mb-3">
+                            <label for="titulo" class="form-label">Nombre del Evento</label>
+                            <input type="text" class="form-control" id="titulo" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="dia" class="form-label">Día</label>
+                            <input type="date" class="form-control" id="dia" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="hora" class="form-label">Hora</label>
+                            <input type="time" class="form-control" id="hora" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para la seleccionar materias -->
+    <div class="modal fade" id="seleccionarMaterias" tabindex="-1" aria-labelledby="seleccionarMateriasLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="seleccionarMateriasLabel">Seleccionar materias</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="seleccionarMateriasForm" action="<%=context%>/SeleccionMateriasDocenteS" method="get">
+                        <%
+                            DaoMateria MateriasExistentes = new DaoMateria();
+                            List<Materia> materias = MateriasExistentes.getAllMaterias();
+                            for (Materia materia : materias) {
+                                System.out.println("Nombre: " + materia.getNombre());
+                        %>
+                        <div class="form-check">
+
+                            <input class="form-check-input" type="checkbox" value="<%=materia.getId()%>" id="<%=materia.getId()%>">
+                            <label class="form-check-label" for="<%=materia.getId()%>">
+                                <%=materia.getNombre() %>
+                            </label>
+
+                        </div>
+                        <%
+                            }
+                        %>
+                        <button type="submit" class="btn btn-primary mt-3">Guardar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             var calendarEl = document.getElementById('calendar');
@@ -182,9 +248,25 @@
                 locale: 'es', // Configurar idioma español
                 initialView: 'timeGridWeek',
                 headerToolbar: {
-                    left: 'prev,next today',
+                    left: 'customButtonCheckbox, customButton',
                     center: 'title',
-                    right: 'timeGridWeek'
+                    right: 'prev,next today'
+                },
+                customButtons: {
+                    customButton: {
+                        text: 'Crear asesoría',
+                        click: function() {
+                            var modal = new bootstrap.Modal(document.getElementById('crearAsesoriaModal'));
+                            modal.show();
+                        }
+                    },
+                    customButtonCheckbox: {
+                        text: 'Opciones',
+                        click: function() {
+                            var modal = new bootstrap.Modal(document.getElementById('seleccionarMaterias'));
+                            modal.show();
+                        }
+                    }
                 },
                 slotMinTime: '07:00:00',
                 slotMaxTime: '21:00:00',
@@ -268,8 +350,49 @@
                 }
             });
             calendar.render();
+
+            // Manejar el envío del formulario del modal para crear asesoría
+            document.getElementById('crearAsesoriaForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+                var title = document.getElementById('titulo').value;
+                var date = document.getElementById('dia').value;
+                var time = document.getElementById('hora').value;
+                var dateTime = date + 'T' + time + ':00';
+
+                $.ajax({
+                    url: '/CalendarEventServlet',
+                    type: 'POST',
+                    data: {
+                        title: title,
+                        start: dateTime,
+                        end: dateTime // Asumimos que el evento dura una hora, ajustar según sea necesario
+                    },
+                    success: function() {
+                        calendar.refetchEvents();
+                        var modal = bootstrap.Modal.getInstance(document.getElementById('crearAsesoriaModal'));
+                        modal.hide();
+                    }
+                });
+            });
+
+            // Manejar el envío del formulario del modal de checkboxes
+            document.getElementById('seleccionarMateriasForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+                // Aquí puedes agregar la lógica para manejar los checkboxes seleccionados
+                var checkboxes = document.querySelectorAll('#seleccionarMateriasForm input[type="checkbox"]');
+                var selectedOptions = [];
+                checkboxes.forEach(function(checkbox) {
+                    if (checkbox.checked) {
+                        selectedOptions.push(checkbox.id);
+                    }
+                });
+                console.log('Opciones seleccionadas:', selectedOptions);
+                var modal = bootstrap.Modal.getInstance(document.getElementById('seleccionarMaterias'));
+                modal.hide();
+            });
         });
     </script>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -13,5 +13,88 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
+    <filter>
+        <filter-name>SessionFilter</filter-name>
+        <filter-class>mx.edu.utez.sgaa.servlet.Administrador.SessionFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>SessionFilter</filter-name>
+        <url-pattern>/vistas/Admin/*</url-pattern>
+    </filter-mapping>
+
+    <servlet>
+        <servlet-name>LoginS</servlet-name>
+        <servlet-class>mx.edu.utez.sgaa.servlet.Administrador.LoginS</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LoginS</servlet-name>
+        <url-pattern>/LoginS</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>LogoutS</servlet-name>
+        <servlet-class>mx.edu.utez.sgaa.servlet.Administrador.LogoutS</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LogoutS</servlet-name>
+        <url-pattern>/LogoutS</url-pattern>
+    </servlet-mapping>
+
+    <filter>
+        <filter-name>SessionFilterDocente</filter-name>
+        <filter-class>mx.edu.utez.sgaa.servlet.Docente.SessionFilterDocente</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>SessionFilterDocente</filter-name>
+        <url-pattern>/vistas/Docente/*</url-pattern>
+    </filter-mapping>
+
+    <servlet>
+        <servlet-name>LoginDocentesS</servlet-name>
+        <servlet-class>mx.edu.utez.sgaa.servlet.Docente.LoginDocentesS</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LoginDocentesS</servlet-name>
+        <url-pattern>/LoginDocentesS</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>LogoutDocenteS</servlet-name>
+        <servlet-class>mx.edu.utez.sgaa.servlet.Docente.LogoutDocenteS</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LogoutDocenteS</servlet-name>
+        <url-pattern>/LogoutDocenteS</url-pattern>
+    </servlet-mapping>
+
+
+
+    <filter>
+        <filter-name>SessionFilterEstudiante</filter-name>
+        <filter-class>mx.edu.utez.sgaa.servlet.Estudiante.SessionFilterEstudiante</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>SessionFilterEstudiante</filter-name>
+        <url-pattern>/vistas/Estudiante/*</url-pattern>
+    </filter-mapping>
+
+    <servlet>
+        <servlet-name>LoginEstudiantesS</servlet-name>
+        <servlet-class>mx.edu.utez.sgaa.servlet.Estudiante.LoginEstudiantesS</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LoginEstudiantesS</servlet-name>
+        <url-pattern>/LoginEstudiantesS</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>LogouEstudianteS</servlet-name>
+        <servlet-class>mx.edu.utez.sgaa.servlet.Estudiante.LogouEstudianteS</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LogouEstudianteS</servlet-name>
+        <url-pattern>/LogouEstudianteS</url-pattern>
+    </servlet-mapping>
+
 
 </web-app>

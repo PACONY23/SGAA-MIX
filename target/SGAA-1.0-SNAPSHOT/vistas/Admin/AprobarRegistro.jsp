@@ -6,13 +6,17 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="mx.edu.utez.sgaa.dao.DaoDocente" %>
+<%@ page import="java.util.List" %>
+<%@ page import="mx.edu.utez.sgaa.model.Docente" %>
+
 <%String context = request.getContextPath();%>
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <%-- <link rel="stylesheet" href="<%=context%>/css/cssPlantillaBarra.css">--%>
+    <%-- <link rel="stylesheet" href="<%=context%>/css/cssPlantillaBarra.css">--%>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<%=context%>/css/cssFuenteLetra.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -260,68 +264,76 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>Mauro bahena gonzalez</td>
-                <td>
-                    <div class="aprobar" data-toggle="modal" data-target="#confirmModal" data-action-url="<%=context%>/vistas/Admin/AprobarRegistro.jsp" data-title="aprobar registro">
+            <%
+                DaoDocente docentesAcceso = new DaoDocente();
+                List<Docente> docentes = docentesAcceso.DocentesSinAdmitir();
+                for (Docente docente : docentes) {
+                    System.out.println("Nombre: " + docente.getNombres());
+            %>
+            <tr id="materia-<%=docente.getId()%>">
+                <td><%=docente.getNombres() %> <%=docente.getApellidos()%></td>
+                <td style="text-align: center">
+                    <button class="aprobar" data-toggle="modal" data-target="#aprobarDocente" data-title="aprobar registro" onclick="aprobarDocente(<%=docente.getId()%>)">
                         Aprobar
-                    </div>
+                    </button>
                 </td>
                 <td>
-                    <div class="rechazar" data-toggle="modal" data-target="#confirmModal" data-action-url="<%=context%>/vistas/Admin/AprobarRegistro.jsp" data-title="rechazar registro">
+                    <button class="rechazar" data-toggle="modal" data-target="#rechazaDocente" data-title="rechazar registro" onclick="rechazarDocente(<%=docente.getId()%>)">
                         Rechazar
-                    </div>
+                    </button>
                 </td>
+
             </tr>
-            <tr>
-                <td>celin bahena gonzalez</td>
-                <td>
-                    <div class="aprobar" data-toggle="modal" data-target="#confirmModal" data-action-url="<%=context%>/vistas/Admin/AprobarRegistro.jsp" data-title="aprobar registro">
-                        Aprobar
-                    </div>
-                </td>
-                <td>
-                    <div class="rechazar" data-toggle="modal" data-target="#confirmModal" data-action-url="<%=context%>/vistas/Admin/AprobarRegistro.jsp" data-title="rechazar registro">
-                        Rechazar
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>Amalia Rojas gonzalez</td>
-                <td>
-                    <div class="aprobar" data-toggle="modal" data-target="#confirmModal" data-action-url="<%=context%>/vistas/Admin/AprobarRegistro.jsp" data-title="aprobar registro">
-                        Aprobar
-                    </div>
-                </td>
-                <td>
-                    <div class="rechazar" data-toggle="modal" data-target="#confirmModal" data-action-url="<%=context%>/vistas/Admin/AprobarRegistro.jsp" data-title="rechazar registro">
-                        Rechazar
-                    </div>
-                </td>
-            </tr>
+            <%
+                }
+            %>
+
             <!-- Agrega más filas según sea necesario -->
             </tbody>
         </table>
     </div>
 </div>
 
-<!-- Modal de Confirmación -->
-<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+<%-- modal admision--%>
+<div class="modal fade" id="rechazaDocente" data-bs-backdrop="static" tabindex="-1" aria-labelledby="confirmarEstadoModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmarEstadoModalLabel">Rechazar docente</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="<%=context%>/EliminarDocenteS" method="post">
+                <div class="modal-body">
+                    <input type="hidden" id="r_id" name="r_id">
+                    ¿Estás seguro de que deseas rechazar al docente?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-danger">Rechazar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- aprueba docente -->
+<div class="modal fade" id="aprobarDocente" tabindex="-1" role="dialog" aria-labelledby="aprobarModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="confirmModalLabel">Confirmar acción</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <h5 class="modal-title" id="aprobarModalLabel">Confirmar el registro</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                ¿Estás seguro de que deseas realizar esta acción?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <a id="confirmAction" href="#" class="btn btn-primary">Confirmar</a>
-            </div>
+            <form action="<%=context%>/AprobarRegistroS" method="post">
+                <div class="modal-body">
+                    <input type="hidden" id="ch_id" name="ch_id">
+                    ¿Estás seguro de aprobar a este docente?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary" id="aprobarDocenteBtn">Guardar</button>
+                </div>
+            </form>
+
         </div>
     </div>
 </div>
@@ -330,14 +342,12 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
-    $('#confirmModal').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget);
-        var actionUrl = button.data('action-url');
-        var modalTitle = button.data('title');
-        var modal = $(this);
-        modal.find('.modal-title').text(modalTitle);
-        modal.find('#confirmAction').attr('href', actionUrl);
-    });
+    function aprobarDocente(id) {
+        document.getElementById('ch_id').value = id;
+    }
+    function rechazarDocente(id) {
+        document.getElementById('r_id').value = id;
+    }
 </script>
 </body>
 </html>

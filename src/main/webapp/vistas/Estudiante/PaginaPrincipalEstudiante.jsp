@@ -365,6 +365,12 @@
                     <span>Buscar materias</span>
                 </a>
             </li>
+            <li>
+                <form action="<%=request.getContextPath()%>/LogouEstudianteS" method="get">
+                    <button type="submit">Cerrar Sesión</button>
+                </form>
+
+            </li>
         </ul>
     </nav>
 </div>

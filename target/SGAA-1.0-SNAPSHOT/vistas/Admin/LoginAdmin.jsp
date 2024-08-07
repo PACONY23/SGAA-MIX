@@ -127,7 +127,7 @@
 <div class="login-container">
     <h1>Bienvenido</h1>
     <h2>Admin</h2>
-    <form action="<%=context%>/LoginAdminS" method="post"> <!-- cambiar el metodo al post, get solo fue momentáneo-->
+    <form action="<%=context%>/LoginS" method="post"> <!-- cambiar el metodo al post, get solo fue momentáneo-->
         <input type="text" name="matricula" placeholder="Matrícula" required>
         <input type="password" name="password" placeholder="Contraseña" required>
         <button type="submit">Iniciar sesión</button>

@@ -9,7 +9,7 @@ import java.io.IOException;
 public class SeleccionMateriasDocenteS extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/Vistas/Docente/SeleccionMateriasDocenteS.jsp").forward(request, response);
+        request.getRequestDispatcher("/vistas/Docente/CrearHorario.jsp").forward(request, response);
     }
 
     @Override

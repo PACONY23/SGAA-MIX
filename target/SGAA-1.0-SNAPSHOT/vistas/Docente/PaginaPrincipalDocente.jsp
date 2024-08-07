@@ -353,6 +353,12 @@
                     <span>Historial</span>
                 </a>
             </li>
+            <li>
+                <form action="<%=request.getContextPath()%>/LogoutDocenteS" method="get">
+                    <button type="submit">Cerrar Sesión</button>
+                </form>
+
+            </li>
         </ul>
     </nav>
 </div>

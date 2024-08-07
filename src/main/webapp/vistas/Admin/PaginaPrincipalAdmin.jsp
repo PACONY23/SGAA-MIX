@@ -374,6 +374,12 @@
                     <span>Información de usuarios</span>
                 </a>
             </li>
+            <li>
+                <form action="<%=request.getContextPath()%>/LogoutS" method="get">
+                    <button type="submit">Cerrar Sesión</button>
+                </form>
+
+            </li>
         </ul>
     </nav>
 </div>
