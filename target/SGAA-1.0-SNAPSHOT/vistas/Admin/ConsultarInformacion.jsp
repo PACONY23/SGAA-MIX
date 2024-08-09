@@ -181,22 +181,23 @@
             border: 1px solid #fff;
             border-radius: 5px;
         }
-        .cuadro .botones {
+        .cuadro .botones-container {
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
             width: 100%;
             gap: 10px;
         }
-        .cuadro .botones button {
-            padding: 10px 20px;
+        .cuadro .botones-container button {
+            padding: 8px 16px;
             border: none;
             border-radius: 20px;
             background-color: #1D815A;
             color: white;
             cursor: pointer;
-            width: 48%;
+            width: 100%;
+            text-align: center;
         }
-        .cuadro .botones button:hover {
+        .cuadro .botones-container button:hover {
             background-color: #145A42;
         }
         .cuadro .lista-usuarios {
@@ -279,7 +280,7 @@
         <div class="cuadro">
             <h2>Consulta de Docentes</h2>
             <input id="matricula-docente" type="text" placeholder="Matrícula del docente">
-            <div class="botones">
+            <div class="botones-container">
                 <button id="consultar-docente-btn" data-toggle="modal" data-target="#consultarDocenteModal">Consultar</button>
                 <button id="editar-docente-btn" data-toggle="modal" data-target="#editarDocenteModal">Editar</button>
                 <button id="desactivar-docente-btn">Deshabilitar</button>
@@ -292,7 +293,7 @@
         <div class="cuadro">
             <h2>Consulta de Estudiantes</h2>
             <input id="matricula-estudiante" type="text" placeholder="Matrícula del estudiante">
-            <div class="botones">
+            <div class="botones-container">
                 <button id="consultar-estudiante-btn" data-toggle="modal" data-target="#consultarEstudianteModal">Consultar</button>
                 <button id="editar-estudiante-btn" data-toggle="modal" data-target="#editarEstudianteModal">Editar</button>
                 <button id="desactivar-estudiante-btn">Deshabilitar</button>

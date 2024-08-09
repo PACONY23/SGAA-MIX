@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="<%=context%>/css/cssFuenteLetra.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css" rel="stylesheet">
+
     <title>Agregar materias</title>
     <style>
         /* ESTILO DE PLANTILLABARRA*/
@@ -201,6 +202,33 @@
             font-size: 24px;
             color: white;
         }
+        #agregar-btn {
+            background-color: rgba(0, 0, 0, 0.05); /* Mismo fondo que la caja de simbología */
+            border: 1px solid #dee2e6;
+            border-radius: 0.25rem;
+            color: #141C32; /* Color del texto */
+            transition: background-color 0.3s ease;
+        }
+
+        #agregar-btn:hover {
+            background-color: #5393d5; /* Hover recomendado: azul */
+            color: white; /* Color de texto blanco en hover */
+        }
+        .table-bordered {
+            border: 1px solid #dee2e6;
+            border-radius: 15px;
+            overflow: hidden; /* Para que las celdas dentro de la tabla también se adapten al borde redondeado */
+        }
+
+        .table-bordered th, .table-bordered td {
+            border: 1px solid #dee2e6;
+        }
+
+        .table-responsive {
+            border-radius: 15px;
+            overflow: hidden; /* Para mantener los bordes redondeados si hay contenido adicional */
+            border-top: 2px solid #141C32; /* Borde más grueso o más oscuro en la parte superior */
+        }
     </style>
 </head>
 <body>
@@ -256,7 +284,17 @@
 
 <div class="contenido">
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <button id="agregar-btn" class="btn btn-primary rounded-circle" style="background-color: #141C32;" data-bs-toggle="modal" data-bs-target="#agregarModal">+</button>
+        <button id="agregar-btn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agregarModal">
+            <i class="bi bi-plus-circle"></i>  Agregar
+        </button>
+
+        <!-- Simbología de estado en una caja transparente -->
+        <div class="d-flex align-items-center">
+            <div class="p-2" style="border: 1px solid #dee2e6; border-radius: 0.25rem; background-color: rgba(0, 0, 0, 0.05);">
+                <span class="badge me-1" style="background-color: #0d6efd; width: 12px; height: 12px; border-radius: 50%; display: inline-block;"></span> Activa
+                <span class="badge ms-3" style="background-color: #6c757d; width: 12px; height: 12px; border-radius: 50%; display: inline-block;"></span> Inactiva
+            </div>
+        </div>
     </div>
 
     <div class="table-responsive">
@@ -281,7 +319,7 @@
                     <button id="materia-<%=materia.getId()%>" onclick="materiasBorrado(<%=materia.getId()%>)" class="btn p-0">
                         <i class="bi bi-trash-fill" style="font-size: 25px; color: black;" data-bs-toggle="modal" data-bs-target="#borrarMateria"></i>
                     </button>
-                    <button id="estado-<%=materia.isMateria_estado()%>" onclick="materiasEstado(<%=materia.getId()%>)" class="btn p-0 ms-2">
+                    <button id="estado-<%=materia.isMateria_estado()%>" onclick="materiasEstado(<%=materia.getId()%>)" class="btn p-0 ms-4">
                         <i class="bi bi-arrow-repeat" style="font-size: 25px; color: black;" data-bs-toggle="modal" data-bs-target="#estadoMateria"></i>
                     </button>
                 </td>
@@ -293,6 +331,7 @@
         </table>
     </div>
 </div>
+
 
 <%-- modal de agregar materias --%>
 <div class="modal fade" id="agregarModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="agregarModalLabel" aria-hidden="true">
