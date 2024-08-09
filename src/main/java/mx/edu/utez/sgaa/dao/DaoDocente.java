@@ -2,9 +2,12 @@ package mx.edu.utez.sgaa.dao;
 
 import mx.edu.utez.sgaa.database.DatabaseConnection;
 import mx.edu.utez.sgaa.model.Docente;
+import mx.edu.utez.sgaa.model.MateriasDocentes;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.CallableStatement;
 
 public class DaoDocente {
     private static final String JDBC_URL = "jdbc:mysql://localhost:3306/estudiante";
@@ -13,6 +16,7 @@ public class DaoDocente {
     private Connection con;
     private PreparedStatement pstm;
     private ResultSet rs;
+    private CallableStatement cstm;
     private final DatabaseConnection DATA_BASE_CONNECTION = new DatabaseConnection();
 
     public int RegistrarDocente(Docente docente) throws ClassNotFoundException {
@@ -255,5 +259,7 @@ public class DaoDocente {
             return false;
         }
     }
+
+
 
 }

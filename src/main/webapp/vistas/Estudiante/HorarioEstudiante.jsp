@@ -1,10 +1,6 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: pilih
-  Date: 11/07/2024
-  Time: 04:28 p. m.
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="mx.edu.utez.sgaa.dao.DaoMateria" %>
+<%@ page import="mx.edu.utez.sgaa.model.Materia" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%String context = request.getContextPath();%>
 <!DOCTYPE html>
@@ -12,12 +8,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <%--<link rel="stylesheet" href="<%=context%>/css/cssPlantillaBarra.css" >--%>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<%=context%>/css/cssFuenteLetra.css">
-    <%-- <link rel="stylesheet" href="<%=context%>/css/cssBarraEstudiante.css" />--%>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css' rel='stylesheet' />
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales/es.js'></script> <!-- Añadir archivo de idioma -->
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
     <title>Crea tu Horario</title>
     <style>
         /* ESTILO DE PLANTILLABARRA*/
@@ -165,82 +162,20 @@
 
 
 
-        /*DISEÑO INTERFAZ*/
-        .contenido{
-            height: 700px;
-        }
-        h1 {
-            color: #1A1A3E;
-        }
-        table {
-            margin-left: 60px;
-            border-collapse: collapse;
-            width: 90%;
-            max-width: 1000px;
-            margin-top: 20px;
-        }
-        th, td {
-            border: 1px solid #ccc;
-            padding: 10px;
-            text-align: center;
-        }
-        th {
-            background-color: #1E8A82;
+
+        /*DISEÑO INTERFAZ */
+        .busqueda {
+            background-color: #141C32;
             color: white;
-        }
-        td {
-            background-color: #fff;
-            cursor: pointer;
-        }
-        td:hover {
-            background-color: #f5f5f5;
-        }
-        /* Modal styles */
-        .modal {
-            display: none; /* Hidden by default */
-            position: fixed; /* Stay in place */
-            z-index: 1000; /* Sit on top */
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto; /* Enable scroll if needed */
-            background-color: rgb(0,0,0); /* Fallback color */
-            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .modal-content {
-            background-color: #1A1A3E;
             padding: 20px;
             border-radius: 10px;
-            width: 300px;
-            text-align: center;
-            color: white;
+            margin-bottom: 20px;
         }
-        .modal-content input {
-            width: 80%;
+        .busqueda input {
+            width: 100%;
             padding: 10px;
-            margin: 10px 0;
             border: none;
             border-radius: 5px;
-            background-color: transparent;
-            color: white;
-            border: 1px solid white; /* Border color for input */
-        }
-        .modal-content button {
-            background-color: #3DB080;
-            border: none;
-            border-radius: 20px;
-            padding: 10px 20px;
-            cursor: pointer;
-            font-size: 16px;
-            color: white;
-            margin-top: 10px;
-        }
-        .modal-content button:hover {
-            background-color: #45c490;
         }
     </style>
 </head>
@@ -280,181 +215,242 @@
         </ul>
     </nav>
 </div>
-<div class="contenido-superior">
-    <div class="titulo-interfaz">
-        <span>Crear horario</span>
-    </div>
-    <div class="rol-actual">
-        <span class="rol" id="asigna_rol">Docente</span>
-        <img src="imagenes/busqueda.png" alt="rol" />
-    </div>
-</div>
-
 <div class="contenido">
-    <table>
-        <tr>
-            <th>Hora</th>
-            <th>Lunes</th>
-            <th>Martes</th>
-            <th>Miércoles</th>
-            <th>Jueves</th>
-            <th>Viernes</th>
-        </tr>
-        <tr>
-            <td>7:00 - 8:00</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-        </tr>
-        <tr>
-            <td>8:00 - 9:00</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-        </tr>
-        <tr>
-            <td>9:00 - 10:00</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-        </tr>
-        <tr>
-            <td>10:00 - 11:00</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-        </tr>
-        <tr>
-            <td>11:00 - 12:00</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-        </tr>
-        <tr>
-            <td>12:00 - 13:00</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-        </tr>
-        <tr>
-            <td>13:00 - 14:00</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-        </tr>
-        <tr>
-            <td>14:00 - 15:00</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-        </tr>
-        <tr>
-            <td>15:00 - 16:00</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-        </tr>
-        <tr>
-            <td>16:00 - 17:00</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-        </tr>
-        <tr>
-            <td>17:00 - 18:00</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-        </tr>
-        <tr>
-            <td>18:00 - 19:00</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-        </tr>
-        <tr>
-            <td>19:00 - 20:00</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-        </tr>
-        <tr>
-            <td>20:00 - 21:00</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-            <td onclick="openModal(this)">Agregar evento</td>
-        </tr>
-        <!-- Repeat for each hour slot -->
-    </table>
-</div>
+    <div id='calendar'></div>
 
+    <!-- Modal para crear asesoría -->
+    <div class="modal fade" id="crearAsesoriaModal" tabindex="-1" aria-labelledby="crearAsesoriaModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="crearAsesoriaModalLabel">Agendar Asesoría</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="crearAsesoriaForm" action="<%=context%>/AgendarAsesoria" method="get" >
+                        <%
+                            DaoMateria MateriasExistentes = new DaoMateria();
+                            List<Materia> materias = MateriasExistentes.getAllMaterias();
+                            for (Materia materia : materias) {
+                                System.out.println("Nombre: " + materia.getNombre());
+                        %>
+                        <div class="form-check">
 
-<!-- The Modal -->
-<div id="myModal" class="modal">
-    <!-- Modal content -->
-    <div class="modal-content">
-        <h2>Ingresa tu materia</h2>
-        <input type="text" id="materia" placeholder="Materia">
-        <button onclick="saveEvent()">Aceptar</button>
+                            <input class="form-check-input" type="checkbox" name="materias" value="<%=materia.getId()%>" id="<%=materia.getId()%>">
+                            <label class="form-check-label" for="<%=materia.getId()%>">
+                                <%=materia.getNombre() %>
+                            </label>
+
+                        </div>
+                        <%
+                            }
+                        %>
+                        <div class="mb-3">
+                            <label for="dia" class="form-label">Día</label>
+                            <input type="date" class="form-control" id="dia" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="hora" class="form-label">Hora</label>
+                            <input type="time" class="form-control" id="hora" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Agendar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
+
+
+    <!-- Modal para la seleccionar materias
+    <div class="modal fade" id="seleccionarMaterias" tabindex="-1" aria-labelledby="seleccionarMateriasLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="seleccionarMateriasLabel">Seleccionar materias</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                <%--
+                    <form id="seleccionarMateriasForm" action="<%=context%>/GuardarMateriasSeleccionadasServlet" method="post">
+                        <%
+                            DaoMateria MateriasExistentes = new DaoMateria();
+                            List<Materia> materias = MateriasExistentes.getAllMaterias();
+                            for (Materia materia : materias) {
+                                System.out.println("Nombre: " + materia.getNombre());
+                        %>
+                        <div class="form-check">
+
+                            <input class="form-check-input" type="checkbox" name="materias" value="<%=materia.getId()%>" id="<%=materia.getId()%>">
+                            <label class="form-check-label" for="<%=materia.getId()%>">
+                                <%=materia.getNombre() %>
+                            </label>
+
+                        </div>
+                        <%
+                            }
+                        %>
+                        --%>
+                        <button type="submit" class="btn btn-primary mt-3">Guardar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    -->
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                locale: 'es', // Configurar idioma español
+                initialView: 'timeGridWeek',
+                headerToolbar: {
+                    left: 'customButtonCheckbox, customButton',
+                    center: 'title',
+                    right: 'prev,next today'
+                },
+                customButtons: {
+                    customButton: {
+                        text: 'Crear asesoría',
+                        click: function() {
+                            var modal = new bootstrap.Modal(document.getElementById('crearAsesoriaModal'));
+                            modal.show();
+                        }
+                    },
+                    customButtonCheckbox: {
+                        text: 'Opciones',
+                        click: function() {
+                            var modal = new bootstrap.Modal(document.getElementById('seleccionarMaterias'));
+                            modal.show();
+                        }
+                    }
+                },
+                slotMinTime: '07:00:00',
+                slotMaxTime: '21:00:00',
+                allDaySlot: false,
+                height: '100%',
+                expandRows: true,
+                hiddenDays: [0, 6], // Ocultar sábado (6) y domingo (0)
+                events: function(fetchInfo, successCallback, failureCallback) {
+                    $.ajax({
+                        url: '/CalendarEventServlet',
+                        type: 'GET',
+                        success: function(data) {
+                            successCallback(data);
+                        }
+                    });
+                },
+                editable: true,
+                selectable: true,
+                select: function(info) {
+                    var title = prompt('Ingrese el título del evento:');
+                    if (title) {
+                        $.ajax({
+                            url: '/CalendarEventServlet',
+                            type: 'POST',
+                            data: {
+                                title: title,
+                                start: info.startStr,
+                                end: info.endStr
+                            },
+                            success: function() {
+                                calendar.refetchEvents();
+                            }
+                        });
+                    }
+                },
+                eventClick: function(info) {
+                    if (confirm('¿Desea eliminar este evento?')) {
+                        $.ajax({
+                            url: '/CalendarEventServlet',
+                            type: 'DELETE',
+                            data: {
+                                id: info.event.id
+                            },
+                            success: function() {
+                                calendar.refetchEvents();
+                            }
+                        });
+                    }
+                },
+                eventDrop: function(info) {
+                    var event = info.event;
+                    $.ajax({
+                        url: '/CalendarEventServlet',
+                        type: 'PUT',
+                        data: {
+                            id: event.id,
+                            title: event.title,
+                            start: event.start.toISOString(),
+                            end: event.end.toISOString()
+                        },
+                        success: function() {
+                            calendar.refetchEvents();
+                        }
+                    });
+                },
+                eventResize: function(info) {
+                    var event = info.event;
+                    $.ajax({
+                        url: '/CalendarEventServlet',
+                        type: 'PUT',
+                        data: {
+                            id: event.id,
+                            title: event.title,
+                            start: event.start.toISOString(),
+                            end: event.end.toISOString()
+                        },
+                        success: function() {
+                            calendar.refetchEvents();
+                        }
+                    });
+                }
+            });
+            calendar.render();
+
+            // Manejar el envío del formulario del modal para crear asesoría
+            document.getElementById('crearAsesoriaForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+                var title = document.getElementById('titulo').value;
+                var date = document.getElementById('dia').value;
+                var time = document.getElementById('hora').value;
+                var dateTime = date + 'T' + time + ':00';
+
+                $.ajax({
+                    url: '/CalendarEventServlet',
+                    type: 'POST',
+                    data: {
+                        title: title,
+                        start: dateTime,
+                        end: dateTime // Asumimos que el evento dura una hora, ajustar según sea necesario
+                    },
+                    success: function() {
+                        calendar.refetchEvents();
+                        var modal = bootstrap.Modal.getInstance(document.getElementById('crearAsesoriaModal'));
+                        modal.hide();
+                    }
+                });
+            });
+
+            // Manejar el envío del formulario del modal de checkboxes
+            document.getElementById('seleccionarMateriasForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+                // Aquí puedes agregar la lógica para manejar los checkboxes seleccionados
+                var checkboxes = document.querySelectorAll('#seleccionarMateriasForm input[type="checkbox"]');
+                var selectedOptions = [];
+                checkboxes.forEach(function(checkbox) {
+                    if (checkbox.checked) {
+                        selectedOptions.push(checkbox.id);
+                    }
+                });
+                console.log('Opciones seleccionadas:', selectedOptions);
+                var modal = bootstrap.Modal.getInstance(document.getElementById('seleccionarMaterias'));
+                modal.hide();
+            });
+        });
+    </script>
+    <div style="margin-bottom: 20px"></div>
 </div>
-
-<script>
-    var modal = document.getElementById("myModal");
-    var currentCell;
-
-    function openModal(cell) {
-        currentCell = cell;
-        modal.style.display = "flex";
-    }
-
-    function closeModal() {
-        modal.style.display = "none";
-    }
-
-    function saveEvent() {
-        var materia = document.getElementById("materia").value;
-        if (materia) {
-            currentCell.innerText = materia;
-        }
-        closeModal();
-    }
-
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            closeModal();
-        }
-    }
-</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-
-
