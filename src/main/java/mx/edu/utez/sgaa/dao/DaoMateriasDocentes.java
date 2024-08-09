@@ -33,7 +33,7 @@ public class DaoMateriasDocentes {
             connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
 
             // Definir la llamada al procedimiento almacenado
-            String sql = "{ tes(?)}";
+            String sql = "{ CALL tomarMateriasDocentes(?)}";
 
             // Preparar la llamada
             stmt = connection.prepareCall(sql);
@@ -47,6 +47,7 @@ public class DaoMateriasDocentes {
                 String nombreDocente = rs.getString("Nombre");
                 String nombreMateria = rs.getString("Nombre_materia");
                 materiasDocente.add(new MateriasDocentes(nombreDocente, nombreMateria));
+                System.out.println(nombreMateria);
             }
 
         } catch (SQLException e) {

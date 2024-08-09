@@ -189,8 +189,21 @@
                 <div class="modal-body">
                     <form id="crearAsesoriaForm">
                         <div class="mb-3">
-                            <label for="titulo" class="form-label">Nombre del Evento</label>
-                            <input type="text" class="form-control" id="titulo" required>
+                            <label for="materia" class="form-label">Materia</label>
+                            <select class="form-control" id="materia" name="materia" required>
+                                <option value="" disabled selected>Selecciona una materia</option>
+                                <%
+                                    List<Materia> materiasDocente = (List<Materia>) request.getAttribute("materiasDocente");
+                                    if (materiasDocente != null) {
+                                        for (Materia materia : materiasDocente) {
+                                %>
+
+                                <option value="<%=materia.getId()%>"><span><%=materia.getNombre()%></span></option>
+                                <%
+                                        }
+                                    }
+                                %>
+                            </select>
                         </div>
                         <div class="mb-3">
                             <label for="dia" class="form-label">Día</label>
