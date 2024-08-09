@@ -124,7 +124,7 @@ public class DaoDocente {
 
 
     public boolean actualizarDocente(Docente docente) {
-        String UPDATE_SQL = "UPDATE docentes SET nombre = ?, apellido = ?, correoElectronico = ?, estatus = ? WHERE matricula = ?;";
+        String UPDATE_SQL = "UPDATE docentes SET nombre = ?, apellido = ?, correoElectronico = ? WHERE matricula = ?;";
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");

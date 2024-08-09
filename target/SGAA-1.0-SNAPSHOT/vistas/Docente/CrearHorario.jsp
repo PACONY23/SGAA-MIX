@@ -13,7 +13,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css' rel='stylesheet' />
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js'></script>
-    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales/es.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales/es.js'></script> <!-- Añadir archivo de idioma -->
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
     <title>Crea tu Horario</title>
     <style>
@@ -193,12 +193,6 @@
                             <input type="text" class="form-control" id="titulo" required>
                         </div>
                         <div class="mb-3">
-                            <label for="materia" class="form-label">Materia</label>
-                            <select class="form-select" id="materia" required>
-                                <!-- Opciones de materias se llenarán dinámicamente -->
-                            </select>
-                        </div>
-                        <div class="mb-3">
                             <label for="dia" class="form-label">Día</label>
                             <input type="date" class="form-control" id="dia" required>
                         </div>
@@ -213,6 +207,61 @@
         </div>
     </div>
 
+    <!-- Modal para la seleccionar materias -->
+    <div class="modal fade" id="seleccionarMaterias" tabindex="-1" aria-labelledby="seleccionarMateriasLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="seleccionarMateriasLabel">Seleccionar materias</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="materiasContainer">
+                        <%
+                            DaoMateria MateriasExistentes = new DaoMateria();
+                            List<Materia> materias = MateriasExistentes.getAllMaterias();
+                            for (Materia materia : materias) {
+                        %>
+                        <div class="d-flex justify-content-between align-items-center mb-2" id="materia-<%=materia.getId()%>">
+                            <span><%=materia.getNombre() %></span>
+                            <button class="btn btn-sm btn-primary" onclick="agregarMateria(<%=materia.getId()%>)">Agregar</button>
+                        </div>
+                        <%
+                            }
+                        %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function agregarMateria(materiaId) {
+            const docenteId = '<%= request.getAttribute("docenteId") %>'; // Obtener el id del docente de alguna forma
+
+            // Realizar la solicitud AJAX para agregar la materia
+            fetch('<%=context%>/AgregarMateriaServlet', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: new URLSearchParams({
+                    docenteId: idDocente,
+                    materiaId: idMateria
+                })
+            })
+                .then(response => response.text())
+                .then(result => {
+                    if (result === 'success') {
+                        // Eliminar la materia de la lista en el modal
+                        document.getElementById(`materia-${idMateria}`).remove();
+                    } else {
+                        alert('Error al agregar la materia. Inténtalo de nuevo.');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             var calendarEl = document.getElementById('calendar');
@@ -248,7 +297,7 @@
                 hiddenDays: [0, 6], // Ocultar sábado (6) y domingo (0)
                 events: function(fetchInfo, successCallback, failureCallback) {
                     $.ajax({
-                        url: '<%=context%>/ConsultarAsesoriasS',
+                        url: '/CalendarEventServlet',
                         type: 'GET',
                         success: function(data) {
                             successCallback(data);
@@ -258,18 +307,29 @@
                 editable: true,
                 selectable: true,
                 select: function(info) {
-                    var modal = new bootstrap.Modal(document.getElementById('crearAsesoriaModal'));
-                    document.getElementById('dia').value = info.startStr.split('T')[0];
-                    document.getElementById('hora').value = info.startStr.split('T')[1].substring(0, 5);
-                    modal.show();
+                    var title = prompt('Ingrese el título del evento:');
+                    if (title) {
+                        $.ajax({
+                            url: '/CalendarEventServlet',
+                            type: 'POST',
+                            data: {
+                                title: title,
+                                start: info.startStr,
+                                end: info.endStr
+                            },
+                            success: function() {
+                                calendar.refetchEvents();
+                            }
+                        });
+                    }
                 },
                 eventClick: function(info) {
                     if (confirm('¿Desea eliminar este evento?')) {
                         $.ajax({
-                            url: '<%=context%>/EliminarAsesoriaS',
-                            type: 'POST',
+                            url: '/CalendarEventServlet',
+                            type: 'DELETE',
                             data: {
-                                idAsesoria: info.event.id
+                                id: info.event.id
                             },
                             success: function() {
                                 calendar.refetchEvents();
@@ -280,15 +340,13 @@
                 eventDrop: function(info) {
                     var event = info.event;
                     $.ajax({
-                        url: '<%=context%>/ActualizarAsesoriaS',
-                        type: 'POST',
+                        url: '/CalendarEventServlet',
+                        type: 'PUT',
                         data: {
-                            idAsesoria: event.id,
-                            idDocente: event.extendedProps.idDocente,
-                            idMateria: event.extendedProps.idMateria,
-                            titulo: event.title,
-                            fecha: event.start.toISOString().split('T')[0],
-                            hora: event.start.toISOString().split('T')[1].substring(0, 5)
+                            id: event.id,
+                            title: event.title,
+                            start: event.start.toISOString(),
+                            end: event.end.toISOString()
                         },
                         success: function() {
                             calendar.refetchEvents();
@@ -298,15 +356,13 @@
                 eventResize: function(info) {
                     var event = info.event;
                     $.ajax({
-                        url: '<%=context%>/ActualizarAsesoriaS',
-                        type: 'POST',
+                        url: '/CalendarEventServlet',
+                        type: 'PUT',
                         data: {
-                            idAsesoria: event.id,
-                            idDocente: event.extendedProps.idDocente,
-                            idMateria: event.extendedProps.idMateria,
-                            titulo: event.title,
-                            fecha: event.start.toISOString().split('T')[0],
-                            hora: event.start.toISOString().split('T')[1].substring(0, 5)
+                            id: event.id,
+                            title: event.title,
+                            start: event.start.toISOString(),
+                            end: event.end.toISOString()
                         },
                         success: function() {
                             calendar.refetchEvents();
@@ -316,23 +372,6 @@
             });
             calendar.render();
 
-            // Obtener las materias del docente y llenar el select
-            $.ajax({
-                url: '<%=context%>/ObtenerMateriasDocenteS',
-                type: 'GET',
-                success: function(data) {
-                    var materias = JSON.parse(data);
-                    var select = document.getElementById('materia');
-                    select.innerHTML = '';
-                    materias.forEach(function(materia) {
-                        var option = document.createElement('option');
-                        option.value = materia.idMateria;
-                        option.text = materia.nombreMateria;
-                        select.appendChild(option);
-                    });
-                }
-            });
-
             // Manejar el envío del formulario del modal para crear asesoría
             document.getElementById('crearAsesoriaForm').addEventListener('submit', function(event) {
                 event.preventDefault();
@@ -340,17 +379,14 @@
                 var date = document.getElementById('dia').value;
                 var time = document.getElementById('hora').value;
                 var dateTime = date + 'T' + time + ':00';
-                var idMateria = document.getElementById('materia').value;
 
                 $.ajax({
-                    url: '<%=context%>/CrearAsesoriaS',
+                    url: '/CalendarEventServlet',
                     type: 'POST',
                     data: {
-                        idDocente: 1, // Deberás ajustar esto para que sea dinámico según el docente que esté logueado
-                        idMateria: idMateria,
-                        titulo: title,
-                        fecha: date,
-                        hora: time
+                        title: title,
+                        start: dateTime,
+                        end: dateTime // Asumimos que el evento dura una hora, ajustar según sea necesario
                     },
                     success: function() {
                         calendar.refetchEvents();
