@@ -124,7 +124,7 @@ public class DaoDocente {
 
 
     public boolean actualizarDocente(Docente docente) {
-        String UPDATE_SQL = "UPDATE docentes SET nombre = ?, apellido = ?, correoElectronico = ?, estatus = ? WHERE matricula = ?;";
+        String UPDATE_SQL = "UPDATE docentes SET nombre = ?, apellido = ?, correoElectronico = ? WHERE matricula = ?;";
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -133,8 +133,7 @@ public class DaoDocente {
                 preparedStatement.setString(1, docente.getNombres());
                 preparedStatement.setString(2, docente.getApellidos());
                 preparedStatement.setString(3, docente.getCorreoElectronico());
-                preparedStatement.setBoolean(4, docente.getEstatus());
-                preparedStatement.setString(5, docente.getMatricula());
+                preparedStatement.setString(4, docente.getMatricula());
 
                 int affectedRows = preparedStatement.executeUpdate();
                 return affectedRows > 0;

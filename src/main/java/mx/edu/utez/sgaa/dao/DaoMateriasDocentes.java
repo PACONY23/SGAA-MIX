@@ -33,7 +33,7 @@ public class DaoMateriasDocentes {
             connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
 
             // Definir la llamada al procedimiento almacenado
-            String sql = "{CALL tomarMateriasDocentes(?)}";
+            String sql = "{ tes(?)}";
 
             // Preparar la llamada
             stmt = connection.prepareCall(sql);
