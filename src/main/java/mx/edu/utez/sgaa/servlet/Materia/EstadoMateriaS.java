@@ -1,10 +1,9 @@
 package mx.edu.utez.sgaa.servlet.Materia;
 
 import mx.edu.utez.sgaa.dao.DaoMateria;
-
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import jakarta.servlet.*;
+import jakarta.servlet.http.*;
+import jakarta.servlet.annotation.*;
 import java.io.IOException;
 
 @WebServlet(name = "EstadoMateriaS", value = "/EstadoMateriaS")
@@ -36,3 +35,4 @@ public class EstadoMateriaS extends HttpServlet {
         doGet(request, response);
     }
 }
+

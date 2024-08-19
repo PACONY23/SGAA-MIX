@@ -1,11 +1,10 @@
 package mx.edu.utez.sgaa.servlet;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import jakarta.servlet.*;
+import jakarta.servlet.annotation.WebFilter;
 import java.io.IOException;
 
-
+@WebFilter("/*")  // Este filtro se aplicará a todas las solicitudes.
 public class EncodingFilter implements Filter {
     public void init(FilterConfig config) throws ServletException {}
 

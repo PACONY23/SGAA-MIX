@@ -5,7 +5,8 @@ public class MateriasDocentes {
     private String nombreDocente;
     private String nombreMateria;
 
-    public MateriasDocentes(String nombreDocente, String nombreMateria) {
+    public MateriasDocentes(int idMateria, String nombreDocente, String nombreMateria) {
+        this.idMateria = idMateria;
         this.nombreDocente = nombreDocente;
         this.nombreMateria = nombreMateria;
     }
@@ -29,6 +30,17 @@ public class MateriasDocentes {
     @Override
     public String toString() {
         return "Docente: " + nombreDocente + ", Materia: " + nombreMateria;
+    }
+
+    public void setNombreDocente(String nombreDocente) {
+        this.nombreDocente = nombreDocente;
+    }
+
+    public void setNombreMateria(String nombreMateria) {
+        this.nombreMateria = nombreMateria;
+    }
+
+    public MateriasDocentes() {
     }
 }
 

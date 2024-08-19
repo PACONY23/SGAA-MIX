@@ -121,6 +121,9 @@
         .barra-lateral .navegacion a:hover #historial-img {
             content: url('<%=context%>/IMG/historial_v.png'); /* Cambia la imagen al hacer hover */
         }
+        .barra-lateral .navegacion a:hover #logout-img {
+            content: url('<%=context%>/IMG/logout_v.png'); /* Cambia la imagen al hacer hover */
+        }
 
         .barra-lateral .navegacion img{
             margin-left: 15px;
@@ -191,7 +194,7 @@
 <div class="barra-lateral">
     <div class="nombre-pagina">
         <img src="<%=context%>/IMG/logoCalendario.png" id="cloud" class="img-fluid" style="height: 40px; width: auto"/>
-        <span>UTESORATE</span>
+        <span>UTEZORATE</span>
     </div>
     <nav class="navegacion">
         <ul class="list-unstyled">
@@ -214,15 +217,15 @@
                 </a>
             </li>
             <li>
-                <a href="<%=context%>/vistas/Admin/GestionAsesorias.jsp" class="d-flex align-items-center" >
-                    <img id="asesorias-img" src="<%=context%>/IMG/asesorias_b.png" class="img-fluid" style="width: auto; height: 35px;" />
-                    <span>Gestión de asesorías</span>
-                </a>
-            </li>
-            <li>
                 <a href="<%=context%>/vistas/Admin/ConsultarInformacion.jsp" class="d-flex align-items-center" >
                     <img id="historial-img" src="<%=context%>/IMG/historial_b.png" class="img-fluid" style="width: auto; height: 35px;" />
                     <span>Información de usuarios</span>
+                </a>
+            </li>
+            <li>
+                <a href="<%=request.getContextPath()%>/LogoutS" class="d-flex align-items-center" >
+                    <img id="logout-img" src="<%=context%>/IMG/logout_b.png" class="img-fluid" style="width: auto; height: 35px;" />
+                    <span>Cerrar sesión</span>
                 </a>
             </li>
         </ul>
@@ -234,7 +237,6 @@
     </div>
     <div class="rol-actual">
         <span class="rol" id="asigna_rol">Administrador</span>
-        <img src="imagenes/busqueda.png" alt="rol" />
     </div>
 </div>
 <div class="contenido">

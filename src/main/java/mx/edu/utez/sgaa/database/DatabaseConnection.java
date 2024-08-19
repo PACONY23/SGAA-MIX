@@ -10,9 +10,9 @@ public class DatabaseConnection {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/estudiante",
-                    "root",
-                    "root");
+                    "jdbc:mysql://db-sgaa.cf75ndzosmhf.us-east-1.rds.amazonaws.com:3306/estudiante",
+                    "admin",
+                    "2512032201Jafet");
             System.out.println("Conexion exitosa");
         } catch (Exception e) {
             e.printStackTrace();

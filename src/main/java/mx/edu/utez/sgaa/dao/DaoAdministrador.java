@@ -21,7 +21,7 @@ public class DaoAdministrador {
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/estudiante", "root", "root")) {
+            try (Connection connection = DriverManager.getConnection("jdbc:mysql://db-sgaa.cf75ndzosmhf.us-east-1.rds.amazonaws.com:3306/estudiante", "admin", "2512032201Jafet")) {
                 PreparedStatement preparedStatement = connection.prepareStatement(LOGIN_SQL);
                 preparedStatement.setString(1, matricula);
                 preparedStatement.setString(2, password);

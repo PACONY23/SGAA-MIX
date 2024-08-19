@@ -119,6 +119,10 @@
         .barra-lateral .navegacion a:hover #historial-img {
             content: url('<%=context%>/IMG/historial_v.png'); /* Cambia la imagen al hacer hover */
         }
+        .barra-lateral .navegacion a:hover #logout-img {
+            content: url('<%=context%>/IMG/logout_v.png'); /* Cambia la imagen al hacer hover */
+        }
+
 
         .barra-lateral .navegacion img{
             margin-left: 15px;
@@ -235,7 +239,7 @@
 <div class="barra-lateral">
     <div class="nombre-pagina">
         <img src="<%=context%>/IMG/logoCalendario.png" id="cloud" class="img-fluid" style="height: 40px; width: auto"/>
-        <span>UTESORATE</span>
+        <span>UTEZORATE</span>
     </div>
     <nav class="navegacion">
         <ul class="list-unstyled">
@@ -258,15 +262,15 @@
                 </a>
             </li>
             <li>
-                <a href="<%=context%>/vistas/Admin/GestionAsesorias.jsp" class="d-flex align-items-center" >
-                    <img id="asesorias-img" src="<%=context%>/IMG/asesorias_b.png" class="img-fluid" style="width: auto; height: 35px;" />
-                    <span>Gestión de asesorías</span>
-                </a>
-            </li>
-            <li>
                 <a href="<%=context%>/vistas/Admin/ConsultarInformacion.jsp" class="d-flex align-items-center" >
                     <img id="historial-img" src="<%=context%>/IMG/historial_b.png" class="img-fluid" style="width: auto; height: 35px;" />
                     <span>Información de usuarios</span>
+                </a>
+            </li>
+            <li>
+                <a href="<%=request.getContextPath()%>/LogoutS" class="d-flex align-items-center" >
+                    <img id="logout-img" src="<%=context%>/IMG/logout_b.png" class="img-fluid" style="width: auto; height: 35px;" />
+                    <span>Cerrar sesión</span>
                 </a>
             </li>
         </ul>
@@ -278,7 +282,6 @@
     </div>
     <div class="rol-actual">
         <span class="rol" id="asigna_rol">Administrador</span>
-        <img src="imagenes/busqueda.png" alt="rol" />
     </div>
 </div>
 
@@ -301,14 +304,15 @@
         <table class="table table-bordered table-hover">
             <thead>
             <tr>
-                <th scope="col">Nombre</th>
+                <th scope="col">Materia</th>
                 <th scope="col" style="text-align: center">Opciones</th>
+                <th scope="col" style="text-align: center">Estado</th>
             </tr>
             </thead>
             <tbody id="materiasTableBody">
             <%
                 DaoMateria MateriasExistentes = new DaoMateria();
-                List<Materia> materias = MateriasExistentes.getAllMaterias();
+                List<Materia> materias = MateriasExistentes.getAllMaterias1();
                 for (Materia materia : materias) {
                     System.out.println("Nombre: " + materia.getNombre());
                     String rowClass = !materia.isMateria_estado() ? "table-active" : "table-primary";
@@ -319,10 +323,15 @@
                     <button id="materia-<%=materia.getId()%>" onclick="materiasBorrado(<%=materia.getId()%>)" class="btn p-0">
                         <i class="bi bi-trash-fill" style="font-size: 25px; color: black;" data-bs-toggle="modal" data-bs-target="#borrarMateria"></i>
                     </button>
-                    <button id="estado-<%=materia.isMateria_estado()%>" onclick="materiasEstado(<%=materia.getId()%>)" class="btn p-0 ms-4">
-                        <i class="bi bi-arrow-repeat" style="font-size: 25px; color: black;" data-bs-toggle="modal" data-bs-target="#estadoMateria"></i>
+                </td>
+                <td style="text-align: center">
+                    <button id="estado-<%=materia.isMateria_estado()%>" onclick="materiasEstado(<%=materia.getId()%>)" class="btn btn-outline-secondary ms-4" data-bs-toggle="modal" data-bs-target="#estadoMateria">
+                         <span class="small">
+                              <%= !materia.isMateria_estado() ? "Activar" : "Desactivar" %>
+                         </span>
                     </button>
                 </td>
+
             </tr>
             <%
                 }
@@ -341,22 +350,24 @@
                 <h5 class="modal-title" id="agregarModalLabel">Agregar Materia</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="<%=context%>/AgregarMateriasS" method="post">
+            <form action="<%=context%>/AgregarMateriasS" method="post" id="formAgregarMateria" novalidate>
                 <div class="modal-body">
                     <div class="mb-3">
                         <input type="hidden" id="a_id" name="id">
                         <label for="Nombre_materia" class="form-label">Nombre de la Materia</label>
                         <input type="text" class="form-control" name="Nombre_materia" id="Nombre_materia" placeholder="Ingrese el nombre de la materia">
+                        <div id="materiaError" class="text-danger" style="display:none;">Al menos 5 letras.</div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-primary" id="guardarMateriaBtn">Guardar</button>
+                    <button type="submit" class="btn btn-primary" id="guardarMateriaBtn" disabled>Guardar</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
 
 <%-- modal cambio estado materias --%>
 <div class="modal fade" id="estadoMateria" data-bs-backdrop="static" tabindex="-1" aria-labelledby="confirmarEstadoModalLabel" aria-hidden="true">
@@ -413,6 +424,31 @@
     function materiasEstado(id) {
         document.getElementById('ch_id').value = id;
     }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const form = document.getElementById('formAgregarMateria'); // Formulario en tu modal
+        const nombreMateriaInput = document.getElementById('Nombre_materia'); // ID del input de nombre de materia
+        const submitButton = document.getElementById('guardarMateriaBtn'); // Botón de envío
+
+        const validateForm = () => {
+            let isValid = true;
+
+            // Validar nombre de la materia (al menos 5 letras, números solo al final, permite acentos)
+            const materiaPattern = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ]{5,}[0-9]*$/;
+            if (!materiaPattern.test(nombreMateriaInput.value.trim())) {
+                document.getElementById('materiaError').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('materiaError').style.display = 'none';
+            }
+
+            submitButton.disabled = !isValid;
+        };
+
+        form.addEventListener('input', validateForm);
+    });
+
 </script>
+
 </body>
 </html>

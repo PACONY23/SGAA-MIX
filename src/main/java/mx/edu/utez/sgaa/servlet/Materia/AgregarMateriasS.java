@@ -2,10 +2,10 @@ package mx.edu.utez.sgaa.servlet.Materia;
 
 import mx.edu.utez.sgaa.dao.DaoMateria;
 import mx.edu.utez.sgaa.model.Materia;
-
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import mx.edu.utez.sgaa.database.DatabaseConnection;
+import jakarta.servlet.*;
+import jakarta.servlet.http.*;
+import jakarta.servlet.annotation.*;
 import java.io.IOException;
 
 @WebServlet(name = "AgregarMateriasS", value = "/AgregarMateriasS")
@@ -29,7 +29,7 @@ public class AgregarMateriasS extends HttpServlet {
 
         String nombre = request.getParameter("Nombre_materia");
 
-        Materia materia=new Materia();
+        Materia materia = new Materia();
         materia.setNombre(nombre);
 
         DaoMateria dao = new DaoMateria();

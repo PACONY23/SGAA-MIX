@@ -29,8 +29,8 @@
         .contenido-interfaz {
             height: auto;
             width: auto;
-            padding-top: 140px;
-            margin-top: 100px;
+            padding-top: 20px;
+            margin-top: 20px;
         }
         .container {
             background-color: #121631; /* Color de fondo del contenedor */
@@ -111,74 +111,96 @@
             background-color: transparent; /* Hacer el fondo de los inputs transparente */
             color: white; /* Cambiar el color del texto */
         }
+        /* Estilos para el botón de envío */
+        .container button[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            background-color: #1E8A82;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, opacity 0.3s ease;
+        }
+
+        .container button[type="submit"]:hover {
+            background-color: #0f6862;
+            text-decoration: underline;
+        }
+
+        /* Estilo para el botón deshabilitado */
+        .container button[type="submit"]:disabled {
+            background-color: #ccc;
+            color: #666;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        .container input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            background-color: transparent;
+            color: white;
+        }
+        .error-msg {
+            color: red;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none; /* Ocultar por defecto */
+        }
+        .form-check-input {
+            /* Asegúrate de que el color del texto y el fondo sean visibles */
+            color: #000; /* Asegúrate de que el color del texto sea adecuado */
+        }
+
+        .form-check-label {
+            /* Asegúrate de que el color del texto y el fondo sean visibles */
+            color: #000; /* Asegúrate de que el color del texto sea adecuado */
+        }
+        .modal-body {
+            color: #000; /* Color del texto dentro del modal */
+            background-color: #fff; /* Fondo del modal */
+        }
     </style>
 </head>
 <body>
 <div class="contenido-interfaz">
     <div class="container">
-        <img src="https://via.placeholder.com/50" alt="Logo">
+        <img src="<%=context%>/IMG/logoCalendario.png" class="img-fluid" style="width: auto; height: 50px;" alt="Logo">
         <h1>CREA TU CUENTA</h1>
         <h4>DOCENTE</h4>
 
         <div class="divider"></div>
 
         <!-- Formulario de registro -->
-        <form action="<%=request.getContextPath()%>/RegistroEstudianteS" method="get">  <!-- cambiar el metodo al post, get solo fue momentáneo-->
-            <input type="text" name="matricula" id="matricula_registro" placeholder="Matrícula">
-            <input type="text" name="nombre" id="nombre" placeholder="Nombre">
-            <input type="text" name="apellido" id="apellido" placeholder="Apellido">
-            <input type="password" name="password" id="contrasena_registro" placeholder="Contraseña">
-            <input type="password" name="confirmar_contrasena" id="confirmar_contrasena" placeholder="Confirmar contraseña">
-            <div class="info-extra">
-                <input type="text" name="div_aca" id="division_aca" placeholder="División Académica">
-                <input type="text" name="carrera" id="carrera" placeholder="Carrera">
-                <input type="text" name="grado" id="grado" placeholder="Grado">
-                <input type="text" name="grupo" id="grupo" placeholder="Grupo">
+        <form action="<%=request.getContextPath()%>/RegistroDocentesS" method="post" id="registroForm">
+            <div>
+                <input type="text" name="matricula" id="matricula_registro" placeholder="Matrícula">
+                <div class="error-msg" id="matriculaError">Este campo es obligatorio.</div>
             </div>
-            <button type="button" class="seleccion-mat" data-toggle="modal" data-target="#materiasModal">Seleccionar materias</button>
-            <button type="submit">Siguiente</button>
+            <div>
+                <input type="text" name="nombre" id="nombre" placeholder="Nombre">
+                <div class="error-msg" id="nombreError">Este campo es obligatorio.</div>
+            </div>
+            <div>
+                <input type="text" name="apellido" id="apellido" placeholder="Apellido">
+                <div class="error-msg" id="apellidoError">Este campo es obligatorio.</div>
+            </div>
+            <div>
+                <input type="password" name="password" id="contrasena_registro" placeholder="Contraseña">
+                <div class="error-msg" id="passwordError">Este campo es obligatorio.</div>
+            </div>
+            <div>
+                <input type="email" name="email" id="email" placeholder="Correo Electrónico">
+                <div class="error-msg" id="emailError">El correo electrónico debe ser @utez.edu.mx</div>
+            </div>
+            <button type="submit" id="submit-button" disabled>Siguiente</button>
         </form>
-    </div>
-</div>
-
-<!-- Modal de selección de materias -->
-<div class="modal fade" id="materiasModal" tabindex="-1" role="dialog" aria-labelledby="materiasModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="materiasModalLabel">Seleccionar Materias</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="materiasForm">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="Matemáticas" id="materia1">
-                        <label class="form-check-label" for="materia1">
-                            Matemáticas
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="Física" id="materia2">
-                        <label class="form-check-label" for="materia2">
-                            Física
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="Química" id="materia3">
-                        <label class="form-check-label" for="materia3">
-                            Química
-                        </label>
-                    </div>
-                    <!-- Agrega más materias según sea necesario -->
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary" id="guardarMateriasBtn">Guardar</button>
-            </div>
-        </div>
     </div>
 </div>
 
@@ -186,24 +208,70 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
-    document.getElementById('guardarMateriasBtn').addEventListener('click', function() {
-        var materiasSeleccionadas = [];
-        $('#materiasForm input:checked').each(function() {
-            materiasSeleccionadas.push($(this).val());
-            $('#materiasModal').modal('hide');
-        });
+    document.addEventListener('DOMContentLoaded', () => {
+        const form = document.getElementById('registroForm');
+        const matriculaInput = document.getElementById('matricula_registro');
+        const nombreInput = document.getElementById('nombre');
+        const apellidoInput = document.getElementById('apellido');
+        const passwordInput = document.getElementById('contrasena_registro');
+        const emailInput = document.getElementById('email');
+        const submitButton = document.getElementById('submit-button');
 
-        // Aquí puedes enviar las materias seleccionadas a la base de datos
-        $.ajax({
-            type: 'POST',
-            url: '<%=request.getContextPath()%>/GuardarMateriasServlet', // URL del servlet que maneja la lógica de guardado
-            data: { materias: materiasSeleccionadas },
-            success: function(response) {
-                $('#materiasModal').modal('hide');
-                // Puedes agregar más lógica aquí si es necesario
+        const validateForm = () => {
+            let isValid = true;
+
+            // Validar matrícula
+            if (!matriculaInput.value.trim()) {
+                document.getElementById('matriculaError').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('matriculaError').style.display = 'none';
             }
-        });
+
+            // Validar nombre (sin números, permite acentos y al menos 3 caracteres)
+            const nombrePattern = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ]{3,}$/;
+            if (!nombrePattern.test(nombreInput.value.trim())) {
+                document.getElementById('nombreError').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('nombreError').style.display = 'none';
+            }
+
+            // Validar apellido (dos palabras opcionales, cada una con al menos 5 letras, permite acentos)
+            const apellidoPattern = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ]{5,}(?:\s[a-zA-ZáéíóúÁÉÍÓÚñÑ]{5,})?$/;
+            if (!apellidoPattern.test(apellidoInput.value.trim())) {
+                document.getElementById('apellidoError').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('apellidoError').style.display = 'none';
+            }
+
+
+            // Validar contraseña (al menos 3 caracteres)
+            if (passwordInput.value.trim().length < 3) {
+                document.getElementById('passwordError').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('passwordError').style.display = 'none';
+            }
+
+            // Validar correo electrónico (mínimo 3 caracteres antes del @, pueden ser números o letras)
+            const emailPattern = /^[a-zA-Z0-9]{3,}[^\s@]*@utez\.edu\.mx$/;
+            if (!emailInput.value.trim() || !emailPattern.test(emailInput.value.trim())) {
+                document.getElementById('emailError').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('emailError').style.display = 'none';
+            }
+
+
+            // Habilitar o deshabilitar el botón de submit basado en las validaciones
+            submitButton.disabled = !isValid;
+        };
+
+        form.addEventListener('input', validateForm);
     });
 </script>
 </body>
+
 </html>

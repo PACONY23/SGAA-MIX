@@ -3,9 +3,9 @@ package mx.edu.utez.sgaa.servlet.Docente;
 import mx.edu.utez.sgaa.dao.DaoMateriasDocentes;
 import mx.edu.utez.sgaa.model.MateriasDocentes;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import jakarta.servlet.*;
+import jakarta.servlet.http.*;
+import jakarta.servlet.annotation.*;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -25,10 +25,10 @@ public class CrearHorarioS extends HttpServlet {
             if (matricula != null) {
                 try {
                     // Establecer la conexión a la base de datos
-                    Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/estudiante", "root", "root");
+                    Connection connection = DriverManager.getConnection("jdbc:mysql://db-sgaa.cf75ndzosmhf.us-east-1.rds.amazonaws.com:3306/estudiante", "admin", "2512032201Jafet");
 
                     // Crear una instancia de DaoMateriasDocentes y pasarle la conexión
-                    DaoMateriasDocentes daoMateriasDocentes = new DaoMateriasDocentes(connection);
+                    DaoMateriasDocentes daoMateriasDocentes = new DaoMateriasDocentes();
                     List<MateriasDocentes> materiasDocente = daoMateriasDocentes.obtenerMateriasDocente("matricula");
 
                     // Enviar la lista de materias al JSP

@@ -6,11 +6,11 @@ import mx.edu.utez.sgaa.model.Docente;
 import mx.edu.utez.sgaa.model.Estudiante;
 import com.google.gson.Gson;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
@@ -105,7 +105,7 @@ public class consultarInformacionS extends HttpServlet {
         estudiante.setApellido(apellido);
         estudiante.setCorreoElectronico(correoElectronico);
         estudiante.setGrupo(grupo);
-        estudiante.setCuatrimestre(Integer.parseInt(cuatrimestre));
+        estudiante.setCuatrimestre(cuatrimestre);
 
         boolean success = daoEstudiante.actualizarEstudiante(estudiante);
 

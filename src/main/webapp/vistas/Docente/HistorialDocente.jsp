@@ -7,6 +7,30 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%String context = request.getContextPath();%>
+<%@ page import="java.util.List" %>
+<%@ page import="mx.edu.utez.sgaa.model.HistorialAsesoria" %>
+
+<%@ page import="mx.edu.utez.sgaa.dao.DaoEstudianteAsesoria" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.sql.SQLException" %>
+<%
+  // Obtener el atributo de la sesión
+  String idDocenteStr = (String) session.getAttribute("idDocente");
+  Integer idDocente = null;
+
+  if (idDocenteStr != null) {
+    try {
+      idDocente = Integer.parseInt(idDocenteStr);
+    } catch (NumberFormatException e) {
+      e.printStackTrace(); // Manejar el error de conversión si es necesario
+    }
+  } else {
+    idDocente = 0; // Valor por defecto si no está en la sesión
+  }
+
+%>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -16,7 +40,7 @@
   <link rel="stylesheet" href="<%=context%>/css/cssFuenteLetra.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <%--<link rel="stylesheet" href="<%=context%>/css/cssBarraDocente.css" /> --%>
-  <title>Historial estudiante</title>
+  <title>Historial docente</title>
   <style>
     /* ESTILO DE PLANTILLABARRA*/
     :root{
@@ -114,6 +138,12 @@
     .barra-lateral .navegacion a:hover #historial-img {
       content: url('<%=context%>/IMG/historial_v.png'); /* Cambia la imagen al hacer hover */
     }
+    .barra-lateral .navegacion a:hover #asesorias-img {
+      content: url('<%=context%>/IMG/asesorias_v.png'); /* Cambia la imagen al hacer hover */
+    }
+    .barra-lateral .navegacion a:hover #logout-img {
+      content: url('<%=context%>/IMG/logout_v.png'); /* Cambia la imagen al hacer hover */
+    }
     .barra-lateral .navegacion img{
       margin-left: 15px;
     }
@@ -187,13 +217,17 @@
       cursor: pointer;
       margin-left: 17px;
     }
+    .boton-cerrar-sesion:hover {
+      background-color: #fff;
+      color: #141C32;
+    }
   </style>
 </head>
 <body>
 <div class="barra-lateral">
   <div class="nombre-pagina">
     <img src="<%=context%>/IMG/logoCalendario.png" id="cloud" class="img-fluid" style="height: 40px; width: auto"/>
-    <span>UTESORATE</span>
+    <span>UTEZORATE</span>
   </div>
   <nav class="navegacion">
     <ul class="list-unstyled">
@@ -215,6 +249,18 @@
           <span>Historial</span>
         </a>
       </li>
+      <li>
+        <a href="<%=context%>/vistas/Docente/AsesoriasGestionDocente.jsp" class="d-flex align-items-center" >
+          <img id="asesorias-img" src="<%=context%>/IMG/asesorias_b.png" class="img-fluid" style="width: auto; height: 35px;" />
+          <span>Gestion asesorías</span>
+        </a>
+      </li>
+      <li>
+        <a href="<%=request.getContextPath()%>/LogoutS" class="d-flex align-items-center" >
+          <img id="logout-img" src="<%=context%>/IMG/logout_b.png" class="img-fluid" style="width: auto; height: 35px;" />
+          <span>Cerrar sesión</span>
+        </a>
+      </li>
     </ul>
   </nav>
 </div>
@@ -224,7 +270,6 @@
   </div>
   <div class="rol-actual">
     <span class="rol" id="asigna_rol">Docente</span>
-    <img src="imagenes/busqueda.png" alt="rol" />
   </div>
 </div>
 
@@ -236,24 +281,51 @@
         <th>Estudiante</th>
         <th>Materia</th>
         <th>Fecha</th>
+        <th>Hora</th>
         <th>Calificación</th>
         <th></th>
       </tr>
       </thead>
-      <tbody>
+      <%
+
+
+        // Consultar la base de datos usando el DAO
+        List<HistorialAsesoria> historialAsesorias = new ArrayList<>();
+        if (idDocente != null) {
+          try {
+            DaoEstudianteAsesoria dao = new DaoEstudianteAsesoria();
+            historialAsesorias = dao.obtenerHistorialAsesoriasPorDocente(idDocente);
+          } catch (SQLException e) {
+            e.printStackTrace(); // Manejo de errores
+          }
+        }
+      %>
+      <%
+        if (historialAsesorias != null && !historialAsesorias.isEmpty()) {
+          for (HistorialAsesoria asesoria : historialAsesorias) {
+      %>
       <tr>
-        <td>Dato de la base de datos</td>
-        <td>Dato de la base de datos</td>
-        <td>Dato de la base de datos</td>
-        <td><a href="<%=context%>/vistas/Docente/CalificarEstudiante.jsp"><div class="agregar">+</div></a></td>
+        <td><%= asesoria.getNombreEstudiante() %></td>
+        <td><%= asesoria.getNombreMateria() %></td>
+        <td><%= asesoria.getFecha() %></td>
+        <td><%= asesoria.getHora() %></td>
+        <td>
+          <!-- Aquí puedes agregar el enlace o el formulario para calificar -->
+          <a href="<%=request.getContextPath()%>/vistas/Docente/CalificarEstudiante.jsp">
+            <div class="agregar">+</div>
+          </a>
+        </td>
       </tr>
+      <%
+        }
+      } else {
+      %>
       <tr>
-        <td>Dato de la base de datos</td>
-        <td>Dato de la base de datos</td>
-        <td>Dato de la base de datos</td>
-        <td><a href="<%=context%>/vistas/Docente/CalificarEstudiante.jsp"><div class="agregar">+</div></a></td>
+        <td colspan="6">No hay datos disponibles</td>
       </tr>
-      <!-- Agrega más filas según sea necesario -->
+      <%
+        }
+      %>
       </tbody>
     </table>
   </div>
@@ -263,4 +335,3 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
-

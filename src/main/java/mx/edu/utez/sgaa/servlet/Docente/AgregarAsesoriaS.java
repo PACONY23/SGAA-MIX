@@ -4,11 +4,12 @@ import mx.edu.utez.sgaa.dao.DaoEstudianteAsesoria;
 import mx.edu.utez.sgaa.model.EstudiantesAsesoria;
 import mx.edu.utez.sgaa.database.DatabaseConnection;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -25,11 +26,12 @@ public class AgregarAsesoriaS extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int idEstudiante = Integer.parseInt(request.getParameter("idEstudiante"));
         int idAsesoria = Integer.parseInt(request.getParameter("idAsesoria"));
+        System.out.println("idestudiante: " + idEstudiante + " idAsesoria: " + idAsesoria);
 
         EstudiantesAsesoria estudiantesAsesoria = new EstudiantesAsesoria(idEstudiante, idAsesoria);
 
         try (Connection connection = DatabaseConnection.getConnection()) {
-            DaoEstudianteAsesoria daoEstudianteAsesoria = new DaoEstudianteAsesoria(connection);
+            DaoEstudianteAsesoria daoEstudianteAsesoria = new DaoEstudianteAsesoria();
             daoEstudianteAsesoria.agregarAsesoriaEstudiante(estudiantesAsesoria);
             response.setStatus(HttpServletResponse.SC_CREATED);
             response.getWriter().write("Asesoría agregada con éxito");
@@ -40,3 +42,4 @@ public class AgregarAsesoriaS extends HttpServlet {
         }
     }
 }
+

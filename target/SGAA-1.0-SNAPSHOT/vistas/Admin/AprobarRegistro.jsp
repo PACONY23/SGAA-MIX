@@ -20,6 +20,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<%=context%>/css/cssFuenteLetra.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css" rel="stylesheet">
+
     <title>Aprobar docente</title>
     <style>
         /* ESTILO DE PLANTILLABARRA*/
@@ -124,6 +126,10 @@
         .barra-lateral .navegacion a:hover #historial-img {
             content: url('<%=context%>/IMG/historial_v.png'); /* Cambia la imagen al hacer hover */
         }
+        .barra-lateral .navegacion a:hover #logout-img {
+            content: url('<%=context%>/IMG/logout_v.png'); /* Cambia la imagen al hacer hover */
+        }
+
 
         .barra-lateral .navegacion img{
             margin-left: 15px;
@@ -215,6 +221,41 @@
         .btn-add-docente:hover {
             background-color: #145A42;
         }
+        #agregar-btn{
+            background-color: rgba(0, 0, 0, 0.05); /* Mismo fondo que la caja de simbología */
+            border: 1px solid #dee2e6;
+            border-radius: 0.25rem;
+            color: #141C32; /* Color del texto */
+            transition: background-color 0.3s ease;
+        }
+
+        #btn-aprobar{
+            background-color: rgba(0, 0, 0, 0.05); /* Mismo fondo que la caja de simbología */
+            border: 1px solid #dee2e6;
+            border-radius: 0.25rem;
+            color: #141C32; /* Color del texto */
+            transition: background-color 0.3s ease;
+        }
+        #btn-aprobar:hover{
+            background-color: #5393d5; /* Hover recomendado: azul */
+            color: white; /* Color de texto blanco en hover */
+        }
+        #agregar-btn:hover{
+            background-color: #5393d5; /* Hover recomendado: azul */
+            color: white; /* Color de texto blanco en hover */
+        }
+        #btn-rechazar{
+            background-color: rgba(0, 0, 0, 0.05); /* Mismo fondo que la caja de simbología */
+            border: 1px solid #dee2e6;
+            border-radius: 0.25rem;
+            color: #141C32; /* Color del texto */
+            transition: background-color 0.3s ease;
+        }
+        #btn-rechazar:hover{
+            background-color: #5393d5; /* Hover recomendado: azul */
+            color: white; /* Color de texto blanco en hover */
+        }
+
     </style>
 </head>
 <body>
@@ -222,7 +263,7 @@
 <div class="barra-lateral">
     <div class="nombre-pagina">
         <img src="<%=context%>/IMG/logoCalendario.png" id="cloud" class="img-fluid" style="height: 40px; width: auto"/>
-        <span>UTESORATE</span>
+        <span>UTEZORATE</span>
     </div>
     <nav class="navegacion">
         <ul class="list-unstyled">
@@ -245,15 +286,15 @@
                 </a>
             </li>
             <li>
-                <a href="<%=context%>/vistas/Admin/GestionAsesorias.jsp" class="d-flex align-items-center" >
-                    <img id="asesorias-img" src="<%=context%>/IMG/asesorias_b.png" class="img-fluid" style="width: auto; height: 35px;" />
-                    <span>Gestión de asesorías</span>
-                </a>
-            </li>
-            <li>
                 <a href="<%=context%>/vistas/Admin/ConsultarInformacion.jsp" class="d-flex align-items-center" >
                     <img id="historial-img" src="<%=context%>/IMG/historial_b.png" class="img-fluid" style="width: auto; height: 35px;" />
                     <span>Información de usuarios</span>
+                </a>
+            </li>
+            <li>
+                <a href="<%=request.getContextPath()%>/LogoutS" class="d-flex align-items-center" >
+                    <img id="logout-img" src="<%=context%>/IMG/logout_b.png" class="img-fluid" style="width: auto; height: 35px;" />
+                    <span>Cerrar sesión</span>
                 </a>
             </li>
         </ul>
@@ -266,60 +307,99 @@
     </div>
     <div class="rol-actual">
         <span class="rol" id="asigna_rol">Administrador</span>
-        <img src="imagenes/busqueda.png" alt="rol" />
     </div>
 </div>
 
 <div class="contenido">
-    <button class="btn-add-docente" data-bs-toggle="modal" data-bs-target="#agregarDocenteModal">
-        Añadir Docente
-    </button>
-    <div class="table-responsive">
-        <table class="table">
-            <thead>
-            <tr>
-                <th>Solicitudes de docentes</th>
-                <th></th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <%
-                DaoDocente docentesAcceso = new DaoDocente();
-                List<Docente> docentes = docentesAcceso.DocentesSinAdmitir();
-                for (Docente docente : docentes) {
-                    System.out.println("Nombre: " + docente.getNombres());
-            %>
-            <tr id="materia-<%=docente.getId()%>">
-                <td><%=docente.getNombres() %> <%=docente.getApellidos()%></td>
-                <td style="text-align: center">
-                    <button class="aprobar" data-toggle="modal" data-target="#aprobarDocente" data-title="aprobar registro" onclick="aprobarDocente(<%=docente.getId()%>)">
-                        Aprobar
-                    </button>
-                </td>
-                <td>
-                    <button class="rechazar" data-toggle="modal" data-target="#rechazaDocente" data-title="rechazar registro" onclick="rechazarDocente(<%=docente.getId()%>)">
-                        Rechazar
-                    </button>
-                </td>
 
-            </tr>
-            <%
-                }
-            %>
-
-            <!-- Agrega más filas según sea necesario -->
-            </tbody>
-        </table>
+    <div class="container mt-2">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <button id="agregar-btn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agregarDocenteModal">
+                <i class="bi bi-plus-circle"></i>  Añadir docente
+            </button>
+        </div>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Solicitudes de docentes</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <%
+                    DaoDocente docentesAcceso = new DaoDocente();
+                    List<Docente> docentes = docentesAcceso.DocentesSinAdmitir();
+                    for (Docente docente : docentes) {
+                %>
+                <tr id="materia-<%=docente.getId()%>">
+                    <td><%=docente.getNombres() %> <%=docente.getApellidos()%></td>
+                    <td style="text-align: center">
+                        <button id="btn-aprobar" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#aprobarDocente" onclick="aprobarDocente(<%=docente.getId()%>)">
+                            <i class="bi bi-check-circle"></i> Aprobar
+                        </button>
+                    </td>
+                    <td>
+                        <button id="btn-rechazar" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#rechazaDocente" onclick="rechazarDocente(<%=docente.getId()%>)">
+                            <i class="bi bi-x-circle"></i> Rechazar
+                        </button>
+                    </td>
+                </tr>
+                <% } %>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 
-<%-- modal admision--%>
-<div class="modal fade" id="rechazaDocente" data-bs-backdrop="static" tabindex="-1" aria-labelledby="confirmarEstadoModalLabel" aria-hidden="true">
+<div class="modal fade" id="agregarDocenteModal" tabindex="-1" aria-labelledby="agregarDocenteModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="confirmarEstadoModalLabel">Rechazar docente</h5>
+                <h5 class="modal-title" id="agregarDocenteModalLabel">Registrar Docente</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="<%=context%>/AgregarDocenteAdminS" id="formAgregarDocente" method="post" novalidate>
+                    <div class="mb-3">
+                        <label for="matricula" class="form-label">Matrícula</label>
+                        <input type="text" class="form-control" id="matricula" name="matricula" required>
+                        <div id="matriculaError" class="text-danger" style="display:none;">Campo obligatorio.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="nombre" name="nombre" required>
+                        <div id="nombreError" class="text-danger" style="display:none;">Campo obligatorio. Solo un nombre y al menos 3 letras.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="apellido" class="form-label">Apellido</label>
+                        <input type="text" class="form-control" id="apellido" name="apellido" required>
+                        <div id="apellidoError" class="text-danger" style="display:none;">Campo obligatorio. Al menos 5 letras.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="contrasena" class="form-label">Contraseña</label>
+                        <input type="password" class="form-control" id="contrasena" name="password" required>
+                        <div id="passwordError" class="text-danger" style="display:none;">Campo obligatorio. Al menos 3 carácteres.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="correoElectronico" class="form-label">Correo Electrónico</label>
+                        <input type="email" class="form-control" id="correoElectronico" name="email" required>
+                        <div id="emailError" class="text-danger" style="display:none;">Campo obligatorio. Debe ser un correo válido con terminación @utez.edu.mx.</div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Registrar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Rechazar Docente -->
+<div class="modal fade" id="rechazaDocente" tabindex="-1" aria-labelledby="rechazaDocenteLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="rechazaDocenteLabel">Rechazar Docente</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form action="<%=context%>/EliminarDocenteS" method="post">
@@ -335,12 +415,13 @@
         </div>
     </div>
 </div>
-<!-- aprueba docente -->
-<div class="modal fade" id="aprobarDocente" tabindex="-1" role="dialog" aria-labelledby="aprobarModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+
+<!-- Modal Aprobar Docente -->
+<div class="modal fade" id="aprobarDocente" tabindex="-1" aria-labelledby="aprobarDocenteLabel" aria-hidden="true">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="aprobarModalLabel">Confirmar el registro</h5>
+                <h5 class="modal-title" id="aprobarDocenteLabel">Confirmar el Registro</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form action="<%=context%>/AprobarRegistroS" method="post">
@@ -349,25 +430,99 @@
                     ¿Estás seguro de aprobar a este docente?
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-primary" id="aprobarDocenteBtn">Guardar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
                 </div>
             </form>
-
         </div>
     </div>
 </div>
 
+
+
+<!-- Bootstrap JS (incluye Popper.js) -->
+
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 <script>
-    function aprobarDocente(id) {
-        document.getElementById('ch_id').value = id;
+    function aprobarDocente(docenteId) {
+        // Establecer el valor del campo oculto en el modal de aprobar
+        document.getElementById('ch_id').value = docenteId;
     }
-    function rechazarDocente(id) {
-        document.getElementById('r_id').value = id;
+
+    function rechazarDocente(docenteId) {
+        // Establecer el valor del campo oculto en el modal de rechazar
+        document.getElementById('r_id').value = docenteId;
     }
 </script>
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const form = document.getElementById('formAgregarDocente'); // Formulario en tu modal
+        const matriculaInput = document.getElementById('matricula'); // ID del input de matrícula
+        const nombreInput = document.getElementById('nombre'); // ID del input de nombre
+        const apellidoInput = document.getElementById('apellido'); // ID del input de apellido
+        const passwordInput = document.getElementById('contrasena'); // ID del input de contraseña
+        const emailInput = document.getElementById('correoElectronico'); // ID del input de correo electrónico
+        const submitButton = form.querySelector('button[type="submit"]');
+
+        const validateForm = () => {
+            let isValid = true;
+
+            // Validar matrícula
+            if (!matriculaInput.value.trim()) {
+                document.getElementById('matriculaError').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('matriculaError').style.display = 'none';
+            }
+
+            // Validar nombre (sin números, permite acentos y al menos 3 caracteres)
+            const nombrePattern = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ]{3,}$/;
+            if (!nombrePattern.test(nombreInput.value.trim())) {
+                document.getElementById('nombreError').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('nombreError').style.display = 'none';
+            }
+
+            // Validar apellido (sin números, permite acentos, mínimo 5 letras por apellido)
+            const apellidoPattern = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ]{5,}(?:\s[a-zA-ZáéíóúÁÉÍÓÚñÑ]{5,})?$/;
+            if (!apellidoPattern.test(apellidoInput.value.trim())) {
+                document.getElementById('apellidoError').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('apellidoError').style.display = 'none';
+            }
+
+
+
+            // Validar contraseña (al menos 3 caracteres)
+            if (passwordInput.value.trim().length < 3) {
+                document.getElementById('passwordError').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('passwordError').style.display = 'none';
+            }
+
+            // Validar correo electrónico
+            const emailPattern = /^[a-zA-Z]{3,}[^\s@]*@utez\.edu\.mx$/;
+            if (!emailInput.value.trim() || !emailPattern.test(emailInput.value.trim())) {
+                document.getElementById('emailError').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('emailError').style.display = 'none';
+            }
+
+            submitButton.disabled = !isValid;
+        };
+
+        form.addEventListener('input', validateForm);
+    });
+
+</script>
+
 </body>
 </html>

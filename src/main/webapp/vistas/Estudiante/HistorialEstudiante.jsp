@@ -7,6 +7,31 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%String context = request.getContextPath();%>
+<%@ page import="java.util.List" %>
+<%@ page import="mx.edu.utez.sgaa.model.HistorialAsesoria" %>
+
+<%@ page import="mx.edu.utez.sgaa.dao.DaoEstudianteAsesoria" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.sql.SQLException" %>
+
+<%
+    // Obtener el atributo de la sesión
+    String idEstudianteStr = (String) session.getAttribute("idEstudiante");
+    Integer idEstudiante = null;
+
+    if (idEstudianteStr != null) {
+        try {
+            idEstudiante = Integer.parseInt(idEstudianteStr);
+        } catch (NumberFormatException e) {
+            e.printStackTrace(); // Manejar el error de conversión si es necesario
+        }
+    } else {
+        idEstudiante = 0; // Valor por defecto si no está en la sesión
+    }
+
+%>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -117,6 +142,12 @@
         .barra-lateral .navegacion a:hover #buscador-img {
             content: url('<%=context%>/IMG/buscador_v.png'); /* Cambia la imagen al hacer hover */
         }
+        .barra-lateral .navegacion a:hover #materias-img {
+            content: url('<%=context%>/IMG/materias_v.png'); /* Cambia la imagen al hacer hover */
+        }
+        .barra-lateral .navegacion a:hover #logout-img {
+            content: url('<%=context%>/IMG/logout_v.png'); /* Cambia la imagen al hacer hover */
+        }
         .barra-lateral .navegacion img{
             margin-left: 15px;
         }
@@ -190,14 +221,19 @@
             cursor: pointer;
             margin-left: 17px;
         }
+        .boton-cerrar-sesion:hover {
+            background-color: #fff;
+            color: #141C32;
+        }
     </style>
 </head>
 <body>
+
 <!-- Barra lateral -->
 <div class="barra-lateral">
     <div class="nombre-pagina">
         <img src="<%=context%>/IMG/logoCalendario.png" id="cloud" class="img-fluid" style="height: 40px; width: auto"/>
-        <span>UTESORATE</span>
+        <span>UTEZORATE</span>
     </div>
     <nav class="navegacion">
         <ul class="list-unstyled">
@@ -208,35 +244,51 @@
                 </a>
             </li>
             <li>
-                <a href="<%=context%>/vistas/Estudiante/HorarioEstudiante.jsp" class="d-flex align-items-center">
+                <a href="<%=context%>/HorarioEstudianteS" class="d-flex align-items-center">
                     <img id="calendario-img" src="<%=context%>/IMG/calendario_b.png" class="img-fluid" style="width: auto; height: 35px;" />
                     <span>Mi calendario</span>
                 </a>
             </li>
             <li>
-                <a href="<%=context%>/vistas/Estudiante/HistorialEstudiante.jsp" class="d-flex align-items-center" >
+                <a href="<%=context%>/vistas/Estudiante/HistorialEstudiante.jsp" class="d-flex align-items-center">
                     <img id="historial-img" src="<%=context%>/IMG/historial_b.png" class="img-fluid" style="width: auto; height: 35px;" />
                     <span>Historial</span>
                 </a>
             </li>
             <li>
-                <a href="<%=context%>/vistas/Estudiante/buscarMateria.jsp" class="d-flex align-items-center" >
+                <a href="<%=context%>/vistas/Estudiante/buscarMateria.jsp" class="d-flex align-items-center">
                     <img id="buscador-img" src="<%=context%>/IMG/buscador_b.png" class="img-fluid" style="width: auto; height: 35px;" />
                     <span>Buscar materias</span>
+                </a>
+            </li>
+            <li>
+                <a href="<%=context%>/vistas/Estudiante/Reagendas.jsp" class="d-flex align-items-center">
+                    <img id="materias-img" src="<%=context%>/IMG/materias_b.png" class="img-fluid" style="width: auto; height: 35px;" />
+                    <span>Reagendas</span>
+                </a>
+            </li>
+            <li>
+                <a href="<%=request.getContextPath()%>/LogoutS" class="d-flex align-items-center" >
+                    <img id="logout-img" src="<%=context%>/IMG/logout_b.png" class="img-fluid" style="width: auto; height: 35px;" />
+                    <span>Cerrar sesión</span>
                 </a>
             </li>
         </ul>
     </nav>
 </div>
+
 <div class="contenido-superior">
     <div class="titulo-interfaz">
         <span>Mi historial</span>
     </div>
     <div class="rol-actual">
         <span class="rol" id="asigna_rol">Estudiante</span>
-        <img src="imagenes/busqueda.png" alt="rol" />
     </div>
 </div>
+
+
+
+
 
 <div class="contenido">
     <div class="table-responsive">
@@ -246,28 +298,58 @@
                 <th>Docente</th>
                 <th>Materia</th>
                 <th>Fecha</th>
+                <th>Hora</th>
                 <th>Calificación</th>
                 <th></th>
             </tr>
             </thead>
             <tbody>
+            <%
+
+
+                // Consultar la base de datos usando el DAO
+                List<HistorialAsesoria> historialAsesorias = new ArrayList<>();
+                if (idEstudiante != null) {
+                    try {
+                        DaoEstudianteAsesoria dao = new DaoEstudianteAsesoria();
+                        historialAsesorias = dao.obtenerHistorialAsesoriasPorEstudiante(idEstudiante);
+                    } catch (SQLException e) {
+                        e.printStackTrace(); // Manejo de errores
+                    }
+                }
+            %>
+            <%
+                if (historialAsesorias != null && !historialAsesorias.isEmpty()) {
+                    for (HistorialAsesoria asesoria : historialAsesorias) {
+            %>
             <tr>
-                <td>Dato de la base de datos</td>
-                <td>Dato de la base de datos</td>
-                <td>Dato de la base de datos</td>
-                <td><a href="<%=context%>/vistas/Estudiante/CalificarAlDocente.jsp"><div class="agregar">+</div></a></td>
+                <td><%= asesoria.getNombreDocente() %></td>
+                <td><%= asesoria.getNombreMateria() %></td>
+                <td><%= asesoria.getFecha() %></td>
+                <td><%= asesoria.getHora() %></td>
+                <td>
+                    <!-- Aquí puedes agregar el enlace o el formulario para calificar -->
+                    <a href="<%=request.getContextPath()%>/vistas/Estudiante/CalificarAlDocente.jsp">
+                        <div class="agregar">+</div>
+                    </a>
+                </td>
             </tr>
+            <%
+                }
+            } else {
+            %>
             <tr>
-                <td>Dato de la base de datos</td>
-                <td>Dato de la base de datos</td>
-                <td>Dato de la base de datos</td>
-                <td><a href="<%=context%>/vistas/Estudiante/CalificarAlDocente.jsp"><div class="agregar">+</div></a></td>
+                <td colspan="6">No hay datos disponibles</td>
             </tr>
-            <!-- Agrega más filas según sea necesario -->
+            <%
+                }
+            %>
             </tbody>
         </table>
     </div>
 </div>
+
+
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

@@ -1,6 +1,7 @@
 package mx.edu.utez.sgaa.dao;
 
 import mx.edu.utez.sgaa.database.DatabaseConnection;
+import mx.edu.utez.sgaa.model.Estudiante;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,23 +10,29 @@ import java.sql.SQLException;
 
 public class DaoLoginEstudiante {
     private final DatabaseConnection DB_Connection  = new DatabaseConnection();
-    public String findEstudianteByMatriculaAndContraseña(String matricula, String contraseña) {
-        String role = null;
+    public String[] findEstudianteDataByMatriculaAndContraseña(String matricula, String contraseña) {
+        String[] data = null;
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-
         try {
             con = DB_Connection.getConnection();
-            String query = "SELECT rol FROM estudiantes  WHERE matricula = ? AND contraseña = ?";
+            String query = "SELECT nombre,apellido,correoElectronico,grupo,cuatrimestre,idEstudiante, rol FROM Estudiantes WHERE matricula = ? AND contraseña = ? AND estatus = true";
             ps = con.prepareStatement(query);
             ps.setString(1, matricula);
             ps.setString(2, contraseña);
             rs = ps.executeQuery();
 
             if (rs.next()) {
-                role = rs.getString("rol");
+                data = new String[7];
+                data[0] = rs.getString("idEstudiante"); // idEstudiante como String
+                data[1] = rs.getString("rol"); // rol
+                data[2] = rs.getString("nombre");
+                data[3] = rs.getString("apellido");
+                data[4] = rs.getString("correoElectronico");
+                data[5] = rs.getString("grupo");
+                data[6] = rs.getString("cuatrimestre");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -39,6 +46,7 @@ public class DaoLoginEstudiante {
             }
         }
 
-        return role;
+        return data;
     }
+
 }

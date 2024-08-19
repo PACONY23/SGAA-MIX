@@ -1,10 +1,13 @@
 package mx.edu.utez.sgaa.servlet.Docente;
 
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import mx.edu.utez.sgaa.dao.DaoLoginDocente;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
 import java.io.IOException;
 
 @WebServlet(name = "LoginDocentesS", value = "/LoginDocentesS")
@@ -36,11 +39,20 @@ public class LoginDocentesS extends HttpServlet {
         System.out.println("Matricula: " + matricula);
         System.out.println("Contraseña: " + contraseña);
 
-        String role = dao.findDocenteByMatriculaAndContraseña(matricula, contraseña);
+        String[] docenteData = dao.findDocenteByMatriculaAndContraseña(matricula, contraseña);
 
-        if (role != null) {
+        if (docenteData != null) {
+            String idDocente = docenteData[0];
+            String role = docenteData[1];
+            String nombre = docenteData[2];
+            String apellido = docenteData[3];
+            String correo = docenteData[4];
             HttpSession session = request.getSession(true);
+            session.setAttribute("idDocente", idDocente);
             session.setAttribute("matricula", matricula);
+            session.setAttribute("nombre", nombre);
+            session.setAttribute("apellido", apellido);
+            session.setAttribute("correo", correo);
             session.setAttribute("role", role); // Guardar el rol en la sesión
             session.setAttribute("flag", true);
             System.out.println("Redirigiendo a PaginaPrincipalDocente.jsp");

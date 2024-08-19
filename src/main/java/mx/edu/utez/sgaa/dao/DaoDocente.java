@@ -2,42 +2,93 @@ package mx.edu.utez.sgaa.dao;
 
 import mx.edu.utez.sgaa.database.DatabaseConnection;
 import mx.edu.utez.sgaa.model.Docente;
-import mx.edu.utez.sgaa.model.MateriasDocentes;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.sql.CallableStatement;
+
 
 public class DaoDocente {
-    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/estudiante";
-    private static final String JDBC_USER = "root";
-    private static final String JDBC_PASSWORD = "root";
+    private static final String JDBC_URL = "jdbc:mysql://db-sgaa.cf75ndzosmhf.us-east-1.rds.amazonaws.com:3306/estudiante";
+    private static final String JDBC_USER = "admin";
+    private static final String JDBC_PASSWORD = "2512032201Jafet";
     private Connection con;
     private PreparedStatement pstm;
     private ResultSet rs;
     private CallableStatement cstm;
     private final DatabaseConnection DATA_BASE_CONNECTION = new DatabaseConnection();
+    CallableStatement stmt = null;
+
+
+    public int obtenerIdDocente(String matricula) {
+        Connection connection = null;
+        CallableStatement stmt = null;
+        int idDocente = -1;
+
+        try {
+            // Establecer la conexión
+            connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
+
+            // Definir la llamada al procedimiento almacenado
+            String sql = "{ CALL ObtenerIdDocente(?, ?) }";
+
+            // Preparar la llamada
+            stmt = connection.prepareCall(sql);
+            stmt.setString(1, matricula);
+            stmt.registerOutParameter(2, Types.INTEGER);
+
+            // Ejecutar la llamada
+            stmt.execute();
+
+            // Obtener el resultado
+            idDocente = stmt.getInt(2);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Cerrar los recursos
+            try {
+                if (stmt != null) stmt.close();
+                if (connection != null) connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return idDocente;
+    }
+
 
     public int RegistrarDocente(Docente docente) throws ClassNotFoundException {
-        String INSERT_DOCENTES_SQL = "INSERT INTO docentes (matricula, contraseña, nombre, apellido, correoElectronico, estatus, admission) VALUES (?, ?, ?, ?, ?, ?, ?);";
+        String CALL_PROCEDURE_SQL = "{CALL insertarDocente(?, ?, ?, ?, ?, ?, ?, ?)}";
         int result = 0;
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
             try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD)) {
-                PreparedStatement preparedStatement = connection.prepareStatement(INSERT_DOCENTES_SQL);
-                preparedStatement.setString(1, docente.getMatricula());
-                preparedStatement.setString(2, docente.getContrasena());
-                preparedStatement.setString(3, docente.getNombres());
-                preparedStatement.setString(4, docente.getApellidos());
-                preparedStatement.setString(5, docente.getCorreoElectronico());
-                preparedStatement.setBoolean(6, docente.getEstatus());
-                preparedStatement.setBoolean(7, docente.isAdmission());
-                System.out.println(preparedStatement);
+                CallableStatement callableStatement = connection.prepareCall(CALL_PROCEDURE_SQL);
+                callableStatement.setString(1, docente.getMatricula());
+                callableStatement.setString(2, docente.getNombres());
+                callableStatement.setString(3, docente.getApellidos());
 
-                result = preparedStatement.executeUpdate();
+                // Usa setString para la contraseña aunque esté almacenada como VARBINARY en la base de datos
+                callableStatement.setString(4, docente.getContrasena());
+
+                callableStatement.setString(5, docente.getCorreoElectronico());
+                callableStatement.setBoolean(6, docente.getEstatus());
+                callableStatement.setBoolean(7, docente.isAdmission());
+
+                // Verificar si el rol es null
+                String rol = docente.getRol();
+                if (rol == null) {
+                    rol = "Docente";  // Asignar un valor predeterminado si es null
+                }
+                callableStatement.setString(8, rol);
+
+                System.out.println(callableStatement);
+
+                result = callableStatement.executeUpdate();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -48,8 +99,12 @@ public class DaoDocente {
         return result;
     }
 
+
+
+
+
     public Docente loginDocente(String matricula, String password) throws ClassNotFoundException {
-        String LOGIN_SQL = "SELECT * FROM docentes WHERE matricula = ? AND contraseña = ?;";
+        String LOGIN_SQL = "SELECT * FROM Docentes WHERE matricula = ? AND contraseña = ?;";
         Docente docente1 = null;
 
         try {
@@ -99,7 +154,7 @@ public class DaoDocente {
 
 
     public boolean eliminarDocente(int id) throws ClassNotFoundException {
-        String DELETE_DOCENTE_SQL = "DELETE FROM docentes WHERE idDocente = ?;";
+        String DELETE_DOCENTE_SQL = "DELETE FROM Docentes WHERE idDocente = ?;";
         int result = 0;
 
         try {
@@ -124,7 +179,7 @@ public class DaoDocente {
 
 
     public boolean actualizarDocente(Docente docente) {
-        String UPDATE_SQL = "UPDATE docentes SET nombre = ?, apellido = ?, correoElectronico = ? WHERE matricula = ?;";
+        String UPDATE_SQL = "UPDATE Docentes SET nombre = ?, apellido = ?, correoElectronico = ? WHERE matricula = ?;";
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -149,7 +204,7 @@ public class DaoDocente {
 
     public Docente getDocenteByMatricula(String matricula) {
         Docente docente = null;
-        String sql = "SELECT matricula, nombre, apellido, correoElectronico, estatus FROM docentes WHERE matricula = ?";
+        String sql = "SELECT matricula, nombre, apellido, correoElectronico, estatus FROM Docentes WHERE matricula = ?";
         try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
              PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, matricula);
@@ -170,8 +225,8 @@ public class DaoDocente {
     }
 
     public boolean desactivarDocente(String matricula) {
-        String sqlSelect = "SELECT estatus FROM docentes WHERE matricula = ?";
-        String sqlUpdate = "UPDATE docentes SET estatus = FALSE WHERE matricula = ?";
+        String sqlSelect = "SELECT estatus FROM Docentes WHERE matricula = ?";
+        String sqlUpdate = "UPDATE Docentes SET estatus = FALSE WHERE matricula = ?";
 
         try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
              PreparedStatement selectStmt = connection.prepareStatement(sqlSelect);
@@ -197,8 +252,8 @@ public class DaoDocente {
     }
 
     public boolean activarDocente(String matricula) {
-        String sqlSelect = "SELECT estatus FROM docentes WHERE matricula = ?";
-        String sqlUpdate = "UPDATE docentes SET estatus = TRUE WHERE matricula = ?";
+        String sqlSelect = "SELECT estatus FROM Docentes WHERE matricula = ?";
+        String sqlUpdate = "UPDATE Docentes SET estatus = TRUE WHERE matricula = ?";
 
         try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
              PreparedStatement selectStmt = connection.prepareStatement(sqlSelect);
@@ -225,7 +280,7 @@ public class DaoDocente {
 
     public List<Docente> listarDocentes() {
         List<Docente> docentes = new ArrayList<>();
-        String sql = "SELECT matricula, nombre, apellido, correoElectronico, estatus FROM docentes";
+        String sql = "SELECT matricula, nombre, apellido, correoElectronico, estatus FROM Docentes";
         try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
              PreparedStatement stmt = connection.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {

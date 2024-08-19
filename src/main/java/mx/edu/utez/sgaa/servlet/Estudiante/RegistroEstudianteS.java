@@ -1,8 +1,8 @@
 package mx.edu.utez.sgaa.servlet.Estudiante;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.*;
 import java.io.IOException;
 import mx.edu.utez.sgaa.dao.DaoEstudiante;
 import mx.edu.utez.sgaa.model.Estudiante;
@@ -27,12 +27,25 @@ public class RegistroEstudianteS extends HttpServlet {
         String password = request.getParameter("password");
         String nombre = request.getParameter("nombre");
         String apellido = request.getParameter("apellido");
+        String cuatrimestre = request.getParameter("Cuatrimestre");
+        String grupo = request.getParameter("grupo");
+        String division = request.getParameter("div_aca");
+        String carrera = request.getParameter("carrera");
+        String insti = "@utez.edu.mx";
+        String email = matricula + insti;
+        Boolean estatus = true;
+        String rol = "Estudiante";
 
         Estudiante estudiante = new Estudiante();
         estudiante.setNombre(nombre);
         estudiante.setApellido(apellido);
         estudiante.setContrasena(password);
         estudiante.setMatricula(matricula);
+        estudiante.setGrupo(grupo);
+        estudiante.setCuatrimestre(cuatrimestre);
+        estudiante.setEstatus(estatus);
+        estudiante.setRol(rol);
+        estudiante.setCorreoElectronico(email);
 
         // Debug output
         System.out.println("Parametros recibidos - Matricula: " + matricula + ", Contraseña: " + password + ", Nombre: " + nombre + ", Apellido: " + apellido);
@@ -42,7 +55,6 @@ public class RegistroEstudianteS extends HttpServlet {
             if (result > 0) {
                 response.sendRedirect(request.getContextPath() + "/vistas/Estudiante/LoginEstudiante.jsp");
                 response.getWriter().println("Estudiante registrado exitosamente.");
-
             } else {
                 response.getWriter().println("Error al registrar estudiante.");
             }
@@ -50,6 +62,5 @@ public class RegistroEstudianteS extends HttpServlet {
             e.printStackTrace();
             throw new ServletException("Error al registrar estudiante.", e);
         }
-
     }
 }

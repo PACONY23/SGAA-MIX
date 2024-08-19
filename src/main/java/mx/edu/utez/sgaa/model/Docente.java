@@ -9,11 +9,12 @@ public class Docente {
     private String correoElectronico;
     private boolean estatus; // Asegúrate de agregar este campo
     private boolean admission;
+    private String rol;
 
     public Docente() {
     }
 
-    public Docente(String nombres, String apellidos, String matricula, String contrasena, String correoElectronico) {
+    public Docente(String nombres, String apellidos, String matricula, String contrasena, String correoElectronico, boolean estatus, boolean admission, String rol) {
         this.id = id;
         this.nombres = nombres;
         this.apellidos = apellidos;
@@ -22,6 +23,7 @@ public class Docente {
         this.correoElectronico = correoElectronico;
         this.estatus = estatus;
         this.admission = admission;
+        this.rol = rol;
     }
 
     // Agrega getters y setters para 'estatus'
@@ -36,6 +38,10 @@ public class Docente {
     }
 
     public boolean getEstatus() {
+        return estatus;
+    }
+
+    public boolean isEstatus() {
         return estatus;
     }
 
@@ -92,5 +98,11 @@ public class Docente {
     public void setAdmission(boolean admission) {
         this.admission = admission;
     }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {}
 
 }

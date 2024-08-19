@@ -1,5 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%String context = request.getContextPath();%>
+<%
+    String matricula = (String) session.getAttribute("matricula");
+    String nombre = (String) session.getAttribute("nombre");
+    String apellido = (String) session.getAttribute("apellido");
+    String correo = (String) session.getAttribute("correo");
+%>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -107,6 +113,12 @@
         .barra-lateral .navegacion a:hover #historial-img {
             content: url('<%=context%>/IMG/historial_v.png'); /* Cambia la imagen al hacer hover */
         }
+        .barra-lateral .navegacion a:hover #asesorias-img {
+            content: url('<%=context%>/IMG/asesorias_v.png'); /* Cambia la imagen al hacer hover */
+        }
+        .barra-lateral .navegacion a:hover #logout-img {
+            content: url('<%=context%>/IMG/logout_v.png'); /* Cambia la imagen al hacer hover */
+        }
         .barra-lateral .navegacion img{
             margin-left: 15px;
         }
@@ -164,6 +176,7 @@
 
         .perfil {
             width: 80%;
+            justify-content: center;
             max-width: 1000px;
             background-color: #141C32;
             padding: 40px;
@@ -324,14 +337,30 @@
             background-color: #fff;
             color: #141C32;
         }
+        .boton-cerrar-sesion {
+            margin: 10px;
+            padding: 10px 20px;
+            background-color: #141C32;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .boton-cerrar-sesion:hover {
+            background-color: #fff;
+            color: #141C32;
+        }
     </style>
 </head>
 <body>
+
 <!-- Barra lateral -->
 <div class="barra-lateral">
     <div class="nombre-pagina">
         <img src="<%=context%>/IMG/logoCalendario.png" id="cloud" class="img-fluid" style="height: 40px; width: auto"/>
-        <span>UTESORATE</span>
+        <span>UTEZORATE</span>
     </div>
     <nav class="navegacion">
         <ul class="list-unstyled">
@@ -354,34 +383,47 @@
                 </a>
             </li>
             <li>
-                <form action="<%=request.getContextPath()%>/LogoutDocenteS" method="get">
-                    <button type="submit">Cerrar Sesión</button>
-                </form>
-
+                <a href="<%=context%>/vistas/Docente/AsesoriasGestionDocente.jsp" class="d-flex align-items-center" >
+                    <img id="asesorias-img" src="<%=context%>/IMG/asesorias_b.png" class="img-fluid" style="width: auto; height: 35px;" />
+                    <span>Gestion asesorías</span>
+                </a>
+            </li>
+            <li>
+                <a href="<%=request.getContextPath()%>/LogoutS" class="d-flex align-items-center" >
+                    <img id="logout-img" src="<%=context%>/IMG/logout_b.png" class="img-fluid" style="width: auto; height: 35px;" />
+                    <span>Cerrar sesión</span>
+                </a>
             </li>
         </ul>
     </nav>
 </div>
+<!-- CONTENIDO SUPERIOR -->
+<div class="contenido-superior">
+    <div class="titulo-interfaz">
+        <span>Perfil Docente</span>
+    </div>
 
-<!-- Contenedor principal -->
+    <div class="matricula-section" style="color: black;">
+        Matrícula: <%=matricula != null ? matricula : "Desconocida" %>
+    </div>
+</div>
+
+
+
 <div class="contenedor-perfil">
     <div class="perfil">
-        <div class="foto">
-            <img src="foto_perfil.png" alt="Foto del Estudiante">
-            <input type="file" id="subirFoto">
-        </div>
         <div class="informacion">
             <div class="dato">
                 <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" value="Nombre actual">
+                <input type="text" id="nombre" value="<%=nombre%>" readonly>
             </div>
             <div class="dato">
                 <label for="apellidos">Apellidos:</label>
-                <input type="text" id="apellidos" value="Apellidos actuales">
+                <input type="text" id="apellidos" value="<%=apellido%>" readonly>
             </div>
             <div class="dato">
                 <label for="correo">Correo:</label>
-                <input type="email" id="correo" value="correo@ejemplo.com">
+                <input type="email" id="correo" value="<%=correo%>" readonly>
             </div>
             <div class="botones">
                 <button id="editar">Editar</button>
@@ -398,15 +440,15 @@
         <form id="editarForm">
             <div class="input-group">
                 <label for="nombreModal">Nombre:</label>
-                <input type="text" id="nombreModal" value="Nombre actual">
+                <input type="text" id="nombreModal" value="<%=nombre%>">
             </div>
             <div class="input-group">
                 <label for="apellidosModal">Apellidos:</label>
-                <input type="text" id="apellidosModal" value="Apellidos actuales">
+                <input type="text" id="apellidosModal" value="<%=apellido%>">
             </div>
             <div class="input-group">
                 <label for="correoModal">Correo:</label>
-                <input type="email" id="correoModal" value="correo@ejemplo.com">
+                <input type="email" id="correoModal" value="<%=correo%>">
             </div>
             <div class="modal-buttons">
                 <button type="button" id="guardarCambios">Guardar Cambios</button>

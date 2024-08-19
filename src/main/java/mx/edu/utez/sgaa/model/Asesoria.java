@@ -10,6 +10,9 @@ public class Asesoria {
     private String titulo;
     private Date fecha;
     private Time hora;
+    private String DocenteNombre;
+    private String DocenteApellido;
+    private String nombreMateria;
 
     public Asesoria() {
     }
@@ -20,6 +23,10 @@ public class Asesoria {
         this.titulo = titulo;
         this.fecha = fecha;
         this.hora = hora;
+        // Establecer valores predeterminados o null para otros campos
+        this.DocenteNombre = "";
+        this.DocenteApellido = "";
+        this.nombreMateria = "";
     }
 
     public int getIdAsesoria() {
@@ -69,4 +76,16 @@ public class Asesoria {
     public void setHora(Time hora) {
         this.hora = hora;
     }
+    public String getDocenteNombre() {
+        return DocenteNombre;
+    }
+    public void setDocenteNombre(String DocenteNombre) {this.DocenteNombre = DocenteNombre;}
+    public String getDocenteApellido() {
+        return DocenteApellido;
+    }
+    public void setDocenteApellido(String DocenteApellido) {this.DocenteApellido = DocenteApellido;}
+    public String getNombreMateria() {
+        return nombreMateria;
+    }
+    public void setNombreMateria(String nombreMateria) {this.nombreMateria = nombreMateria;}
 }

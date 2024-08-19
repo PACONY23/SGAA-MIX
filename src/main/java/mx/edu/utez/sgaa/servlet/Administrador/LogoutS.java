@@ -1,10 +1,9 @@
 package mx.edu.utez.sgaa.servlet.Administrador;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.*;
 import java.io.IOException;
-
 
 @WebServlet(name = "LogoutS", value = "/LogoutS")
 public class LogoutS extends HttpServlet {
@@ -14,6 +13,6 @@ public class LogoutS extends HttpServlet {
         if (session != null) {
             session.invalidate();
         }
-        response.sendRedirect(request.getContextPath() + "/vistas/Admin/LoginAdmin.jsp");
+        response.sendRedirect(request.getContextPath() + "/index.jsp");
     }
 }

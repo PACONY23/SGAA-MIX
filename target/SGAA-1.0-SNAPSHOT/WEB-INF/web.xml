@@ -67,8 +67,6 @@
         <url-pattern>/LogoutDocenteS</url-pattern>
     </servlet-mapping>
 
-
-
     <filter>
         <filter-name>SessionFilterEstudiante</filter-name>
         <filter-class>mx.edu.utez.sgaa.servlet.Estudiante.SessionFilterEstudiante</filter-class>
@@ -94,6 +92,41 @@
     <servlet-mapping>
         <servlet-name>LogouEstudianteS</servlet-name>
         <url-pattern>/LogouEstudianteS</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>HorarioEstudianteS</servlet-name>
+        <servlet-class>mx.edu.utez.sgaa.servlet.Estudiante.HorarioEstudianteS</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>HorarioEstudianteS</servlet-name>
+        <url-pattern>/HorarioEstudianteS</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>buscarMateriaS</servlet-name>
+        <servlet-class>mx.edu.utez.sgaa.servlet.Estudiante.buscarMateriaS</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>buscarMateriaS</servlet-name>
+        <url-pattern>/buscarMateriaS</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>IniciarAsesoriaS</servlet-name>
+        <servlet-class>mx.edu.utez.sgaa.servlet.Docente.IniciarAsesoriaS</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>IniciarAsesoriaS</servlet-name>
+        <url-pattern>/iniciarAsesoriaS</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ReagendarAsesoriaS</servlet-name>
+        <servlet-class>mx.edu.utez.sgaa.servlet.Docente.ReagendarAsesoriaS</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ReagendarAsesoriaS</servlet-name>
+        <url-pattern>/ReagendarAsesoriaS</url-pattern>
     </servlet-mapping>
 
 

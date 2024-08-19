@@ -112,6 +112,12 @@
       .barra-lateral .navegacion a:hover #buscador-img {
         content: url('<%=context%>/IMG/buscador_v.png'); /* Cambia la imagen al hacer hover */
       }
+      .barra-lateral .navegacion a:hover #materias-img {
+        content: url('<%=context%>/IMG/materias_v.png'); /* Cambia la imagen al hacer hover */
+      }
+      .barra-lateral .navegacion a:hover #logout-img {
+        content: url('<%=context%>/IMG/logout_v.png'); /* Cambia la imagen al hacer hover */
+      }
       .barra-lateral .navegacion img{
         margin-left: 15px;
       }
@@ -320,12 +326,13 @@
       }
     </style>
   </head>
+
   <body>
   <!-- Barra lateral -->
   <div class="barra-lateral">
     <div class="nombre-pagina">
       <img src="<%=context%>/IMG/logoCalendario.png" id="cloud" class="img-fluid" style="height: 40px; width: auto"/>
-      <span>UTESORATE</span>
+      <span>UTEZORATE</span>
     </div>
     <nav class="navegacion">
       <ul class="list-unstyled">
@@ -336,33 +343,45 @@
           </a>
         </li>
         <li>
-          <a href="<%=context%>/vistas/Estudiante/HorarioEstudiante.jsp" class="d-flex align-items-center">
+          <a href="<%=context%>/HorarioEstudianteS" class="d-flex align-items-center">
             <img id="calendario-img" src="<%=context%>/IMG/calendario_b.png" class="img-fluid" style="width: auto; height: 35px;" />
             <span>Mi calendario</span>
           </a>
         </li>
         <li>
-          <a href="<%=context%>/vistas/Estudiante/HistorialEstudiante.jsp" class="d-flex align-items-center" >
+          <a href="<%=context%>/vistas/Estudiante/HistorialEstudiante.jsp" class="d-flex align-items-center">
             <img id="historial-img" src="<%=context%>/IMG/historial_b.png" class="img-fluid" style="width: auto; height: 35px;" />
             <span>Historial</span>
           </a>
         </li>
         <li>
-          <a href="<%=context%>/vistas/Estudiante/buscarMateria.jsp" class="d-flex align-items-center" >
+          <a href="<%=context%>/vistas/Estudiante/buscarMateria.jsp" class="d-flex align-items-center">
             <img id="buscador-img" src="<%=context%>/IMG/buscador_b.png" class="img-fluid" style="width: auto; height: 35px;" />
             <span>Buscar materias</span>
+          </a>
+        </li>
+        <li>
+          <a href="<%=context%>/vistas/Estudiante/Reagendas.jsp" class="d-flex align-items-center">
+            <img id="materias-img" src="<%=context%>/IMG/materias_b.png" class="img-fluid" style="width: auto; height: 35px;" />
+            <span>Reagendas</span>
+          </a>
+        </li>
+        <li>
+          <a href="<%=request.getContextPath()%>/LogoutS" class="d-flex align-items-center" >
+            <img id="logout-img" src="<%=context%>/IMG/logout_b.png" class="img-fluid" style="width: auto; height: 35px;" />
+            <span>Cerrar sesión</span>
           </a>
         </li>
       </ul>
     </nav>
   </div>
-    <div class="contenido-superior">
+
+  <div class="contenido-superior">
       <div class="titulo-interfaz">
-        <span>Calificar docente</span>
+        <span>Comparte tu opinión</span>
       </div>
       <div class="rol-actual">
         <span class="rol" id="asigna_rol">Estudiante</span>
-        <img src="imagenes/busqueda.png" alt="rol" />
       </div>
     </div>
 

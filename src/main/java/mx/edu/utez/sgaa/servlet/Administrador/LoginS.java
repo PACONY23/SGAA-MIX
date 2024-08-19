@@ -2,9 +2,9 @@ package mx.edu.utez.sgaa.servlet.Administrador;
 
 import mx.edu.utez.sgaa.dao.DaoLogin;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.*;
 import java.io.IOException;
 
 @WebServlet(name = "LoginS", value = "/LoginS")

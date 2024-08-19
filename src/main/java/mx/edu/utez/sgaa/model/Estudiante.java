@@ -1,19 +1,22 @@
 package mx.edu.utez.sgaa.model;
 
 public class Estudiante {
+    private int id;
     private String nombre;
     private String apellido;
     private String contrasena;
     private String matricula;
     private String grupo;
-    private int cuatrimestre;
+    private String cuatrimestre;
     private String correoElectronico;
     private boolean estatus;
+    private String rol;
 
     public Estudiante() {
     }
 
-    public Estudiante(String nombre, String apellido, String contrasena, String matricula, String grupo, int cuatrimestre, String correoElectronico, boolean estatus) {
+    public Estudiante(int id,String nombre, String apellido, String contrasena, String matricula, String grupo, String cuatrimestre, String correoElectronico, boolean estatus, String rol) {
+        this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.contrasena = contrasena;
@@ -22,6 +25,7 @@ public class Estudiante {
         this.cuatrimestre = cuatrimestre;
         this.correoElectronico = correoElectronico;
         this.estatus = estatus;
+        this.rol = rol;
     }
 
     // Getters y setters para todos los campos, incluyendo estatus
@@ -66,11 +70,11 @@ public class Estudiante {
         this.grupo = grupo;
     }
 
-    public int getCuatrimestre() {
+    public String getCuatrimestre() {
         return cuatrimestre;
     }
 
-    public void setCuatrimestre(int cuatrimestre) {
+    public void setCuatrimestre(String cuatrimestre) {
         this.cuatrimestre = cuatrimestre;
     }
 
@@ -88,5 +92,16 @@ public class Estudiante {
 
     public void setEstatus(boolean estatus) {
         this.estatus = estatus;
+    }
+
+    public String getRol() {
+        return rol;
+    }
+    public void setRol(String rol) {}
+
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
     }
 }

@@ -2,9 +2,9 @@ package mx.edu.utez.sgaa.servlet.Administrador;
 
 import mx.edu.utez.sgaa.dao.DaoDocente;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import jakarta.servlet.*;
+import jakarta.servlet.http.*;
+import jakarta.servlet.annotation.*;
 import java.io.IOException;
 
 @WebServlet(name = "EliminarDocenteS", value = "/EliminarDocenteS")

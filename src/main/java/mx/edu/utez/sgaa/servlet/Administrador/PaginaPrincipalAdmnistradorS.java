@@ -1,8 +1,8 @@
 package mx.edu.utez.sgaa.servlet.Administrador;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import jakarta.servlet.*;
+import jakarta.servlet.http.*;
+import jakarta.servlet.annotation.*;
 import java.io.IOException;
 
 @WebServlet(name = "PaginaPrincipalAdmnistradorS", value = "/PaginaPrincipalAdmnistradorS")
@@ -14,6 +14,6 @@ public class PaginaPrincipalAdmnistradorS extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        // Implementar la lógica del POST aquí si es necesario
     }
 }

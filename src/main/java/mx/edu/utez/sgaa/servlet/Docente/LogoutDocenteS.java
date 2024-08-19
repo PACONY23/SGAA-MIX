@@ -1,9 +1,14 @@
 package mx.edu.utez.sgaa.servlet.Docente;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import java.io.IOException;
+
 @WebServlet(name = "LogoutDocenteS", value = "/LogoutDocenteS")
 public class LogoutDocenteS extends HttpServlet {
     @Override
@@ -12,6 +17,6 @@ public class LogoutDocenteS extends HttpServlet {
         if (session != null) {
             session.invalidate();
         }
-        response.sendRedirect(request.getContextPath() + "/vistas/Docente/LoginDocente.jsp");
+        response.sendRedirect(request.getContextPath() + "/index.jsp");
     }
 }

@@ -9,8 +9,8 @@ import java.sql.SQLException;
 
 public class DaoLoginDocente {
     private final DatabaseConnection DB_Connection  = new DatabaseConnection();
-    public String findDocenteByMatriculaAndContraseña(String matricula, String contraseña) {
-        String role = null;
+    public String[] findDocenteByMatriculaAndContraseña(String matricula, String contraseña) {
+        String[] data = null;
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -18,14 +18,19 @@ public class DaoLoginDocente {
 
         try {
             con = DB_Connection.getConnection();
-            String query = "SELECT rol FROM docentes  WHERE matricula = ? AND contraseña = ?";
+            String query = "SELECT nombre,apellido,correoElectronico,idDocente, rol FROM Docentes WHERE matricula = ? AND contraseña = ? AND estatus = true AND admision = true";
             ps = con.prepareStatement(query);
             ps.setString(1, matricula);
             ps.setString(2, contraseña);
             rs = ps.executeQuery();
 
             if (rs.next()) {
-                role = rs.getString("rol");
+                data = new String[5];
+                data[0] = rs.getString("idDocente"); // idDocente como String
+                data[1] = rs.getString("rol"); // rol
+                data[2] = rs.getString("nombre");
+                data[3] = rs.getString("apellido");
+                data[4] = rs.getString("correoElectronico");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -39,6 +44,6 @@ public class DaoLoginDocente {
             }
         }
 
-        return role;
+        return data;
     }
 }

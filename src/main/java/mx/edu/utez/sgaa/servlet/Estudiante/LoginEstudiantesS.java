@@ -2,11 +2,12 @@ package mx.edu.utez.sgaa.servlet.Estudiante;
 
 import mx.edu.utez.sgaa.dao.DaoLoginDocente;
 import mx.edu.utez.sgaa.dao.DaoLoginEstudiante;
-
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
+import mx.edu.utez.sgaa.model.Estudiante;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.*;
 import java.io.IOException;
+
 
 @WebServlet(name = "LoginEstudiantesS", value = "/LoginEstudiantesS")
 public class LoginEstudiantesS extends HttpServlet {
@@ -15,7 +16,7 @@ public class LoginEstudiantesS extends HttpServlet {
         // Establece el tipo de contenido de la respuesta
         response.setContentType("text/html;charset=UTF-8");
 
-        // Redirige a la página principal del admin si hay sesión activa
+        // Redirige a la página principal del estudiante si hay sesión activa
         if (request.getSession(false) != null) {
             response.sendRedirect(request.getContextPath() + "/vistas/Estudiante/PaginaPrincipalEstudiante.jsp");
         } else {
@@ -35,17 +36,37 @@ public class LoginEstudiantesS extends HttpServlet {
         System.out.println("Matricula: " + matricula);
         System.out.println("Contraseña: " + contraseña);
 
-        String role = dao.findEstudianteByMatriculaAndContraseña(matricula, contraseña);
+        // Buscar el estudiante usando el DAO
+        String[] estudianteData = dao.findEstudianteDataByMatriculaAndContraseña(matricula, contraseña);
 
-        if (role != null) {
+        if (estudianteData != null) {
+            String idEstudiante = estudianteData[0];
+            String rol = estudianteData[1];
+            String nombre = estudianteData[2];
+            String apellido = estudianteData[3];
+            String correo = estudianteData[4];
+            String grupo = estudianteData[5];
+            String cuatrimestre = estudianteData[6];
+
             HttpSession session = request.getSession(true);
+            // Guardar los atributos en la sesión
+            session.setAttribute("idEstudiante", idEstudiante); // Guardar el id del estudiante en la sesión
             session.setAttribute("matricula", matricula);
-            session.setAttribute("role", role); // Guardar el rol en la sesión
+            session.setAttribute("correo", correo);
+            session.setAttribute("nombre", nombre);
+            session.setAttribute("apellido", apellido);
+            session.setAttribute("grupo", grupo);
+            session.setAttribute("cuatrimestre", cuatrimestre);
+            session.setAttribute("role", rol); // Guardar el rol en la sesión
             session.setAttribute("flag", true);
+
             System.out.println("Redirigiendo a PaginaPrincipalEstudiante.jsp");
-            response.sendRedirect(request.getContextPath() + "/vistas/Estudiante/PaginaPrincipalEstudiante.jsp"); // Redirigir a la página principal del admin
+
+            // Redirigir al estudiante a la página principal
+            response.sendRedirect(request.getContextPath() + "/vistas/Estudiante/PaginaPrincipalEstudiante.jsp");
         } else {
             System.out.println("Credenciales incorrectas");
+            // Si las credenciales son incorrectas, establecer el flag en false y volver al login
             request.setAttribute("flag", false);
             request.getRequestDispatcher("/vistas/Estudiante/LoginEstudiante.jsp").forward(request, response);
         }

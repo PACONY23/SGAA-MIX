@@ -7,30 +7,39 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DaoEstudiante {
-    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/estudiante";
-    private static final String JDBC_USER = "root";
-    private static final String JDBC_PASSWORD = "root";
+    private static final String JDBC_URL = "jdbc:mysql://db-sgaa.cf75ndzosmhf.us-east-1.rds.amazonaws.com:3306/estudiante";
+    private static final String JDBC_USER = "admin";
+    private static final String JDBC_PASSWORD = "2512032201Jafet";
 
     public int RegistrarEstudiante(Estudiante estudiante) throws ClassNotFoundException {
-        String INSERT_USERS_SQL = "INSERT INTO estudiantes (matricula, contraseña, nombre, apellido, grupo, cuatrimestre, correoElectronico, estatus) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+        String CALL_PROCEDURE_SQL = "{CALL insertarEstudiante(?, ?, ?, ?, ?, ?, ?, ?, ?)}";
         int result = 0;
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
             try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD)) {
-                PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USERS_SQL);
-                preparedStatement.setString(1, estudiante.getMatricula());
-                preparedStatement.setString(2, estudiante.getContrasena());
-                preparedStatement.setString(3, estudiante.getNombre());
-                preparedStatement.setString(4, estudiante.getApellido());
-                preparedStatement.setString(5, estudiante.getGrupo());
-                preparedStatement.setInt(6, estudiante.getCuatrimestre());
-                preparedStatement.setString(7, estudiante.getCorreoElectronico());
-                preparedStatement.setBoolean(8, estudiante.getEstatus()); // Cambiado a booleano
-                System.out.println(preparedStatement);
+                CallableStatement callableStatement = connection.prepareCall(CALL_PROCEDURE_SQL);
+                callableStatement.setString(1, estudiante.getMatricula());
+                callableStatement.setString(2, estudiante.getNombre());
+                callableStatement.setString(3, estudiante.getApellido());
+                callableStatement.setString(4, estudiante.getGrupo());
+                callableStatement.setString(5, estudiante.getCuatrimestre());
 
-                result = preparedStatement.executeUpdate();
+                callableStatement.setString(6, estudiante.getContrasena());
+                callableStatement.setString(7, estudiante.getCorreoElectronico());
+                callableStatement.setBoolean(8, estudiante.getEstatus());
+
+                // Verificar si el rol es null
+                String rol = estudiante.getRol();
+                if (rol == null) {
+                    rol = "Estudiante"; // Asigna un valor predeterminado si es null
+                }
+                callableStatement.setString(9, rol);
+
+                System.out.println(callableStatement);
+
+                result = callableStatement.executeUpdate();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -41,9 +50,11 @@ public class DaoEstudiante {
         return result;
     }
 
+
+
     public List<Estudiante> listarEstudiantes() {
         List<Estudiante> estudiantes = new ArrayList<>();
-        String sql = "SELECT matricula, estatus FROM estudiantes";
+        String sql = "SELECT matricula, estatus FROM Estudiantes";
         try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
              PreparedStatement stmt = connection.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
@@ -60,7 +71,7 @@ public class DaoEstudiante {
     }
 
     public boolean actualizarEstudiante(Estudiante estudiante) {
-        String UPDATE_SQL = "UPDATE estudiantes SET nombre = ?, apellido = ?, grupo = ?, cuatrimestre = ?, correoElectronico = ? WHERE matricula = ?;";
+        String UPDATE_SQL = "UPDATE Estudiantes SET nombre = ?, apellido = ?, grupo = ?, cuatrimestre = ?, correoElectronico = ? WHERE matricula = ?;";
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -69,7 +80,7 @@ public class DaoEstudiante {
                 preparedStatement.setString(1, estudiante.getNombre());
                 preparedStatement.setString(2, estudiante.getApellido());
                 preparedStatement.setString(3, estudiante.getGrupo());
-                preparedStatement.setInt(4, estudiante.getCuatrimestre());
+                preparedStatement.setString(4, estudiante.getCuatrimestre());
                 preparedStatement.setString(5, estudiante.getCorreoElectronico());
                 preparedStatement.setString(6, estudiante.getMatricula());
 
@@ -86,8 +97,8 @@ public class DaoEstudiante {
     }
 
     public boolean desactivarEstudiante(String matricula) {
-        String sqlSelect = "SELECT estatus FROM estudiantes WHERE matricula = ?";
-        String sqlUpdate = "UPDATE estudiantes SET estatus = 0 WHERE matricula = ?";
+        String sqlSelect = "SELECT estatus FROM Estudiantes WHERE matricula = ?";
+        String sqlUpdate = "UPDATE Estudiantes SET estatus = 0 WHERE matricula = ?";
 
         try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
              PreparedStatement selectStmt = connection.prepareStatement(sqlSelect);
@@ -113,8 +124,8 @@ public class DaoEstudiante {
     }
 
     public boolean activarEstudiante(String matricula) {
-        String sqlSelect = "SELECT estatus FROM estudiantes WHERE matricula = ?";
-        String sqlUpdate = "UPDATE estudiantes SET estatus = 1 WHERE matricula = ?";
+        String sqlSelect = "SELECT estatus FROM Estudiantes WHERE matricula = ?";
+        String sqlUpdate = "UPDATE Estudiantes SET estatus = 1 WHERE matricula = ?";
 
         try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
              PreparedStatement selectStmt = connection.prepareStatement(sqlSelect);
@@ -141,7 +152,7 @@ public class DaoEstudiante {
 
     public Estudiante getEstudianteByMatricula(String matricula) {
         Estudiante estudiante = null;
-        String SELECT_ESTUDIANTE_SQL = "SELECT matricula, nombre, apellido, grupo, cuatrimestre, correoElectronico FROM estudiantes WHERE matricula = ?";
+        String SELECT_ESTUDIANTE_SQL = "SELECT matricula, nombre, apellido, grupo, cuatrimestre, correoElectronico FROM Estudiantes WHERE matricula = ?";
 
         try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ESTUDIANTE_SQL)) {
@@ -155,7 +166,7 @@ public class DaoEstudiante {
                 estudiante.setNombre(resultSet.getString("nombre"));
                 estudiante.setApellido(resultSet.getString("apellido"));
                 estudiante.setGrupo(resultSet.getString("grupo"));
-                estudiante.setCuatrimestre(resultSet.getInt("cuatrimestre"));
+                estudiante.setCuatrimestre(resultSet.getString("cuatrimestre"));
                 estudiante.setCorreoElectronico(resultSet.getString("correoElectronico"));
             }
         } catch (SQLException e) {

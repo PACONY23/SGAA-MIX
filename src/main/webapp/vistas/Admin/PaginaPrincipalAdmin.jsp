@@ -115,6 +115,9 @@
         .barra-lateral .navegacion a:hover #historial-img {
             content: url('<%=context%>/IMG/historial_v.png'); /* Cambia la imagen al hacer hover */
         }
+        .barra-lateral .navegacion a:hover #logout-img {
+            content: url('<%=context%>/IMG/logout_v.png'); /* Cambia la imagen al hacer hover */
+        }
 
         .barra-lateral .navegacion img{
             margin-left: 15px;
@@ -176,6 +179,7 @@
             max-width: 1000px;
             background-color: #141C32;
             padding: 40px;
+            justify-content: center;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             display: flex;
@@ -333,6 +337,21 @@
             background-color: #fff;
             color: #141C32;
         }
+        .boton-cerrar-sesion {
+            margin: 10px;
+            padding: 10px 20px;
+            background-color: #141C32;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .boton-cerrar-sesion:hover {
+            background-color: #fff;
+            color: #141C32;
+        }
     </style>
 </head>
 <body>
@@ -340,7 +359,7 @@
 <div class="barra-lateral">
     <div class="nombre-pagina">
         <img src="<%=context%>/IMG/logoCalendario.png" id="cloud" class="img-fluid" style="height: 40px; width: auto"/>
-        <span>UTESORATE</span>
+        <span>UTEZORATE</span>
     </div>
     <nav class="navegacion">
         <ul class="list-unstyled">
@@ -363,22 +382,16 @@
                 </a>
             </li>
             <li>
-                <a href="<%=context%>/vistas/Admin/GestionAsesorias.jsp" class="d-flex align-items-center" >
-                    <img id="asesorias-img" src="<%=context%>/IMG/asesorias_b.png" class="img-fluid" style="width: auto; height: 35px;" />
-                    <span>Gestión de asesorías</span>
-                </a>
-            </li>
-            <li>
                 <a href="<%=context%>/vistas/Admin/ConsultarInformacion.jsp" class="d-flex align-items-center" >
                     <img id="historial-img" src="<%=context%>/IMG/historial_b.png" class="img-fluid" style="width: auto; height: 35px;" />
                     <span>Información de usuarios</span>
                 </a>
             </li>
             <li>
-                <form action="<%=request.getContextPath()%>/LogoutS" method="get">
-                    <button type="submit">Cerrar Sesión</button>
-                </form>
-
+                <a href="<%=request.getContextPath()%>/LogoutS" class="d-flex align-items-center" >
+                    <img id="logout-img" src="<%=context%>/IMG/logout_b.png" class="img-fluid" style="width: auto; height: 35px;" />
+                    <span>Cerrar sesión</span>
+                </a>
             </li>
         </ul>
     </nav>
@@ -390,32 +403,24 @@
     </div>
     <div class="rol-actual">
         <span class="rol" id="asigna_rol">Administrador</span>
-        <img src="imagenes/busqueda.png" alt="rol" />
     </div>
 </div>
 
 <!-- Contenedor principal -->
 <div class="contenedor-perfil">
     <div class="perfil">
-        <div class="foto">
-            <img src="foto_perfil.png" alt="Foto del Estudiante">
-            <input type="file" id="subirFoto">
-        </div>
         <div class="informacion">
             <div class="dato">
                 <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" value="Nombre actual">
+                <input type="text" id="nombre" value="ADMINISTRADOR" readonly>
             </div>
             <div class="dato">
                 <label for="apellidos">Apellidos:</label>
-                <input type="text" id="apellidos" value="Apellidos actuales">
+                <input type="text" id="apellidos" value="ADMINISTRADOR" readonly>
             </div>
             <div class="dato">
                 <label for="correo">Correo:</label>
-                <input type="email" id="correo" value="correo@ejemplo.com">
-            </div>
-            <div class="botones">
-                <button id="editar">Editar</button>
+                <input type="email" id="correo" value="ADMINISTRADOR@utez.edu.mx" readonly>
             </div>
         </div>
     </div>

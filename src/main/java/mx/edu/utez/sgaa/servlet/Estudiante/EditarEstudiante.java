@@ -1,8 +1,8 @@
 package mx.edu.utez.sgaa.servlet.Estudiante;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import jakarta.servlet.*;
+import jakarta.servlet.http.*;
+import jakarta.servlet.annotation.*;
 import java.io.IOException;
 import mx.edu.utez.sgaa.dao.DaoEstudiante;
 import mx.edu.utez.sgaa.model.Estudiante;
@@ -34,7 +34,7 @@ public class EditarEstudiante extends HttpServlet {
             System.out.println("Estudiante actualizado");
         } else {
             response.sendRedirect(request.getContextPath() + "/vistas/Estudiante/PaginaPrincipalEstudiante.jsp");
-            System.out.println("No se encontro al estudiante");
+            System.out.println("No se encontró al estudiante");
         }
     }
 }
