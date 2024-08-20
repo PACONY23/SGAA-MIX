@@ -54,14 +54,19 @@ public class DaoEstudiante {
 
     public List<Estudiante> listarEstudiantes() {
         List<Estudiante> estudiantes = new ArrayList<>();
-        String sql = "SELECT matricula, estatus FROM Estudiantes";
+        String sql = "SELECT matricula, nombre, apellido, contraseña, estatus FROM Estudiantes";
         try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
              PreparedStatement stmt = connection.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
+
             while (rs.next()) {
                 Estudiante estudiante = new Estudiante();
                 estudiante.setMatricula(rs.getString("matricula"));
+                estudiante.setNombre(rs.getString("nombre"));
+                estudiante.setApellido(rs.getString("apellido"));
+                estudiante.setContrasena(rs.getString("contraseña"));
                 estudiante.setEstatus(rs.getBoolean("estatus")); // Cambiado a booleano
+
                 estudiantes.add(estudiante);
             }
         } catch (SQLException e) {

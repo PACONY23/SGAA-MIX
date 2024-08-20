@@ -3,6 +3,8 @@
 <%@ page import="mx.edu.utez.sgaa.model.Materia" %>
 <%@ page import="mx.edu.utez.sgaa.dao.DaoDocente" %>
 <%@ page import="mx.edu.utez.sgaa.model.Docente" %>
+<%@ page import="mx.edu.utez.sgaa.model.Estudiante" %>
+<%@ page import="mx.edu.utez.sgaa.dao.DaoEstudiante" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <% String context = request.getContextPath(); %>
@@ -289,9 +291,9 @@
 
 <div class="contenido">
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <button id="agregar-btn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agregarModal">
+        <%-- <button id="agregar-btn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agregarModal">
             <i class="bi bi-plus-circle"></i>  Agregar
-        </button>
+        </button> --%>
 
         <!-- Simbología de estado en una caja transparente -->
         <div class="d-flex align-items-center">
@@ -329,14 +331,68 @@
                     <button id="materia-<%=docente.getId()%>" onclick="materiasBorrado(<%=docente.getId()%>)" class="btn p-0">
                         <i class="bi bi-trash-fill" style="font-size: 25px; color: black;" data-bs-toggle="modal" data-bs-target="#consultarDocente"></i>
                     </button>
-                    <button id="materia-<%=docente.getId()%>" onclick="materiasBorrado(<%=docente.getId()%>)" class="btn p-0">
-                        <i class="bi bi-trash-fill" style="font-size: 25px; color: black;" data-bs-toggle="modal" data-bs-target="#editarDocente"></i>
+                <td style="text-align: center">
+                    <button id="materia-<%=docente.getId()%>" onclick="cargarDatosDocente(<%=docente.getId()%>, '<%=docente.getNombres()%>', '<%=docente.getApellidos()%>', '<%=docente.getContrasena()%>')" class="btn p-0">
+                        <i class="bi bi-pencil-fill" style="font-size: 25px; color: black;" data-bs-toggle="modal" data-bs-target="#editarDocente"></i>
                     </button>
+                </td>
+
                 </td>
                 <td style="text-align: center">
                     <button id="estado-<%=docente.isEstatus()%>" onclick="materiasEstado(<%=docente.getId()%>)" class="btn btn-outline-secondary ms-4" data-bs-toggle="modal" data-bs-target="#estadoDocente">
                          <span class="small">
-                              <%= !docente.isEstatus() ? "Activar" : "Desactivar" %>
+                              <%= !docente.isEstatus() ? "Habilitar" : "Deshabilitar" %>
+                         </span>
+                    </button>
+                </td>
+
+            </tr>
+            <%
+                }
+            %>
+            </tbody>
+        </table>
+    </div>
+
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead>
+            <tr>
+                <th scope="col">Correo</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Apellido</th>
+                <th scope="col" style="text-align: center">Opciones</th>
+                <th scope="col" style="text-align: center">Estado</th>
+            </tr>
+            </thead>
+            <tbody id="estudiantesTableBody">
+            <%
+                DaoEstudiante estudiantesLista  = new DaoEstudiante();
+                List<Estudiante> estudiantes = estudiantesLista.listarEstudiantes();
+                for (Estudiante estudiante : estudiantes) {
+                    System.out.println("Nombre: " +estudiante.getNombre());
+                    String rowClass = !estudiante.isEstatus() ? "table-active" : "table-primary";
+            %>
+            <tr id="materia-<%=estudiante.getId()%>" class="<%= rowClass %>">
+                <td><%=estudiante.getMatricula() %></td>
+                <td><%=estudiante.getNombre() %></td>
+                <td><%=estudiante.getApellido() %></td>
+                <td style="text-align: center">
+                    <button id="materia-<%=estudiante.getId()%>" onclick="materiasBorrado(<%=estudiante.getId()%>)" class="btn p-0">
+                        <i class="bi bi-trash-fill" style="font-size: 25px; color: black;" data-bs-toggle="modal" data-bs-target="#consultarDocente"></i>
+                    </button>
+                <td style="text-align: center">
+                    <button id="materia-<%=estudiante.getId()%>" onclick="cargarDatosDocente(<%=estudiante.getId()%>, '<%=estudiante.getNombre()%>', '<%=estudiante.getApellido()%>', '<%=estudiante.getContrasena()%>', '<%=estudiante.getGrupo()%>', '<%=estudiante.getContrasena()%>', '<%=estudiante.getCuatrimestre()%>')" class="btn p-0">
+                        <i class="bi bi-pencil-fill" style="font-size: 25px; color: black;" data-bs-toggle="modal" data-bs-target="#editarDocente"></i>
+                    </button>
+                </td>
+
+                </td>
+                <td style="text-align: center">
+                    <button id="estado-<%=estudiante.isEstatus()%>" onclick="materiasEstado(<%=estudiante.getId()%>)" class="btn btn-outline-secondary ms-4" data-bs-toggle="modal" data-bs-target="#estadoEstudiante">
+                         <span class="small">
+                              <%= !estudiante.isEstatus() ? "Habilitar" : "Deshabilitar" %>
                          </span>
                     </button>
                 </td>
@@ -351,31 +407,6 @@
 </div>
 
 
-<%-- modal de agregar materias --%>
-<div class="modal fade" id="agregarModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="agregarModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="agregarModalLabel">Agregar Materia</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form action="<%=context%>/AgregarMateriasS" method="post" id="formAgregarMateria" novalidate>
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <input type="hidden" id="a_id" name="id">
-                        <label for="Nombre_materia" class="form-label">Nombre de la Materia</label>
-                        <input type="text" class="form-control" name="Nombre_materia" id="Nombre_materia" placeholder="Ingrese el nombre de la materia">
-                        <div id="materiaError" class="text-danger" style="display:none;">Al menos 5 letras.</div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-primary" id="guardarMateriaBtn" disabled>Guardar</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
 
 
 <%-- modal cambio estado docente --%>
@@ -400,22 +431,128 @@
     </div>
 </div>
 
-<%-- modal borra materias --%>
-<div class="modal fade" id="borrarMateria" data-bs-backdrop="static" tabindex="-1" aria-labelledby="confirmarBorrarModalLabel" aria-hidden="true">
+<%-- modal editar docente --%>
+<div class="modal fade" id="editarDocente" data-bs-backdrop="static" tabindex="-1" aria-labelledby="confirmarBorrarModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="confirmarBorrarModalLabel">Confirmar Borrado</h5>
+                <h5 class="modal-title" id="confirmarBorrarModalLabel">Editar docente</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="<%=context%>/EliminarMateria" method="post">
+            <form id="formEditarDocente" action="<%=context%>/" method="post">
                 <div class="modal-body">
-                    <input type="hidden" id="d_id" name="d_id" required>
-                    ¿Estás seguro de que deseas borrar esta materia?
-                    <label id="d_name" style="font-weight: bold"></label>
+                    <input type="hidden" id="u_id" name="id"> <!-- Campo oculto para el ID del docente -->
+                    <div class="mb-3">
+                        <label for="nombres" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" name="nombres" id="nombres" placeholder="nombre" required>
+                        <div id="nombresError" class="text-danger" style="display:none;">El nombre debe tener al menos 3 letras y no puede contener números.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="apellidos" class="form-label">Apellido</label>
+                        <input type="text" class="form-control" name="apellidos" id="apellidos" placeholder="apellido" required>
+                        <div id="apellidosError" class="text-danger" style="display:none;">El apellido debe tener al menos 3 letras y no puede contener números.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="contrasena" class="form-label">Contraseña</label>
+                        <input type="text" class="form-control" name="contrasena" id="contrasena" placeholder="Contraseña" required>
+                        <div id="contrasenaError" class="text-danger" style="display:none;">La contraseña debe tener al menos 3 caracteres.</div>
+                    </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-danger">Borrar</button>
+                    <button type="submit" class="btn btn-danger" id="guardarCambiosBtn" disabled>Confirmar cambios</button>
+                    <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+<%-- modal cambio estado estudiante --%>
+<div class="modal fade" id="estadoEstudiante" data-bs-backdrop="static" tabindex="-1" aria-labelledby="confirmarrEstadoModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmarrEstadoModalLabel">Cambio del estado</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="<%=context%>/" method="post">
+                <div class="modal-body">
+                    <input type="hidden" id="ch_id_e" name="ch_id_e">
+                    ¿Estás seguro de que deseas realizar este cambio?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-danger">Cambiar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal editar estudiante -->
+<div class="modal fade" id="editarEstudiante" data-bs-backdrop="static" tabindex="-1" aria-labelledby="confirmarrBorrarModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmarrBorrarModalLabel">Editar estudiante</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="formEditarEstudiante" action="<%=context%>/" method="post">
+                <div class="modal-body">
+                    <input type="hidden" id="u_id_e" name="id"> <!-- Campo oculto para el ID del estudiante -->
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Nombre" required>
+                        <div id="nombreError" class="text-danger" style="display:none;">El nombre debe tener al menos 3 letras y no puede contener números.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="apellido" class="form-label">Apellido</label>
+                        <input type="text" class="form-control" name="apellido" id="apellido" placeholder="Apellido" required>
+                        <div id="apellidoError" class="text-danger" style="display:none;">El apellido debe tener al menos 3 letras y no puede contener números.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="grupo" class="form-label">Grupo</label>
+                        <select class="form-control" name="grupo" id="grupo" required>
+                            <option value="" disabled selected>Seleccione un grupo</option>
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="D">D</option>
+                            <option value="E">E</option>
+                            <option value="F">F</option>
+                            <option value="G">G</option>
+                        </select>
+                        <div id="grupoError" class="text-danger" style="display:none;">Debe seleccionar un grupo.</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="cuatrimestre" class="form-label">Cuatrimestre</label>
+                        <select class="form-control" name="cuatrimestre" id="cuatrimestre" required>
+                            <option value="" disabled selected>Seleccione un cuatrimestre</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                        </select>
+                        <div id="cuatrimestreError" class="text-danger" style="display:none;">Debe seleccionar un cuatrimestre.</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="contrasena_e" class="form-label">Contraseña</label>
+                        <input type="text" class="form-control" name="contrasena" id="contrasena_e" placeholder="Contraseña" required>
+                        <div id="contrasenaError_e" class="text-danger" style="display:none;">La contraseña debe tener al menos 3 caracteres.</div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger" id="guardarCambiosBtn_e" disabled>Confirmar cambios</button>
                     <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                 </div>
             </form>
@@ -434,21 +571,51 @@
         document.getElementById('ch_id').value = id;
     }
 
+    //parte del docente
+        function cargarDatosDocente(id, nombres, apellidos, matricula) {
+        document.getElementById('u_id').value = id;  // Asigna el ID del docente al campo oculto
+        document.getElementById('nombres').value = nombres;  // Asigna los nombres al input
+        document.getElementById('apellidos').value = apellidos;  // Asigna los apellidos al input
+        document.getElementById('contrasena').value = matricula;  // Puedes modificar esto para otro dato si es necesario
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
-        const form = document.getElementById('formAgregarMateria'); // Formulario en tu modal
-        const nombreMateriaInput = document.getElementById('Nombre_materia'); // ID del input de nombre de materia
-        const submitButton = document.getElementById('guardarMateriaBtn'); // Botón de envío
+        const form = document.getElementById('formEditarDocente');
+        const nombresInput = document.getElementById('nombres');
+        const apellidosInput = document.getElementById('apellidos');
+        const contrasenaInput = document.getElementById('contrasena');
+        const submitButton = document.getElementById('guardarCambiosBtn');
+
+        const nombresError = document.getElementById('nombresError');
+        const apellidosError = document.getElementById('apellidosError');
+        const contrasenaError = document.getElementById('contrasenaError');
 
         const validateForm = () => {
             let isValid = true;
 
-            // Validar nombre de la materia (al menos 5 letras, números solo al final, permite acentos)
-            const materiaPattern = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ]{5,}[0-9]*$/;
-            if (!materiaPattern.test(nombreMateriaInput.value.trim())) {
-                document.getElementById('materiaError').style.display = 'block';
+            // Validar nombres (mínimo 3 letras, solo letras y acentos permitidos)
+            const namePattern = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]{3,}$/;
+            if (!namePattern.test(nombresInput.value.trim())) {
+                nombresError.style.display = 'block';
                 isValid = false;
             } else {
-                document.getElementById('materiaError').style.display = 'none';
+                nombresError.style.display = 'none';
+            }
+
+            // Validar apellidos (mínimo 3 letras, solo letras y acentos permitidos)
+            if (!namePattern.test(apellidosInput.value.trim())) {
+                apellidosError.style.display = 'block';
+                isValid = false;
+            } else {
+                apellidosError.style.display = 'none';
+            }
+
+            // Validar que la contraseña tenga al menos 3 caracteres
+            if (contrasenaInput.value.trim().length < 3) {
+                contrasenaError.style.display = 'block';
+                isValid = false;
+            } else {
+                contrasenaError.style.display = 'none';
             }
 
             submitButton.disabled = !isValid;
@@ -457,6 +624,80 @@
         form.addEventListener('input', validateForm);
     });
 
+
+    function cargarDatosEstudiante(id, nombre, apellido, contrasena, grupo, cuatrimestre) {
+        document.getElementById('u_id_e').value = id;  // Asigna el ID del estudiante al campo oculto
+        document.getElementById('nombre').value = nombre;  // Asigna el nombre al input
+        document.getElementById('apellido').value = apellido;  // Asigna el apellido al input
+        document.getElementById('contrasena_e').value = contrasena;  // Asigna la contraseña al input
+        document.getElementById('grupo').value = grupo;  // Asigna el grupo al select
+        document.getElementById('cuatrimestre').value = cuatrimestre;  // Asigna el cuatrimestre al select
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const form = document.getElementById('formEditarEstudiante');
+        const nombreInput = document.getElementById('nombre');
+        const apellidoInput = document.getElementById('apellido');
+        const contrasenaInput = document.getElementById('contrasena_e');
+        const grupoSelect = document.getElementById('grupo');
+        const cuatrimestreSelect = document.getElementById('cuatrimestre');
+        const submitButton = document.getElementById('guardarCambiosBtn_e');
+
+        const nombreError = document.getElementById('nombreError');
+        const apellidoError = document.getElementById('apellidoError');
+        const contrasenaError = document.getElementById('contrasenaError_e');
+        const grupoError = document.getElementById('grupoError');
+        const cuatrimestreError = document.getElementById('cuatrimestreError');
+
+        const validateForm = () => {
+            let isValid = true;
+
+            // Validar nombre (mínimo 3 letras, solo letras y acentos permitidos)
+            const namePattern = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]{3,}$/;
+            if (!namePattern.test(nombreInput.value.trim())) {
+                nombreError.style.display = 'block';
+                isValid = false;
+            } else {
+                nombreError.style.display = 'none';
+            }
+
+            // Validar apellido (mínimo 3 letras, solo letras y acentos permitidos)
+            if (!namePattern.test(apellidoInput.value.trim())) {
+                apellidoError.style.display = 'block';
+                isValid = false;
+            } else {
+                apellidoError.style.display = 'none';
+            }
+
+            // Validar que la contraseña tenga al menos 3 caracteres
+            if (contrasenaInput.value.trim().length < 3) {
+                contrasenaError.style.display = 'block';
+                isValid = false;
+            } else {
+                contrasenaError.style.display = 'none';
+            }
+
+            // Validar que se haya seleccionado un grupo
+            if (grupoSelect.value === "") {
+                grupoError.style.display = 'block';
+                isValid = false;
+            } else {
+                grupoError.style.display = 'none';
+            }
+
+            // Validar que se haya seleccionado un cuatrimestre
+            if (cuatrimestreSelect.value === "") {
+                cuatrimestreError.style.display = 'block';
+                isValid = false;
+            } else {
+                cuatrimestreError.style.display = 'none';
+            }
+
+            submitButton.disabled = !isValid;
+        };
+
+        form.addEventListener('input', validateForm);
+    });
 </script>
 
 </body>

@@ -9,9 +9,30 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6a19c728-5485-481b-9950-08d47e1e709d" name="Changes" comment="">
+    <list default="true" id="a139834b-be9f-40a4-a4c8-e1bc4c412130" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/webContexts.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/webContexts.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/dao/DaoDocente.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/dao/DaoDocente.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/dao/DaoEstudiante.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/dao/DaoEstudiante.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/model/Estudiante.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/model/Estudiante.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Docente/nuevoSV/CrearAsesoriaServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Docente/nuevoSV/CrearAsesoriaServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/vistas/Admin/ConsultarInformacion.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/vistas/Admin/ConsultarInformacion.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/vistas/Admin/ConsultarInformación2.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/vistas/Admin/ConsultarInformación2.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/vistas/Docente/CrearHorario.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/vistas/Docente/CrearHorario.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/dao/DaoDocente.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/dao/DaoDocente.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/dao/DaoEstudiante.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/dao/DaoEstudiante.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/model/Estudiante.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/model/Estudiante.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/vistas/Admin/ConsultarInformacion.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/vistas/Admin/ConsultarInformacion.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/vistas/Docente/CrearHorario.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/vistas/Docente/CrearHorario.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/dao/DaoDocente.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/dao/DaoDocente.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/dao/DaoEstudiante.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/dao/DaoEstudiante.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/model/Estudiante.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/model/Estudiante.class" afterDir="false" />
     </list>
+    <list id="93d35109-d88d-440d-aee6-edfc685efac2" name="Changes by EKT9962" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -20,10 +41,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="HTML File" />
-        <option value="CSS File" />
         <option value="Class" />
         <option value="Servlet" />
+        <option value="Jsp File" />
       </list>
     </option>
   </component>
@@ -37,46 +57,67 @@
     <option name="FILTER_DEBUG" value="true" />
     <option name="CUSTOM_FILTER" />
   </component>
-  <component name="MavenImportPreferences">
-    <option name="generalSettings">
-      <MavenGeneralSettings>
-        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
-      </MavenGeneralSettings>
-    </option>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 4
+  &quot;associatedIndex&quot;: 0
 }</component>
-  <component name="ProjectId" id="2jiAEOTp1sP09eAvgQGvDy3148n" />
+  <component name="ProjectId" id="2kiZdXPfHOHcDRYvnNMxzNGUFWQ" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.DaoDocente.executor&quot;: &quot;Run&quot;,
-    &quot;Application.DaoMateria.executor&quot;: &quot;Run&quot;,
-    &quot;Application.DatabaseConnection.executor&quot;: &quot;Run&quot;,
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;Tomcat Server.Tomcat 9.0.90.executor&quot;: &quot;Run&quot;,
-    &quot;Tomcat Server.Unnamed.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/16844/OneDrive/Escritorio/SGAA_1/SGAA_10&quot;,
-    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.DaoAsesoria.executor": "Run",
+    "Application.DaoEstudianteAsesoria.executor": "Run",
+    "Application.DatabaseConnection.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "Tomcat Server.Tomcat 10.1.26.executor": "Run",
+    "Tomcat Server.Tomcat 9.0.90.executor": "Run",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/16844/OneDrive/Escritorio/clonSGAA/SGAA1",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Artifacts",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
-  <component name="RunManager" selected="Tomcat Server.Tomcat 9.0.90">
+}]]></component>
+  <component name="RunManager" selected="Tomcat Server.Tomcat 10.1.26">
+    <configuration name="DaoAsesoria" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="mx.edu.utez.sgaa.dao.DaoAsesoria" />
+      <module name="SGAA" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="mx.edu.utez.sgaa.dao.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DaoEstudianteAsesoria" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="mx.edu.utez.sgaa.dao.DaoEstudianteAsesoria" />
+      <module name="SGAA" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="mx.edu.utez.sgaa.dao.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="DatabaseConnection" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="mx.edu.utez.sgaa.database.DatabaseConnection" />
       <module name="SGAA" />
@@ -90,7 +131,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Tomcat 9.0.90" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 9.0.90" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
+    <configuration name="Tomcat 10.1.26" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 10.1.26" ALTERNATIVE_JRE_ENABLED="false">
       <option name="UPDATING_POLICY" value="restart-server" />
       <deployment>
         <artifact name="SGAA:war exploded">
@@ -100,9 +141,8 @@
         </artifact>
       </deployment>
       <server-settings>
-        <option name="BASE_DIRECTORY_NAME" value="dd203f85-a33c-4ef2-a79f-dc69afc49842" />
+        <option name="BASE_DIRECTORY_NAME" value="73cef2de-8c34-4bf4-9929-89e9266b2818" />
         <option name="HTTP_PORT" value="8081" />
-        <option name="JNDI_PORT" value="1098" />
       </server-settings>
       <predefined_log_file enabled="true" id="Tomcat" />
       <predefined_log_file enabled="true" id="Tomcat Catalina" />
@@ -110,7 +150,7 @@
       <predefined_log_file id="Tomcat Host Manager" />
       <predefined_log_file id="Tomcat Localhost Access" />
       <RunnerSettings RunnerId="Debug">
-        <option name="DEBUG_PORT" value="57277" />
+        <option name="DEBUG_PORT" value="13591" />
       </RunnerSettings>
       <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
         <option name="USE_ENV_VARIABLES" value="true" />
@@ -179,96 +219,17 @@
         </option>
       </method>
     </configuration>
-    <configuration default="true" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 9.0.90" ALTERNATIVE_JRE_ENABLED="false">
-      <option name="UPDATING_POLICY" value="restart-server" />
-      <deployment>
-        <artifact name="Web Application: Exploded">
-          <settings>
-            <option name="CONTEXT_PATH" value="/Web_Application__Exploded" />
-          </settings>
-        </artifact>
-      </deployment>
-      <server-settings>
-        <option name="BASE_DIRECTORY_NAME" value="1a7d17b6-ae66-49b9-829a-1027c5c6cf91" />
-      </server-settings>
-      <predefined_log_file enabled="true" id="Tomcat" />
-      <predefined_log_file enabled="true" id="Tomcat Catalina" />
-      <predefined_log_file id="Tomcat Manager" />
-      <predefined_log_file id="Tomcat Host Manager" />
-      <predefined_log_file id="Tomcat Localhost Access" />
-      <RunnerSettings RunnerId="Debug">
-        <option name="DEBUG_PORT" value="57277" />
-      </RunnerSettings>
-      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
-        <option name="USE_ENV_VARIABLES" value="true" />
-        <STARTUP>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </STARTUP>
-        <SHUTDOWN>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </SHUTDOWN>
-      </ConfigurationWrapper>
-      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug">
-        <option name="USE_ENV_VARIABLES" value="true" />
-        <STARTUP>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </STARTUP>
-        <SHUTDOWN>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </SHUTDOWN>
-      </ConfigurationWrapper>
-      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Profile">
-        <option name="USE_ENV_VARIABLES" value="true" />
-        <STARTUP>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </STARTUP>
-        <SHUTDOWN>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </SHUTDOWN>
-      </ConfigurationWrapper>
-      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
-        <option name="USE_ENV_VARIABLES" value="true" />
-        <STARTUP>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </STARTUP>
-        <SHUTDOWN>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </SHUTDOWN>
-      </ConfigurationWrapper>
-      <method v="2">
-        <option name="Make" enabled="true" />
-        <option name="BuildArtifacts" enabled="true">
-          <artifact name="SGAA:war exploded" />
-        </option>
-      </method>
-    </configuration>
+    <list>
+      <item itemvalue="Application.DaoAsesoria" />
+      <item itemvalue="Application.DaoEstudianteAsesoria" />
+      <item itemvalue="Application.DatabaseConnection" />
+      <item itemvalue="Tomcat Server.Tomcat 10.1.26" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.DatabaseConnection" />
+        <item itemvalue="Application.DaoAsesoria" />
+        <item itemvalue="Application.DaoEstudianteAsesoria" />
       </list>
     </recent_temporary>
   </component>
@@ -283,35 +244,22 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="6a19c728-5485-481b-9950-08d47e1e709d" name="Changes" comment="" />
-      <created>1721859411333</created>
+      <changelist id="a139834b-be9f-40a4-a4c8-e1bc4c412130" name="Changes" comment="" />
+      <created>1723768444787</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1721859411333</updated>
-      <workItem from="1721859412436" duration="4244000" />
-      <workItem from="1721883682500" duration="1350000" />
-      <workItem from="1721885301543" duration="581000" />
-      <workItem from="1721885985410" duration="566000" />
-      <workItem from="1721948588041" duration="21079000" />
-      <workItem from="1722030945526" duration="25875000" />
-      <workItem from="1722270950322" duration="7361000" />
-      <workItem from="1722450474045" duration="9305000" />
-      <workItem from="1722464427666" duration="745000" />
-      <workItem from="1722466392198" duration="7755000" />
-      <workItem from="1722486314260" duration="2255000" />
-      <workItem from="1722544088810" duration="19195000" />
-      <workItem from="1722616036943" duration="5594000" />
-      <workItem from="1722697392868" duration="638000" />
-      <workItem from="1722701212730" duration="754000" />
-      <workItem from="1722731308524" duration="726000" />
-      <workItem from="1722732061324" duration="12890000" />
-      <workItem from="1722783692490" duration="2138000" />
-      <workItem from="1722794089152" duration="19679000" />
-      <workItem from="1722828279983" duration="5386000" />
-      <workItem from="1722900431216" duration="1816000" />
-      <workItem from="1722902346390" duration="6982000" />
-      <workItem from="1722914735017" duration="8802000" />
-      <workItem from="1722963025599" duration="26000" />
+      <updated>1723768444787</updated>
+      <workItem from="1723768445909" duration="12921000" />
+      <workItem from="1723818811563" duration="2545000" />
+      <workItem from="1723840577750" duration="14712000" />
+      <workItem from="1723909110099" duration="7344000" />
+      <workItem from="1723919789208" duration="8000" />
+      <workItem from="1723921793268" duration="22806000" />
+      <workItem from="1723993514177" duration="4217000" />
+      <workItem from="1723997925915" duration="22586000" />
+      <workItem from="1724024958696" duration="20772000" />
+      <workItem from="1724077877741" duration="9553000" />
+      <workItem from="1724105260135" duration="16860000" />
     </task>
     <servers />
   </component>

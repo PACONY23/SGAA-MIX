@@ -280,7 +280,7 @@ public class DaoDocente {
 
     public List<Docente> listarDocentes() {
         List<Docente> docentes = new ArrayList<>();
-        String sql = "SELECT matricula, nombre, apellido, correoElectronico, estatus FROM Docentes";
+        String sql = "SELECT matricula, nombre, apellido, contraseña, estatus FROM Docentes";
         try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
              PreparedStatement stmt = connection.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
@@ -290,7 +290,7 @@ public class DaoDocente {
                 docente.setMatricula(rs.getString("matricula"));
                 docente.setNombres(rs.getString("nombre"));
                 docente.setApellidos(rs.getString("apellido"));
-                docente.setCorreoElectronico(rs.getString("correoElectronico"));
+                docente.setContrasena(rs.getString("contraseña"));
                 docente.setEstatus(rs.getBoolean("estatus"));
                 docentes.add(docente);
             }

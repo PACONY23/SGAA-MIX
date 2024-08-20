@@ -15,7 +15,18 @@ public class Estudiante {
     public Estudiante() {
     }
 
-    public Estudiante(int id,String nombre, String apellido, String contrasena, String matricula, String grupo, String cuatrimestre, String correoElectronico, boolean estatus, String rol) {
+    public Estudiante(int id, String nombre, String apellido, String contrasena, String matricula, String grupo, String cuatrimestre, boolean estatus) {
+        this.id = id;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.contrasena = contrasena;
+        this.matricula = matricula;
+        this.grupo = grupo;
+        this.cuatrimestre = cuatrimestre;
+        this.estatus = estatus;
+    }
+
+    public Estudiante(int id, String nombre, String apellido, String contrasena, String matricula, String grupo, String cuatrimestre, String correoElectronico, boolean estatus, String rol) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -87,6 +98,10 @@ public class Estudiante {
     }
 
     public boolean getEstatus() {
+        return estatus;
+    }
+
+    public boolean isEstatus() {
         return estatus;
     }
 
