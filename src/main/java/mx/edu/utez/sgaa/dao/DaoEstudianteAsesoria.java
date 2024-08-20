@@ -17,10 +17,11 @@ public class DaoEstudianteAsesoria {
     }
 
     public void agregarAsesoriaEstudiante(EstudiantesAsesoria estudiantesAsesoria) throws SQLException {
-        String query = "INSERT INTO EstudiantesAsesoria (idEstudiante, idAsesoria) VALUES (?, ?)";
+        String query = "INSERT INTO EstudiantesAsesoria (idEstudiante, idAsesoria, tituloAsesoria) VALUES (?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setInt(1, estudiantesAsesoria.getIdEstudiante());
             stmt.setInt(2, estudiantesAsesoria.getIdAsesoria());
+            stmt.setString(3, estudiantesAsesoria.getTema());
             stmt.executeUpdate();
         }
     }

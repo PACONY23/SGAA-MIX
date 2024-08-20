@@ -1,5 +1,6 @@
 package mx.edu.utez.sgaa.servlet.Docente;
 
+import mx.edu.utez.sgaa.dao.DaoAsesoria;
 import mx.edu.utez.sgaa.dao.DaoEstudianteAsesoria;
 import mx.edu.utez.sgaa.model.EstudiantesAsesoria;
 import mx.edu.utez.sgaa.database.DatabaseConnection;
@@ -26,10 +27,10 @@ public class AgregarAsesoriaS extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int idEstudiante = Integer.parseInt(request.getParameter("idEstudiante"));
         int idAsesoria = Integer.parseInt(request.getParameter("idAsesoria"));
+        String tema = request.getParameter("tema");
         System.out.println("idestudiante: " + idEstudiante + " idAsesoria: " + idAsesoria);
 
-        EstudiantesAsesoria estudiantesAsesoria = new EstudiantesAsesoria(idEstudiante, idAsesoria);
-
+        EstudiantesAsesoria estudiantesAsesoria = new EstudiantesAsesoria(idEstudiante, idAsesoria, tema);
         try (Connection connection = DatabaseConnection.getConnection()) {
             DaoEstudianteAsesoria daoEstudianteAsesoria = new DaoEstudianteAsesoria();
             daoEstudianteAsesoria.agregarAsesoriaEstudiante(estudiantesAsesoria);

@@ -289,6 +289,8 @@
             </div>
             <div class="modal-body">
                 <p id="modalDate">Fecha y Hora</p>
+                <label for="inputTema">Tema:</label>
+                <input type="text" class="form-control" id="inputTema" placeholder="Tema de la asesoría">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -371,7 +373,8 @@
                         },
                         body: new URLSearchParams({
                             'idEstudiante': idEstudiante, // Usar la variable inyectada
-                            'idAsesoria': idAsesoria
+                            'idAsesoria': idAsesoria,
+                            'tema': document.getElementById('inputTema').value
                         })
                     })
                         .then(response => response.text())
