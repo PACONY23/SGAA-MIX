@@ -1,0 +1,87 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0; /* Fondo claro */
+    font-family: 'Poppins', sans-serif;
+}
+.contenido-interfaz {
+    height: auto;
+    width: auto;
+    margin-top: 140px;
+}
+.container {
+    background-color: #121631; /* Color de fondo del contenedor */
+    padding: 40px; /* Ajustar el padding para darle más espacio al contenido */
+    border-radius: 20px;
+    box-shadow: 0 8px 16px 4px rgba(0, 0, 0, 0.4);
+    width: 400px; /* Aumentar el ancho del contenedor */
+    text-align: center;
+    color: white;
+    height: auto;
+    margin: 35px; /* Margen superior e inferior de 35px */
+}
+.container img {
+    width: 50px;
+    margin-bottom: 20px;
+}
+.container h1 {
+    margin: 0;
+    font-size: 24px;
+}
+.container a {
+    margin: 10px 0;
+    color: #ddd;
+    font-size: 18px; /* Tamaño de fuente ajustado */
+    cursor: pointer;
+    text-decoration: none;
+}
+.container button:hover {
+    text-decoration: underline;
+}
+.container input[type="text"],
+.container input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; /* Asegurarse de que el padding no aumente el tamaño total del input */
+    background-color: transparent; /* Hacer el fondo de los inputs transparente */
+    color: white; /* Cambiar el color del texto */
+}
+.container button {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+    background-color: #1E8A82;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+.container button:hover {
+    background-color: #0f6862;
+}
+.divider {
+    margin: 20px 0;
+    border-bottom: 1px solid #ccc;
+}
+.info-extra {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+.info-extra input {
+    width: 100%;
+    padding: 5px; /* Inputs más pequeños */
+    margin: 0; /* Quitar el margen entre inputs */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; /* Asegurarse de que el padding no   aumente el tamaño total del input */
+    background-color: transparent; /* Hacer el fondo de los inputs transparente */
+    color: white; /* Cambiar el color del texto */
+}

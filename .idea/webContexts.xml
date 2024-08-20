@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebContextManager">
+    <option name="state">
+      <map>
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/index.jsp" value="file://$PROJECT_DIR$/src/main/webapp" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/vistas/Admin/ConsultarInformacion.jsp" value="file://$PROJECT_DIR$/src/main/webapp/vistas/Admin" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/vistas/Admin/GestionAsesorias.jsp" value="file://$PROJECT_DIR$/src/main/webapp/vistas/Admin" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/vistas/Admin/PaginaPrincipalAdmin.jsp" value="file://$PROJECT_DIR$/src/main/webapp/vistas/Admin" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/vistas/Docente/CalificarEstudiante.jsp" value="file://$PROJECT_DIR$/src/main/webapp/vistas/Docente" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/vistas/Estudiante/modalCancelarAsesoria.jsp" value="file://$PROJECT_DIR$/src/main/webapp/vistas/Estudiante" />
+      </map>
+    </option>
+  </component>
+</project>
