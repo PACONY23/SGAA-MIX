@@ -47,7 +47,8 @@ public class LoginDocentesS extends HttpServlet {
             String apellido = docenteData[3];
             String correo = docenteData[4];
             HttpSession session = request.getSession(true);
-            session.setAttribute("idDocente", idDocente);
+            session.setAttribute("idD", idDocente);
+            System.out.println(idDocente);
             session.setAttribute("matricula", matricula);
             session.setAttribute("nombre", nombre);
             session.setAttribute("apellido", apellido);
