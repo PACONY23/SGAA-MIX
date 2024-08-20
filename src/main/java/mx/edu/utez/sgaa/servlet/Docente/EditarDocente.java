@@ -30,12 +30,10 @@ public class EditarDocente extends HttpServlet {
         boolean actualizado = daoDocente.actualizarDocente(docente);
 
         if (actualizado) {
-            response.sendRedirect(request.getContextPath() + "/vistas/Docente/PaginaPrincipalDocente.jsp");
-            System.out.println("Docente actualizado");
+            request.getRequestDispatcher("/vistas/Docente/PaginaPrincipalDocente.jsp").forward(request, response);
+
         } else {
             response.sendRedirect(request.getContextPath() + "/vistas/Docente/ErrorActualizacion.jsp");
-            System.out.println("No se encontró al docente");
         }
     }
 }
-

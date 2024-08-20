@@ -423,7 +423,7 @@
             </div>
             <div class="dato">
                 <label for="correo">Correo:</label>
-                <input type="email" id="correo" value="<%=correo%>" readonly>
+                <input type="email" id="correo" value="<%=matricula%>" readonly>
             </div>
             <div class="botones">
                 <button id="editar">Editar</button>
@@ -437,64 +437,103 @@
     <div class="modal-content">
         <span class="close">&times;</span>
         <h2>Editar Perfil</h2>
-        <form id="editarForm">
+        <form id="editarForm" action="<%=context%>/EditarDocente" method="post">
             <div class="input-group">
                 <label for="nombreModal">Nombre:</label>
-                <input type="text" id="nombreModal" value="<%=nombre%>">
+                <input type="text" id="nombreModal" name="nombre" value="<%=nombre%>" required>
+                <div id="nombreError" class="text-danger" style="display:none;">Nombre inválido. Debe tener al menos 5 caracteres y solo letras.</div>
             </div>
             <div class="input-group">
                 <label for="apellidosModal">Apellidos:</label>
-                <input type="text" id="apellidosModal" value="<%=apellido%>">
+                <input type="text" id="apellidosModal" name="apellidos" value="<%=apellido%>" required>
+                <div id="apellidoError" class="text-danger" style="display:none;">Apellidos inválidos. Debe tener al menos 5 caracteres y solo letras.</div>
             </div>
             <div class="input-group">
                 <label for="correoModal">Correo:</label>
-                <input type="email" id="correoModal" value="<%=correo%>">
+                <input type="email" id="correoModal" name="matricula" value="<%=matricula%>" required>
+                <div id="correoError" class="text-danger" style="display:none;">Campo obligatorio. Debe ser un correo válido con terminación @utez.edu.mx.</div>
             </div>
             <div class="modal-buttons">
-                <button type="button" id="guardarCambios">Guardar Cambios</button>
+                <button type="submit" id="guardarCambios">Guardar Cambios</button>
             </div>
         </form>
     </div>
 </div>
-
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var modal = document.getElementById('modalEditar');
-        var btnEditar = document.getElementById('editar');
-        var spanClose = modal.querySelector('.close');
+    document.addEventListener('DOMContentLoaded', () => {
+        // Elementos del modal
+        const modal = document.getElementById('modalEditar');
+        const btnEditar = document.getElementById('editar');
+        const spanClose = document.querySelector('.modal .close');
+        const form = document.getElementById('editarForm');
+        const submitButton = document.getElementById('guardarCambios');
 
-        // Mostrar modal al hacer clic en Editar
-        btnEditar.onclick = function() {
+        // Abre el modal
+        btnEditar.addEventListener('click', () => {
             modal.style.display = 'block';
-        }
+        });
 
-        // Ocultar modal al hacer clic en X
-        spanClose.onclick = function() {
+        // Cierra el modal cuando el usuario hace clic en la X
+        spanClose.addEventListener('click', () => {
             modal.style.display = 'none';
-        }
+        });
 
-        // Ocultar modal al hacer clic fuera de él
-        window.onclick = function(event) {
-            if (event.target == modal) {
+        // Cierra el modal si el usuario hace clic fuera del contenido del modal
+        window.addEventListener('click', (event) => {
+            if (event.target === modal) {
                 modal.style.display = 'none';
             }
-        }
+        });
 
-        // Guardar cambios (simulado)
-        var btnGuardar = document.getElementById('guardarCambios');
-        btnGuardar.onclick = function() {
-            var nombre = document.getElementById('nombreModal').value;
-            var apellidos = document.getElementById('apellidosModal').value;
-            var correo = document.getElementById('correoModal').value;
+        // Validar el formulario
+        const validateForm = () => {
+            let isValid = true;
 
-            // Aquí iría la lógica para guardar los cambios
-            console.log('Nombre:', nombre);
-            console.log('Apellidos:', apellidos);
-            console.log('Correo:', correo);
+            // Validar nombre
+            const nombrePattern = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ]{5,}(?:\s[a-zA-ZáéíóúÁÉÍÓÚñÑ]{5,})?$/;
+            if (!nombrePattern.test(document.getElementById('nombreModal').value.trim())) {
+                document.getElementById('nombreError').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('nombreError').style.display = 'none';
+            }
 
-            // Simular cierre del modal
-            modal.style.display = 'none';
-        }
+            // Validar apellido
+            const apellidoPattern = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ]{5,}(?:\s[a-zA-ZáéíóúÁÉÍÓÚñÑ]{5,})?$/;
+            if (!apellidoPattern.test(document.getElementById('apellidosModal').value.trim())) {
+                document.getElementById('apellidoError').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('apellidoError').style.display = 'none';
+            }
+
+            // Validar correo
+            const correoPattern = /^[a-zA-Z0-9]{3,}[^\s@]*@utez\.edu\.mx$/;
+            if (!correoPattern.test(document.getElementById('correoModal').value.trim())) {
+                document.getElementById('correoError').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('correoError').style.display = 'none';
+            }
+
+            // Habilitar o deshabilitar el botón de guardar basado en la validez del formulario
+            submitButton.disabled = !isValid;
+
+            return isValid;
+        };
+
+        // Validar al enviar el formulario
+        form.addEventListener('submit', (event) => {
+            if (!validateForm()) {
+                event.preventDefault(); // Evitar el envío del formulario si no es válido
+            }
+        });
+
+        // Validar el formulario en cada entrada del usuario
+        form.addEventListener('input', validateForm);
+
+        // Inicializar el estado del botón de guardar
+        validateForm();
     });
 </script>
 </body>

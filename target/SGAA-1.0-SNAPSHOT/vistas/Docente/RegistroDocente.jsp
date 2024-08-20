@@ -180,8 +180,8 @@
         <!-- Formulario de registro -->
         <form action="<%=request.getContextPath()%>/RegistroDocentesS" method="post" id="registroForm">
             <div>
-                <input type="text" name="matricula" id="matricula_registro" placeholder="Matrícula">
-                <div class="error-msg" id="matriculaError">Este campo es obligatorio.</div>
+                <input type="text" name="matricula" id="matricula_registro" placeholder="Correo electronico">
+                <div class="error-msg" id="matriculaError">La matrícula debe tener al menos 3 caracteres antes de '@utez.edu.mx'.</div>
             </div>
             <div>
                 <input type="text" name="nombre" id="nombre" placeholder="Nombre">
@@ -195,14 +195,15 @@
                 <input type="password" name="password" id="contrasena_registro" placeholder="Contraseña">
                 <div class="error-msg" id="passwordError">Este campo es obligatorio.</div>
             </div>
-            <div>
+           <!-- <div>
                 <input type="email" name="email" id="email" placeholder="Correo Electrónico">
                 <div class="error-msg" id="emailError">El correo electrónico debe ser @utez.edu.mx</div>
-            </div>
+            </div>-->
             <button type="submit" id="submit-button" disabled>Siguiente</button>
         </form>
     </div>
 </div>
+
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
@@ -214,14 +215,15 @@
         const nombreInput = document.getElementById('nombre');
         const apellidoInput = document.getElementById('apellido');
         const passwordInput = document.getElementById('contrasena_registro');
-        const emailInput = document.getElementById('email');
+        //const emailInput = document.getElementById('email');
         const submitButton = document.getElementById('submit-button');
 
         const validateForm = () => {
             let isValid = true;
 
             // Validar matrícula
-            if (!matriculaInput.value.trim()) {
+            const matriculaPattern = /^[a-zA-Z0-9]{3,}[^\s@]*@utez\.edu\.mx$/;
+            if (!matriculaInput.value.trim() || !matriculaPattern.test(matriculaInput.value.trim())) {
                 document.getElementById('matriculaError').style.display = 'block';
                 isValid = false;
             } else {
@@ -229,7 +231,7 @@
             }
 
             // Validar nombre (sin números, permite acentos y al menos 3 caracteres)
-            const nombrePattern = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ]{3,}$/;
+            const nombrePattern = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ]{5,}(?:\s[a-zA-ZáéíóúÁÉÍÓÚñÑ]{5,})?$/;
             if (!nombrePattern.test(nombreInput.value.trim())) {
                 document.getElementById('nombreError').style.display = 'block';
                 isValid = false;
@@ -256,13 +258,13 @@
             }
 
             // Validar correo electrónico (mínimo 3 caracteres antes del @, pueden ser números o letras)
-            const emailPattern = /^[a-zA-Z0-9]{3,}[^\s@]*@utez\.edu\.mx$/;
+            /*const emailPattern = /^[a-zA-Z0-9]{3,}[^\s@]*@utez\.edu\.mx$/;
             if (!emailInput.value.trim() || !emailPattern.test(emailInput.value.trim())) {
                 document.getElementById('emailError').style.display = 'block';
                 isValid = false;
             } else {
                 document.getElementById('emailError').style.display = 'none';
-            }
+            }*/
 
 
             // Habilitar o deshabilitar el botón de submit basado en las validaciones

@@ -363,9 +363,9 @@
             <div class="modal-body">
                 <form action="<%=context%>/AgregarDocenteAdminS" id="formAgregarDocente" method="post" novalidate>
                     <div class="mb-3">
-                        <label for="matricula" class="form-label">Matrícula</label>
+                        <label for="matricula" class="form-label">Correo electronico</label>
                         <input type="text" class="form-control" id="matricula" name="matricula" required>
-                        <div id="matriculaError" class="text-danger" style="display:none;">Campo obligatorio.</div>
+                        <div id="matriculaError" class="text-danger" style="display:none;">Campo obligatorio. Debe ser un correo válido con terminación @utez.edu.mx.</div>
                     </div>
                     <div class="mb-3">
                         <label for="nombre" class="form-label">Nombre</label>
@@ -382,11 +382,11 @@
                         <input type="password" class="form-control" id="contrasena" name="password" required>
                         <div id="passwordError" class="text-danger" style="display:none;">Campo obligatorio. Al menos 3 carácteres.</div>
                     </div>
-                    <div class="mb-3">
+                    <!--<div class="mb-3">
                         <label for="correoElectronico" class="form-label">Correo Electrónico</label>
                         <input type="email" class="form-control" id="correoElectronico" name="email" required>
                         <div id="emailError" class="text-danger" style="display:none;">Campo obligatorio. Debe ser un correo válido con terminación @utez.edu.mx.</div>
-                    </div>
+                    </div>-->
                     <button type="submit" class="btn btn-primary">Registrar</button>
                 </form>
             </div>
@@ -465,14 +465,15 @@
         const nombreInput = document.getElementById('nombre'); // ID del input de nombre
         const apellidoInput = document.getElementById('apellido'); // ID del input de apellido
         const passwordInput = document.getElementById('contrasena'); // ID del input de contraseña
-        const emailInput = document.getElementById('correoElectronico'); // ID del input de correo electrónico
+        //const emailInput = document.getElementById('correoElectronico'); // ID del input de correo electrónico
         const submitButton = form.querySelector('button[type="submit"]');
 
         const validateForm = () => {
             let isValid = true;
 
-            // Validar matrícula
-            if (!matriculaInput.value.trim()) {
+            // Validar matrícula (formato similar al correo electrónico)
+            const matriculaPattern = /^[a-zA-Z0-9]{3,}[^\s@]*@utez\.edu\.mx$/;
+            if (!matriculaPattern.test(matriculaInput.value.trim())) {
                 document.getElementById('matriculaError').style.display = 'block';
                 isValid = false;
             } else {
@@ -497,8 +498,6 @@
                 document.getElementById('apellidoError').style.display = 'none';
             }
 
-
-
             // Validar contraseña (al menos 3 caracteres)
             if (passwordInput.value.trim().length < 3) {
                 document.getElementById('passwordError').style.display = 'block';
@@ -508,20 +507,19 @@
             }
 
             // Validar correo electrónico
-            const emailPattern = /^[a-zA-Z]{3,}[^\s@]*@utez\.edu\.mx$/;
+            /*const emailPattern = /^[a-zA-Z]{3,}[^\s@]*@utez\.edu\.mx$/;
             if (!emailInput.value.trim() || !emailPattern.test(emailInput.value.trim())) {
                 document.getElementById('emailError').style.display = 'block';
                 isValid = false;
             } else {
                 document.getElementById('emailError').style.display = 'none';
-            }
+            }*/
 
             submitButton.disabled = !isValid;
         };
 
         form.addEventListener('input', validateForm);
     });
-
 </script>
 
 </body>
