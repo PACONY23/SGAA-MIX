@@ -1,5 +1,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%String context = request.getContextPath();%>
+<%if(request.getSession(false) != null && session.getAttribute("matricula") != null){
+    if (!(request.getSession().getAttribute("role").toString().toLowerCase().equals("estudiante"))){
+        response.sendRedirect(context + "/index.jsp");
+        return;
+    }
+} else {
+    response.sendRedirect(context + "/index.jsp");
+    return;
+}
+%>
 <%
     String matricula = (String) session.getAttribute("matricula");
     String nombre = (String) session.getAttribute("nombre");

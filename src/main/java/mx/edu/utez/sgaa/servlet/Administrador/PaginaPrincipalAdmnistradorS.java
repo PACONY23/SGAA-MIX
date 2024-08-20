@@ -9,7 +9,7 @@ import java.io.IOException;
 public class PaginaPrincipalAdmnistradorS extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/vistas/Admin/paginaPrincipalAdmnistrador.jsp").forward(request, response);
+        request.getRequestDispatcher("/vistas/Admin/PaginaPrincipalAdmin.jsp").forward(request, response);
     }
 
     @Override

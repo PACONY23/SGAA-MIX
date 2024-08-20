@@ -12,6 +12,16 @@
 <%@ page import="mx.edu.utez.sgaa.model.Materia" %>
 <%@ page import ="mx.edu.utez.sgaa.database.DatabaseConnection"%>
 <%@ page import="mx.edu.utez.sgaa.model.Asesoria"%>
+<%if(request.getSession(false) != null && session.getAttribute("matricula") != null){
+  if (!(request.getSession().getAttribute("role").toString().toLowerCase().equals("estudiante"))){
+    response.sendRedirect(context + "/index.jsp");
+    return;
+  }
+} else {
+  response.sendRedirect(context + "/index.jsp");
+  return;
+}
+%>
 <%
   // Obtener el nombre de la materia y la lista de asesorías del atributo
   String nombreMateria = (String) request.getAttribute("nombreMateria");

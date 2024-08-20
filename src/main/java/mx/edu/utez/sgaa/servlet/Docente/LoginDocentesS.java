@@ -43,7 +43,6 @@ public class LoginDocentesS extends HttpServlet {
 
         if (docenteData != null) {
             String idDocente = docenteData[0];
-            String role = docenteData[1];
             String nombre = docenteData[2];
             String apellido = docenteData[3];
             String correo = docenteData[4];
@@ -53,7 +52,7 @@ public class LoginDocentesS extends HttpServlet {
             session.setAttribute("nombre", nombre);
             session.setAttribute("apellido", apellido);
             session.setAttribute("correo", correo);
-            session.setAttribute("role", role); // Guardar el rol en la sesión
+            session.setAttribute("role", "docente"); // Guardar el rol en la sesión
             session.setAttribute("flag", true);
             System.out.println("Redirigiendo a PaginaPrincipalDocente.jsp");
             response.sendRedirect(request.getContextPath() + "/vistas/Docente/PaginaPrincipalDocente.jsp"); // Redirigir a la página principal del admin

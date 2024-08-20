@@ -41,7 +41,6 @@ public class LoginEstudiantesS extends HttpServlet {
 
         if (estudianteData != null) {
             String idEstudiante = estudianteData[0];
-            String rol = estudianteData[1];
             String nombre = estudianteData[2];
             String apellido = estudianteData[3];
             String correo = estudianteData[4];
@@ -57,7 +56,7 @@ public class LoginEstudiantesS extends HttpServlet {
             session.setAttribute("apellido", apellido);
             session.setAttribute("grupo", grupo);
             session.setAttribute("cuatrimestre", cuatrimestre);
-            session.setAttribute("role", rol); // Guardar el rol en la sesión
+            session.setAttribute("role", "estudiante"); // Guardar el rol en la sesión
             session.setAttribute("flag", true);
 
             System.out.println("Redirigiendo a PaginaPrincipalEstudiante.jsp");

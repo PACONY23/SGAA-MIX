@@ -17,6 +17,16 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <% String context = request.getContextPath(); %>
+<%if(request.getSession(false) != null && session.getAttribute("matricula") != null){
+    if (!(request.getSession().getAttribute("role").toString().toLowerCase().equals("estudiante"))){
+        response.sendRedirect(context + "/index.jsp");
+        return;
+    }
+} else {
+    response.sendRedirect(context + "/index.jsp");
+    return;
+}
+%>
 <%
     // Obtener el atributo de la sesión
     String idEstudianteStr = (String) session.getAttribute("idEstudiante");

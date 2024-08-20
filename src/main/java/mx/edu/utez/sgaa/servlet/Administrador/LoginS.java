@@ -34,12 +34,11 @@ public class LoginS extends HttpServlet {
         System.out.println("Matricula: " + matricula);
         System.out.println("Contraseña: " + contraseña);
 
-        String role = dao.findAdminByMatriculaAndContraseña(matricula, contraseña);
 
-        if (role != null) {
+        if (dao.findAdmin(matricula, contraseña)) {
             HttpSession session = request.getSession(true);
             session.setAttribute("matricula", matricula);
-            session.setAttribute("role", role); // Guardar el rol en la sesión
+            session.setAttribute("role", "admin"); // Guardar el rol en la sesión
             session.setAttribute("flag", true);
             System.out.println("Redirigiendo a PaginaPrincipalAdmin.jsp");
             response.sendRedirect(request.getContextPath() + "/vistas/Admin/PaginaPrincipalAdmin.jsp"); // Redirigir a la página principal del admin

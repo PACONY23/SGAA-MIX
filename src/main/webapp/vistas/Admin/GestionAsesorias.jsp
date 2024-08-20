@@ -6,7 +6,17 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%String context = request.getContextPath();%>
+<%String context = request.getContextPath();
+    if(request.getSession(false) != null && session.getAttribute("matricula") != null){
+        if (!(request.getSession().getAttribute("role").toString().toLowerCase().equals("admin"))){
+            response.sendRedirect(context + "/index.jsp");
+            return;
+        }
+    } else {
+        response.sendRedirect(context + "/index.jsp");
+        return;
+    }
+%>
 <!DOCTYPE html>
 <html lang="es">
 <head>

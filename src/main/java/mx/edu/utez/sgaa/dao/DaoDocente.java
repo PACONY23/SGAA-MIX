@@ -316,6 +316,36 @@ public class DaoDocente {
         }
     }
 
+    public boolean existeDocente(String matricula) {
+        String sql = "SELECT COUNT(*) FROM Docentes WHERE matricula = ?";
+        try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, matricula);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean esDocenteAdmitido(String matricula) {
+        String sql = "SELECT admision FROM Docentes WHERE matricula = ?";
+        try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, matricula);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getBoolean("admision");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     public boolean cambiarEstadoDocente(int id) {
         Docente found = findDocenteById(id);
         if (found != null) {

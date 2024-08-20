@@ -14,6 +14,16 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.sql.SQLException" %>
+<%if(request.getSession(false) != null && session.getAttribute("matricula") != null){
+    if (!(request.getSession().getAttribute("role").toString().toLowerCase().equals("docente"))){
+      response.sendRedirect(context + "/index.jsp");
+      return;
+    }
+  } else {
+    response.sendRedirect(context + "/index.jsp");
+    return;
+  }
+%>
 <%
   // Obtener el atributo de la sesión
   String idDocenteStr = (String) session.getAttribute("idDocente");
