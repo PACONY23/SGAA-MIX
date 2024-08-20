@@ -312,7 +312,6 @@
         <table class="table table-bordered table-hover table-primary">
             <thead>
             <tr style="background-color: #0d6efd; color: white;">
-                <th scope="col">Titulo asesoría</th>
                 <th scope="col" style="text-align: center">Materia</th>
                 <th scope="col">Fecha</th>
                 <th scope="col">Hora</th>
@@ -328,7 +327,6 @@
                     for (Asesoria asesoria : asesoriasNoIniciadas) {
             %>
             <tr style="background-color: #ffffff; color: #000000;">
-                <td style="background-color: #ffffff; color: #000000;"><%=asesoria.getTitulo() %></td>
                 <td style="background-color: #ffffff; color: #000000; text-align: center;"><%=asesoria.getNombreMateria() %></td>
                 <td style="background-color: #ffffff; color: #000000;"><%=asesoria.getFecha() %></td>
                 <td style="background-color: #ffffff; color: #000000;"><%=asesoria.getHora() %></td>
@@ -364,7 +362,6 @@
         <table class="table table-bordered table-hover table-primary">
             <thead>
             <tr style="background-color: #0d6efd; color: white;">
-                <th scope="col">Titulo asesoría</th>
                 <th scope="col" style="text-align: center">Materia</th>
                 <th scope="col">Fecha</th>
                 <th scope="col">Hora</th>
@@ -380,7 +377,6 @@
                     for (Asesoria asesoria : asesoriasIniciadas) {
             %>
             <tr>
-                <td><%=asesoria.getTitulo() %></td>
                 <td style="text-align: center;"><%=asesoria.getNombreMateria() %></td>
                 <td><%=asesoria.getFecha() %></td>
                 <td><%=asesoria.getHora() %></td>
