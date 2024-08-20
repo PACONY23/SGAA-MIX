@@ -2,6 +2,7 @@ package mx.edu.utez.sgaa.dao;
 
 import mx.edu.utez.sgaa.database.DatabaseConnection;
 import mx.edu.utez.sgaa.model.Docente;
+import mx.edu.utez.sgaa.model.Materia;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -280,13 +281,14 @@ public class DaoDocente {
 
     public List<Docente> listarDocentes() {
         List<Docente> docentes = new ArrayList<>();
-        String sql = "SELECT matricula, nombre, apellido, contraseña, estatus FROM Docentes";
+        String sql = "SELECT idDocente, matricula, nombre, apellido, contraseña, estatus FROM Docentes";
         try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
              PreparedStatement stmt = connection.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
                 Docente docente = new Docente();
+                docente.setId(rs.getInt("idDocente"));
                 docente.setMatricula(rs.getString("matricula"));
                 docente.setNombres(rs.getString("nombre"));
                 docente.setApellidos(rs.getString("apellido"));
@@ -314,6 +316,74 @@ public class DaoDocente {
         }
     }
 
+    public boolean cambiarEstadoDocente(int id) {
+        Docente found = findDocenteById(id);
+        if (found != null) {
+            try {
+                con = DATA_BASE_CONNECTION.getConnection();
+                boolean nuevoEstado = !found.isEstatus(); // Alternar el estado actual
+
+                String sql = "UPDATE Docentes SET estatus = ? WHERE idDocente = ?";
+                pstm = con.prepareStatement(sql);
+                pstm.setBoolean(1, nuevoEstado);
+                pstm.setInt(2, id);
+                int result = pstm.executeUpdate();
+
+                return result > 0;
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+        return false;
+    }
 
 
+    public Docente findDocenteById(int id) {
+        Docente found = null;
+        try {
+            con = DATA_BASE_CONNECTION.getConnection();
+            String sql = "SELECT idDocente, matricula, nombre, apellido, correoElectronico, estatus, admision FROM Docentes WHERE idDocente = ?";
+            pstm = con.prepareStatement(sql);
+            pstm.setInt(1, id);
+            rs = pstm.executeQuery();
+            if (rs.next()) {
+                found = new Docente();
+                found.setId(rs.getInt("idDocente"));
+                found.setMatricula(rs.getString("matricula"));
+                found.setNombres(rs.getString("nombre"));
+                found.setApellidos(rs.getString("apellido"));
+                found.setCorreoElectronico(rs.getString("correoElectronico"));
+                found.setEstatus(rs.getBoolean("estatus"));
+                found.setAdmission(rs.getBoolean("admision"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return found;
+    }
+
+    public boolean actualizarDocenteAdmin(Docente docente) {
+        String UPDATE_SQL = "UPDATE Docentes SET nombre = ?, apellido = ?, contraseña = ? WHERE idDocente = ?;";
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD)) {
+                PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_SQL);
+                preparedStatement.setString(1, docente.getNombres());
+                preparedStatement.setString(2, docente.getApellidos());
+                preparedStatement.setString(3, docente.getContrasena());
+                preparedStatement.setInt(4, docente.getId());
+
+                int affectedRows = preparedStatement.executeUpdate();
+                return affectedRows > 0;
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return false;
+            }
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

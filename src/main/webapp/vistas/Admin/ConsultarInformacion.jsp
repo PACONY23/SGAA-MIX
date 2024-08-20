@@ -303,7 +303,6 @@
                 <th scope="col">Correo</th>
                 <th scope="col">Nombre</th>
                 <th scope="col">Apellido</th>
-                <th scope="col" style="text-align: center">Consultar</th>
                 <th scope="col" style="text-align: center">Editar</th>
                 <th scope="col" style="text-align: center">Estado</th>
             </tr>
@@ -320,17 +319,13 @@
                 <td><%=docente.getNombres() %></td>
                 <td><%=docente.getApellidos() %></td>
                 <td style="text-align: center">
-                    <button id="materia-<%=docente.getId()%>" onclick="materiasBorrado(<%=docente.getId()%>)" class="btn p-0">
-                        <i  class="bi bi-info-circle-fill" style="font-size: 25px; color: black;" data-bs-toggle="modal" data-bs-target="#consultarDocente"></i>
-                    </button>
-                <td style="text-align: center">
                     <button id="materia-<%=docente.getId()%>" onclick="cargarDatosDocente(<%=docente.getId()%>, '<%=docente.getNombres()%>', '<%=docente.getApellidos()%>', '<%=docente.getContrasena()%>')" class="btn p-0">
                         <i class="bi bi-pencil-fill" style="font-size: 25px; color: black;" data-bs-toggle="modal" data-bs-target="#editarDocente"></i>
                     </button>
                 </td>
-                </td>
+
                 <td style="text-align: center">
-                    <button id="estado-<%=docente.isEstatus()%>" onclick="materiasEstado(<%=docente.getId()%>)" class="btn btn-outline-secondary ms-4" data-bs-toggle="modal" data-bs-target="#estadoDocente">
+                    <button id="estado-<%=docente.isEstatus()%>" onclick="estadoDocente(<%=docente.getId()%>)" class="btn btn-outline-secondary ms-4" data-bs-toggle="modal" data-bs-target="#estadoDocente">
                          <span class="small">
                               <%= !docente.isEstatus() ? "Habilitar" : "Deshabilitar" %>
                          </span>
@@ -357,7 +352,8 @@
                 <th scope="col">Correo</th>
                 <th scope="col">Nombre</th>
                 <th scope="col">Apellido</th>
-                <th scope="col" style="text-align: center">Consultar</th>
+                <th scope="col">Grupo</th>
+                <th scope="col">Cuatrimestre</th>
                 <th scope="col" style="text-align: center">Editar</th>
                 <th scope="col" style="text-align: center">Estado</th>
             </tr>
@@ -368,22 +364,21 @@
                 List<Estudiante> estudiantes = estudiantesLista.listarEstudiantes();
                 for (Estudiante estudiante : estudiantes) {
                     String rowClass = !estudiante.isEstatus() ? "table-active" : "table-primary";
+                    System.out.println("ID del estudiante: " + estudiante.getId());
             %>
             <tr id="materia-<%=estudiante.getId()%>" class="<%= rowClass %>">
                 <td><%=estudiante.getMatricula() %></td>
                 <td><%=estudiante.getNombre() %></td>
                 <td><%=estudiante.getApellido() %></td>
+                <td><%=estudiante.getGrupo() %></td>
+                <td><%=estudiante.getCuatrimestre()%></td>
                 <td style="text-align: center">
-                    <button id="materia-<%=estudiante.getId()%>" onclick="materiasBorrado(<%=estudiante.getId()%>)" class="btn p-0">
-                        <i class="bi bi-info-circle-fill" style="font-size: 25px; color: black;" data-bs-toggle="modal" data-bs-target="#consultarDocente"></i>
-                    </button>
-                <td style="text-align: center">
-                    <button id="materia-<%=estudiante.getId()%>" onclick="cargarDatosDocente(<%=estudiante.getId()%>, '<%=estudiante.getNombre()%>', '<%=estudiante.getApellido()%>', '<%=estudiante.getContrasena()%>', '<%=estudiante.getGrupo()%>', '<%=estudiante.getContrasena()%>', '<%=estudiante.getCuatrimestre()%>')" class="btn p-0">
-                        <i class="bi bi-pencil-fill" style="font-size: 25px; color: black;" data-bs-toggle="modal" data-bs-target="#editarDocente"></i>
+                    <button id="materia-<%=estudiante.getId()%>" onclick="cargarDatosDocente(<%=estudiante.getId()%>, '<%=estudiante.getNombre()%>', '<%=estudiante.getApellido()%>', '<%=estudiante.getGrupo()%>', '<%=estudiante.getContrasena()%>', '<%=estudiante.getCuatrimestre()%>')" class="btn p-0">
+                        <i class="bi bi-pencil-fill" style="font-size: 25px; color: black;" data-bs-toggle="modal" data-bs-target="#alertaeditarEstudiante"></i>
                     </button>
                 </td>
                 <td style="text-align: center">
-                    <button id="estado-<%=estudiante.isEstatus()%>" onclick="materiasEstado(<%=estudiante.getId()%>)" class="btn btn-outline-secondary ms-4" data-bs-toggle="modal" data-bs-target="#estadoEstudiante">
+                    <button id="estado-<%=estudiante.isEstatus()%>" onclick="estadoEstudiante(<%=estudiante.getId()%>)" class="btn btn-outline-secondary ms-4" data-bs-toggle="modal" data-bs-target="#alertaestadoEstudiante">
                          <span class="small">
                               <%= !estudiante.isEstatus() ? "Habilitar" : "Deshabilitar" %>
                          </span>
@@ -409,7 +404,7 @@
                 <h5 class="modal-title" id="confirmarEstadoModalLabel">Cambio del estado</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="<%=context%>/" method="post">
+            <form action="<%=context%>/EstadoDocenteS" method="post">
                 <div class="modal-body">
                     <input type="hidden" id="ch_id" name="ch_id">
                     ¿Estás seguro de que deseas realizar este cambio?
@@ -431,9 +426,9 @@
                 <h5 class="modal-title" id="confirmarBorrarModalLabel">Editar docente</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form id="formEditarDocente" action="<%=context%>/" method="post">
+            <form id="formEditarDocente" action="<%=context%>/ActualizarDocenteAdmin" method="post">
                 <div class="modal-body">
-                    <input type="hidden" id="u_id" name="id"> <!-- Campo oculto para el ID del docente -->
+                    <input type="hidden" id="u_id" name="u_id"> <!-- Campo oculto para el ID del docente -->
                     <div class="mb-3">
                         <label for="nombres" class="form-label">Nombre</label>
                         <input type="text" class="form-control" name="nombres" id="nombres" placeholder="nombre" required>
@@ -446,7 +441,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="contrasena" class="form-label">Contraseña</label>
-                        <input type="text" class="form-control" name="contrasena" id="contrasena" placeholder="Contraseña" required>
+                        <input type="password" class="form-control" name="contrasena" id="contrasena" placeholder="Contraseña" required>
                         <div id="contrasenaError" class="text-danger" style="display:none;">La contraseña debe tener al menos 3 caracteres.</div>
                     </div>
                 </div>
@@ -460,8 +455,50 @@
 </div>
 
 
+<!-- Modal Alerta Editar Docente -->
+<div class="modal fade" id="alertaeditarEstudiante" tabindex="-1" aria-labelledby="modalAlertaEditarDocenteLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalAlertaEditarDocenteLabel">Alerta</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>ALERTA</strong> Esta función sigue en proceso.
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
 
-<%-- modal cambio estado estudiante --%>
+
+<!-- Modal Alerta Estado Docente -->
+<div class="modal fade" id="alertaestadoEstudiante" tabindex="-1" aria-labelledby="modalAlertaEstadoDocenteLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalAlertaEstadoDocenteLabel">Alerta</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>ALERTA</strong> Esta función sigue en proceso.
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<%-- modal cambio estado estudiante
 <div class="modal fade" id="estadoEstudiante" data-bs-backdrop="static" tabindex="-1" aria-labelledby="confirmarrEstadoModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -469,7 +506,7 @@
                 <h5 class="modal-title" id="confirmarrEstadoModalLabel">Cambio del estado</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="<%=context%>/" method="post">
+            <form action="<%=context%>/EstadoEstudianteS" method="post">
                 <div class="modal-body">
                     <input type="hidden" id="ch_id_e" name="ch_id_e">
                     ¿Estás seguro de que deseas realizar este cambio?
@@ -482,9 +519,8 @@
         </div>
     </div>
 </div>
-
-
-<!-- Modal editar estudiante -->
+ --%>
+<!-- Modal editar estudiante
 <div class="modal fade" id="editarEstudiante" data-bs-backdrop="static" tabindex="-1" aria-labelledby="confirmarrBorrarModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -492,9 +528,9 @@
                 <h5 class="modal-title" id="confirmarrBorrarModalLabel">Editar estudiante</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form id="formEditarEstudiante" action="<%=context%>/" method="post">
+            <form id="formEditarEstudiante" action=" <%--<%=context%> --%>/ActualizarEstudianteAdmin" method="post">
                 <div class="modal-body">
-                    <input type="hidden" id="u_id_e" name="id"> <!-- Campo oculto para el ID del estudiante -->
+                    <input type="hidden" id="u_id_e" name="id">Campo oculto para el ID del estudiante
                     <div class="mb-3">
                         <label for="nombre" class="form-label">Nombre</label>
                         <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Nombre" required>
@@ -550,7 +586,7 @@
             </form>
         </div>
     </div>
-</div>
+</div> -->
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
@@ -559,8 +595,11 @@
         document.getElementById('d_id').value = id;
     }
 
-    function materiasEstado(id) {
+    function estadoDocente(id) {
         document.getElementById('ch_id').value = id;
+    }
+    function estadoEstudiante(id) {
+        document.getElementById('ch_id_e').value = id;
     }
 
     //parte del docente

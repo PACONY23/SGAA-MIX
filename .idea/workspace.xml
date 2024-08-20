@@ -10,24 +10,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a139834b-be9f-40a4-a4c8-e1bc4c412130" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Administrador/ActualizarEstudianteAdmin.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Administrador/EstadoDocenteS.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Administrador/EstadoEstudianteS.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/webContexts.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/webContexts.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/dao/DaoDocente.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/dao/DaoDocente.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/dao/DaoEstudiante.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/dao/DaoEstudiante.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/model/Estudiante.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/model/Estudiante.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Docente/nuevoSV/CrearAsesoriaServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Docente/nuevoSV/CrearAsesoriaServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/vistas/Admin/ConsultarInformacion.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/vistas/Admin/ConsultarInformacion.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/vistas/Admin/ConsultarInformación2.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/vistas/Admin/ConsultarInformación2.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/vistas/Docente/CrearHorario.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/vistas/Docente/CrearHorario.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/META-INF/MANIFEST.MF" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/dao/DaoDocente.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/dao/DaoDocente.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/dao/DaoEstudiante.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/dao/DaoEstudiante.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/model/Estudiante.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/model/Estudiante.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/vistas/Admin/ConsultarInformacion.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/vistas/Admin/ConsultarInformacion.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/vistas/Docente/CrearHorario.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/vistas/Docente/CrearHorario.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/dao/DaoDocente.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/dao/DaoDocente.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/dao/DaoEstudiante.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/dao/DaoEstudiante.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/model/Estudiante.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/model/Estudiante.class" afterDir="false" />
@@ -41,9 +37,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Jsp File" />
         <option value="Class" />
         <option value="Servlet" />
-        <option value="Jsp File" />
       </list>
     </option>
   </component>
@@ -71,6 +67,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.DaoAsesoria.executor": "Run",
+    "Application.DaoEstudiante.executor": "Run",
     "Application.DaoEstudianteAsesoria.executor": "Run",
     "Application.DatabaseConnection.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -84,7 +81,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Artifacts",
+    "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "preferences.lookFeel",
@@ -94,6 +91,19 @@
   <component name="RunManager" selected="Tomcat Server.Tomcat 10.1.26">
     <configuration name="DaoAsesoria" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="mx.edu.utez.sgaa.dao.DaoAsesoria" />
+      <module name="SGAA" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="mx.edu.utez.sgaa.dao.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DaoEstudiante" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="mx.edu.utez.sgaa.dao.DaoEstudiante" />
       <module name="SGAA" />
       <extension name="coverage">
         <pattern>
@@ -220,6 +230,7 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="Application.DaoEstudiante" />
       <item itemvalue="Application.DaoAsesoria" />
       <item itemvalue="Application.DaoEstudianteAsesoria" />
       <item itemvalue="Application.DatabaseConnection" />
@@ -227,6 +238,7 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.DaoEstudiante" />
         <item itemvalue="Application.DatabaseConnection" />
         <item itemvalue="Application.DaoAsesoria" />
         <item itemvalue="Application.DaoEstudianteAsesoria" />
@@ -259,7 +271,8 @@
       <workItem from="1723997925915" duration="22586000" />
       <workItem from="1724024958696" duration="20772000" />
       <workItem from="1724077877741" duration="9553000" />
-      <workItem from="1724105260135" duration="16860000" />
+      <workItem from="1724105260135" duration="25808000" />
+      <workItem from="1724163247286" duration="14806000" />
     </task>
     <servers />
   </component>
