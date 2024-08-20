@@ -345,4 +345,135 @@ public class DaoAsesoria {
         }
     }
 
+
+
+    public List<Asesoria> obtenerAsesoriasNoIniciadasPorEstudiante(int idEstudiante) throws SQLException {
+        List<Asesoria> asesorias = new ArrayList<>();
+        Connection connection = null;
+        CallableStatement callableStatement = null;
+        ResultSet resultSet = null;
+        try {
+            connection = DatabaseConnection.getConnection();
+            String sql = "{CALL obtenerAsesoriasNoIniciadasPorEstudiante(?)}";
+            callableStatement = connection.prepareCall(sql);
+            callableStatement.setInt(1, idEstudiante);
+            resultSet = callableStatement.executeQuery();
+
+            while (resultSet.next()) {
+                Asesoria asesoria = new Asesoria();
+                asesoria.setIdAsesoria(resultSet.getInt("idAsesoria"));
+                asesoria.setTitulo(resultSet.getString("tituloAsesoria"));
+                asesoria.setDocenteNombre(resultSet.getString("Nombre"));
+                asesoria.setNombreMateria(resultSet.getString("Nombre_materia"));
+                asesoria.setFecha(resultSet.getDate("fecha"));
+                asesoria.setHora(resultSet.getTime("hora"));
+
+                asesorias.add(asesoria);
+            }
+        } finally {
+            if (resultSet != null) {
+                try {
+                    resultSet.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (callableStatement != null) {
+                try {
+                    callableStatement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return asesorias;
+    }
+
+
+    public List<Asesoria> obtenerAsesoriasIniciadasPorEstudiante(int idEstudiante) throws SQLException {
+        List<Asesoria> asesorias = new ArrayList<>();
+        Connection connection = null;
+        CallableStatement callableStatement = null;
+        ResultSet resultSet = null;
+        try {
+            connection = DatabaseConnection.getConnection();
+            String sql = "{CALL obtenerAsesoriasIniciadasPorEstudiante(?)}";
+            callableStatement = connection.prepareCall(sql);
+            callableStatement.setInt(1, idEstudiante);
+            resultSet = callableStatement.executeQuery();
+
+            while (resultSet.next()) {
+                Asesoria asesoria = new Asesoria();
+                asesoria.setIdAsesoria(resultSet.getInt("idAsesoria"));
+                asesoria.setTitulo(resultSet.getString("tituloAsesoria"));
+                asesoria.setNombreMateria(resultSet.getString("Nombre_materia"));
+                asesoria.setDocenteNombre(resultSet.getString("Nombre"));
+                asesoria.setFecha(resultSet.getDate("fecha"));
+                asesoria.setHora(resultSet.getTime("hora"));
+
+                asesorias.add(asesoria);
+            }
+        } finally {
+            if (resultSet != null) {
+                try {
+                    resultSet.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (callableStatement != null) {
+                try {
+                    callableStatement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return asesorias;
+    }
+
+
+
+    public static void main(String[] args) {
+        // Suponiendo que tienes un DAO que contiene el método obtenerAsesoriasIniciadasPorEstudiante
+        DaoAsesoria daoAsesoria = new DaoAsesoria();
+
+        // Reemplaza este ID con el idEstudiante que deseas probar
+        int idEstudiante = 1;
+
+        try {
+            // Llama al método para obtener las asesorías iniciadas
+            List<Asesoria> asesorias = daoAsesoria.obtenerAsesoriasNoIniciadasPorEstudiante(idEstudiante);
+
+            // Muestra los resultados
+            if (asesorias.isEmpty()) {
+                System.out.println("No se encontraron asesorías iniciadas para el estudiante con ID: " + idEstudiante);
+            } else {
+                for (Asesoria asesoria : asesorias) {
+                    System.out.println("ID Asesoría: " + asesoria.getIdAsesoria());
+                    System.out.println("Título: " + asesoria.getTitulo());
+                    System.out.println("Materia: " + asesoria.getNombreMateria());
+                    System.out.println("Fecha: " + asesoria.getFecha());
+                    System.out.println("Hora: " + asesoria.getHora());
+                    System.out.println("------------------------------------");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

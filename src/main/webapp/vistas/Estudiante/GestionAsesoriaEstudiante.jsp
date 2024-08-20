@@ -1,12 +1,17 @@
-<%@ page import="mx.edu.utez.sgaa.dao.DaoMateria" %>
-<%@ page import="mx.edu.utez.sgaa.model.Materia" %>
-<%@ page import="java.util.List" %>
-<%@ page import="mx.edu.utez.sgaa.model.EstudiantesAsesoria" %>
-<%@ page import="mx.edu.utez.sgaa.model.Asesoria" %>
-<%@ page import="java.text.SimpleDateFormat" %>
-<%@ page import="java.util.Date" %>
+<%--
+  Created by IntelliJ IDEA.
+  User: EKT9962
+  Date: 20/08/2024
+  Time: 09:39 a. m.
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%String context = request.getContextPath();%>
+<% String context = request.getContextPath(); %>
+<%@ page import="mx.edu.utez.sgaa.dao.DaoMateria" %>
+<%@ page import="java.util.List" %>
+<%@ page import="mx.edu.utez.sgaa.model.Materia" %>
+<%@ page import="mx.edu.utez.sgaa.dao.DaoAsesoria" %>
+<%@ page import="mx.edu.utez.sgaa.model.Asesoria" %>
 <%if(request.getSession(false) != null && session.getAttribute("matricula") != null){
     if (!(request.getSession().getAttribute("role").toString().toLowerCase().equals("estudiante"))){
         response.sendRedirect(context + "/index.jsp");
@@ -17,7 +22,6 @@
     return;
 }
 %>
-
 <%
     // Obtener el atributo de la sesión
     String idEstudianteStr = (String) session.getAttribute("idEstudiante");
@@ -30,24 +34,20 @@
             e.printStackTrace(); // Manejar el error de conversión si es necesario
         }
     } else {
-        idEstudiante = 0; // Valor por defecto si no está en la sesión
+        // Valor por defecto si no está en la sesión
     }
 %>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="<%=context%>/css/cssFuenteLetra.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css' rel='stylesheet' />
-    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js'></script>
-    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales/es.js'></script>
-    <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
-    <title>Crea tu Horario</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css" rel="stylesheet">
 
-    <title>Crea tu Horario</title>
+    <title>Gestión asesorías</title>
     <style>
         /* ESTILO DE PLANTILLABARRA*/
         :root{
@@ -68,11 +68,10 @@
             font-family: 'Poppins', sans-serif;
         }
         .contenido {
-            margin-left: 290px; /* Asegúrate de que este valor coincida con el ancho de la barra lateral */
-            margin-top: 30px; /* Ajusta según sea necesario para el margen superior */
-            height: calc(100vh - 100px); /* Ajustar según sea necesario */
-            width: calc(100% - 250px); /* Asegúrate de que el ancho esté ajustado */
-            overflow: hidden;
+            width: calc(100% - 300px);
+            margin-top: 100px; /* Ajusta según sea necesario */
+            height: 600px; /* Ajusta según sea necesario */
+            margin-left: 270px; /* Ajusta para evitar solapamiento con la barra lateral */
         }
         .barra-lateral {
             width: 250px;
@@ -105,7 +104,7 @@
 
         /*Menu de navegacion*/
         .barra-lateral .navegacion{
-            margin-top: 50px;
+            margin-top: 55px;
             margin-right: 0;
             margin-left: 20px;
         }
@@ -113,7 +112,7 @@
             margin-top: 20px;
             list-style: none;
             display: flex;
-            margin-bottom: 5px;
+            margin-bottom: 10px;
             margin-right: 0;
         }
         .barra-lateral .navegacion span{
@@ -146,11 +145,8 @@
         .barra-lateral .navegacion a:hover #historial-img {
             content: url('<%=context%>/IMG/historial_v.png'); /* Cambia la imagen al hacer hover */
         }
-        .barra-lateral .navegacion a:hover #buscador-img {
-            content: url('<%=context%>/IMG/buscador_v.png'); /* Cambia la imagen al hacer hover */
-        }
-        .barra-lateral .navegacion a:hover #materias-img {
-            content: url('<%=context%>/IMG/materias_v.png'); /* Cambia la imagen al hacer hover */
+        .barra-lateral .navegacion a:hover #asesorias-img {
+            content: url('<%=context%>/IMG/asesorias_v.png'); /* Cambia la imagen al hacer hover */
         }
         .barra-lateral .navegacion a:hover #logout-img {
             content: url('<%=context%>/IMG/logout_v.png'); /* Cambia la imagen al hacer hover */
@@ -197,31 +193,59 @@
             margin-bottom: 20px;
             align-items: center;
         }
-        .busqueda {
-            background-color: #141C32;
-            color: white;
-            padding: 20px;
+
+
+
+        /*DISEÑO INTERFAZ*/
+        .tarjeta {
+            background-color: #13AC80;
             border-radius: 10px;
-            margin-bottom: 20px;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px 0;
+            margin-left: 20px;
+            margin-right: 20px;
+            color: white;
         }
-        .busqueda input {
-            width: 100%;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
+        .tarjeta .info {
+            display: flex;
+            flex-direction: column;
         }
-        .contenido {
-            height: 80vh; /* Ajusta según tus necesidades */
-            overflow-y: auto; /* Agrega scroll vertical si el contenido es mayor que el contenedor */
-            overflow-x: hidden; /* Previene el scroll horizontal */
+        .tarjeta .info h2 {
+            margin: 0;
+            font-size: 18px;
+        }
+        .tarjeta .info p {
+            margin: 5px 0 0 0;
+            font-size: 14px;
+        }
+        .tarjeta .agregar {
+            background-color: #141C32;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            color: white;
+        }
+        .table-bordered {
+            border: 1px solid #dee2e6;
+            border-radius: 15px;
+            overflow: hidden; /* Para que las celdas dentro de la tabla también se adapten al borde redondeado */
         }
 
-        #calendar {
-            min-height: 100%; /* Ajusta el tamaño del calendario dentro del contenedor */
+        .table-bordered th, .table-bordered td {
+            border: 1px solid #dee2e6;
         }
-        .boton-cerrar-sesion:hover {
-            background-color: #fff;
-            color: #141C32;
+
+        .table-responsive {
+            border-radius: 15px;
+            overflow: hidden; /* Para mantener los bordes redondeados si hay contenido adicional */
+            border-top: 2px solid #141C32; /* Borde más grueso o más oscuro en la parte superior */
         }
     </style>
 </head>
@@ -247,13 +271,13 @@
                 </a>
             </li>
             <li>
-                <a href="<%=context%>/vistas/Estudiante/HistorialEstudiante.jsp" class="d-flex align-items-center">
+                <a href="<%=context%>/vistas/Estudiante/HistorialEstudiante.jsp" class="d-flex align-items-center" >
                     <img id="historial-img" src="<%=context%>/IMG/historial_b.png" class="img-fluid" style="width: auto; height: 35px;" />
                     <span>Historial</span>
                 </a>
             </li>
             <li>
-                <a href="<%=context%>/vistas/Estudiante/buscarMateria.jsp" class="d-flex align-items-center">
+                <a href="<%=context%>/vistas/Estudiante/buscarMateria.jsp" class="d-flex align-items-center" >
                     <img id="buscador-img" src="<%=context%>/IMG/buscador_b.png" class="img-fluid" style="width: auto; height: 35px;" />
                     <span>Buscar materias</span>
                 </a>
@@ -279,123 +303,103 @@
         </ul>
     </nav>
 </div>
-
-
-<div class="contenido">
-    <div id="calendar"></div>
+<div class="contenido-superior">
+    <div class="titulo-interfaz">
+        <span>Mis asesorias</span>
+    </div>
+    <div class="rol-actual">
+        <span class="rol" id="asigna_rol">Estudiante</span>
+    </div>
 </div>
-
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalTitle">Título del Evento</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p id="modalDate">Fecha y Hora</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-success" id="inscribirseBtn">Inscribirse</button>
+<div class="contenido">
+    <!-- Tabla de asesorías no iniciadas -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <div class="d-flex align-items-center">
+            <div class="p-2" style="border: 1px solid #dee2e6; border-radius: 0.25rem; background-color: rgba(0, 0, 0, 0.05);">
+                <span class="badge me-1" style="background-color: #0d6efd; width: 12px; height: 12px; border-radius: 50%; display: inline-block;"></span> En curso
+                <span class="badge ms-3" style="background-color: #6c757d; width: 12px; height: 12px; border-radius: 50%; display: inline-block;"></span> Sin iniciar
             </div>
         </div>
     </div>
-</div>
-<script>
-    // Definir la variable idEstudiante en JavaScript
-    var idEstudiante = '<%= idEstudiante %>'; // Convertir el idEstudiante a string para evitar problemas en el lado del cliente
-</script>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-            initialView: 'dayGridMonth',
-            locale: 'es',
-            headerToolbar: {
-                left: 'prev,next today',
-                center: 'title',
-                right: 'dayGridMonth,timeGridWeek,timeGridDay'
-            },
-            views: {
-                timeGridDay: {
-                    buttonText: 'Día'
-                },
-                timeGridWeek: {
-                    buttonText: 'Semana'
-                },
-                dayGridMonth: {
-                    buttonText: 'Mes'
-                }
-            },
-            events: [
-                <%
-                    List<Asesoria> asesorias = (List<Asesoria>) request.getAttribute("asesorias");
-                    if (asesorias != null) {
-                        for (int i = 0; i < asesorias.size(); i++) {
-                            Asesoria asesoria = asesorias.get(i);
-                            String start = new java.text.SimpleDateFormat("yyyy-MM-dd").format(asesoria.getFecha()) + "T" +
-                                           new java.text.SimpleDateFormat("HH:mm:ss").format(asesoria.getHora());
-                            String title = asesoria.getTitulo();
-                            int idAsesoria = asesoria.getIdAsesoria();
-                %>
-                {
-                    title: '<%= title %>',
-                    start: '<%= start %>',
-                    id: '<%= idAsesoria %>'
-                }<% if (i < asesorias.size() - 1) { %>,<% } %>
-                <%
-                        }
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover table-primary">
+            <thead>
+            <tr style="background-color: #0d6efd; color: white;">
+                <th scope="col">Titulo asesoría</th>
+                <th scope="col" style="text-align: center">Materia</th>
+                <th scope="col" style="text-align: center"> Docente asignado </th>
+                <th scope="col">Fecha</th>
+                <th scope="col">Hora</th>
+
+            </tr>
+            </thead>
+            <tbody id="materiasTableBody">
+            <%
+                if (idEstudiante != null && idEstudiante > 0) {
+                    DaoAsesoria daoAsesoria = new DaoAsesoria();
+                    List<Asesoria> asesoriasNoIniciadas = daoAsesoria.obtenerAsesoriasNoIniciadasPorEstudiante(idEstudiante);
+
+                    for (Asesoria asesoria : asesoriasNoIniciadas) {
+            %>
+            <tr style="background-color: #ffffff; color: #000000;">
+                <td style="background-color: #ffffff; color: #000000;"><%=asesoria.getTitulo() %></td>
+                <td style="background-color: #ffffff; color: #000000; text-align: center;"><%=asesoria.getNombreMateria() %></td>
+                <td style="background-color: #ffffff; color: #000000; text-align: center;"><%=asesoria.getDocenteNombre() %></td>
+                <td style="background-color: #ffffff; color: #000000;"><%=asesoria.getFecha() %></td>
+                <td style="background-color: #ffffff; color: #000000;"><%=asesoria.getHora() %></td>
+
+            </tr>
+            <%
                     }
-                %>
-            ],
-            eventClick: function(info) {
-                var selectedEvent = info.event;
-                var title = info.event.title;
-                var start = info.event.start.toISOString().slice(0, 19).replace('T', ' ');
-                var idAsesoria = info.event.id;
+                }
+            %>
+            </tbody>
+        </table>
+    </div>
 
-                document.getElementById('modalTitle').innerText = title;
-                document.getElementById('modalDate').innerText = start;
-                var myModal = new bootstrap.Modal(document.getElementById('myModal'), {
-                    keyboard: false
-                });
+    <!-- Tabla de asesorías iniciadas -->
+    <div class="d-flex justify-content-between align-items-center mb-3 mt-5">
+        <div class="d-flex align-items-center">
 
-                document.getElementById('inscribirseBtn').addEventListener('click', function() {
-                    selectedEvent.setProp('backgroundColor', 'green');
-                    selectedEvent.setProp('borderColor', 'green');
-                    selectedEvent.setProp('textColor', 'white');
+        </div>
+    </div>
 
-                    fetch('AgregarAsesoriaS', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded'
-                        },
-                        body: new URLSearchParams({
-                            'idEstudiante': idEstudiante, // Usar la variable inyectada
-                            'idAsesoria': idAsesoria
-                        })
-                    })
-                        .then(response => response.text())
-                        .then(data => {
-                            console.log('Inscripción realizada:', data);
-                        })
-                        .catch(error => console.error('Error en la inscripción:', error));
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover table-primary">
+            <thead>
+            <tr style="background-color: #0d6efd; color: white;">
+                <th scope="col">Titulo asesoría</th>
+                <th scope="col" style="text-align: center">Materia</th>
+                <th scope="col" style="text-align: center">Docente asignado</th>
+                <th scope="col">Fecha</th>
+                <th scope="col">Hora</th>
+                <!-- Columna para los botones -->
+            </tr>
+            </thead>
+            <tbody id="asesoriasIniciadasTableBody">
+            <%
+                if (idEstudiante != null && idEstudiante > 0) {
+                    DaoAsesoria daoAsesoria = new DaoAsesoria();
+                    List<Asesoria> asesoriasIniciadas = daoAsesoria.obtenerAsesoriasIniciadasPorEstudiante(idEstudiante);
 
-                    myModal.hide();
-                });
+                    for (Asesoria asesoria : asesoriasIniciadas) {
+            %>
+            <tr>
+                <td><%=asesoria.getTitulo() %></td>
+                <td style="text-align: center;"><%=asesoria.getNombreMateria() %></td>
+                <td style="text-align: center;"><%=asesoria.getDocenteNombre() %></td>
+                <td><%=asesoria.getFecha() %></td>
+                <td><%=asesoria.getHora() %></td>
+            </tr>
+            <%
+                    }
+                }
+            %>
+            </tbody>
+        </table>
+    </div>
+</div>
 
-                myModal.show();
-            }
-        });
-
-        calendar.render();
-    });
-</script>
-</script>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
