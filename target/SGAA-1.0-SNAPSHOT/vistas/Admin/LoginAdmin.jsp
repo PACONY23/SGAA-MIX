@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<% String context = request.getContextPath(); %>
+<%String context = request.getContextPath();%>
 <!DOCTYPE html>
 <html lang="es">
 <head>

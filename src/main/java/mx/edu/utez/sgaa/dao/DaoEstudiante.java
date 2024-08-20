@@ -179,4 +179,20 @@ public class DaoEstudiante {
     public Estudiante loginEstudiante(String matricula, String password) {
         return null;
     }
+
+    public boolean existeEstudiante(String matricula) {
+        String sql = "SELECT COUNT(*) FROM Estudiantes WHERE matricula = ?";
+        try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, matricula);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 }

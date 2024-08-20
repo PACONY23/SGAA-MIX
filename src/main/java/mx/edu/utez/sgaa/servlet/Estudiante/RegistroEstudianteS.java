@@ -51,12 +51,26 @@ public class RegistroEstudianteS extends HttpServlet {
         System.out.println("Parametros recibidos - Matricula: " + matricula + ", Contraseña: " + password + ", Nombre: " + nombre + ", Apellido: " + apellido);
 
         try {
+            // Verificar si la matrícula ya existe
+            if (daoEstudiante.existeEstudiante(matricula)) {
+                // Si la matrícula ya existe, mostrar un mensaje de error
+                request.setAttribute("message", "La matrícula ya está registrada.");
+                request.setAttribute("alertType", "error");
+                request.getRequestDispatcher("/vistas/Estudiante/RegistroEstudiante.jsp").forward(request, response);
+                return;
+            }
+
             int result = daoEstudiante.RegistrarEstudiante(estudiante);
             if (result > 0) {
-                response.sendRedirect(request.getContextPath() + "/vistas/Estudiante/LoginEstudiante.jsp");
-                response.getWriter().println("Estudiante registrado exitosamente.");
+                // Redirigir al login en caso de éxito
+                request.setAttribute("message", "Estudiante registrado exitosamente.");
+                request.setAttribute("alertType", "success");
+                request.getRequestDispatcher("/vistas/Estudiante/LoginEstudiante.jsp").forward(request, response);
             } else {
-                response.getWriter().println("Error al registrar estudiante.");
+                // Mostrar mensaje de error si el registro falla
+                request.setAttribute("message", "Error al registrar estudiante.");
+                request.setAttribute("alertType", "error");
+                request.getRequestDispatcher("/vistas/Estudiante/RegistroEstudiante.jsp").forward(request, response);
             }
         } catch (Exception e) {
             e.printStackTrace();

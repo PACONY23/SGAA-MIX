@@ -1,6 +1,18 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%String context = request.getContextPath();%>
 <%
+    if(request.getSession(false) != null && session.getAttribute("matricula") != null){
+        if (!(request.getSession().getAttribute("role").toString().toLowerCase().equals("docente"))){
+            response.sendRedirect(context + "/index.jsp");
+            return;
+        }
+    } else {
+        response.sendRedirect(context + "/index.jsp");
+        return;
+    }
+%>
+
+<%
     String matricula = (String) session.getAttribute("matricula");
     String nombre = (String) session.getAttribute("nombre");
     String apellido = (String) session.getAttribute("apellido");
@@ -423,7 +435,7 @@
             </div>
             <div class="dato">
                 <label for="correo">Correo:</label>
-                <input type="email" id="correo" value="<%=matricula%>" readonly>
+                <input type="email" id="Correo" name="matricula" value="<%=matricula%>" required>
             </div>
             <div class="botones">
                 <button id="editar">Editar</button>
@@ -437,26 +449,26 @@
     <div class="modal-content">
         <span class="close">&times;</span>
         <h2>Editar Perfil</h2>
-        <form id="editarForm" action="<%=context%>/EditarDocente" method="post">
-            <div class="input-group">
-                <label for="nombreModal">Nombre:</label>
-                <input type="text" id="nombreModal" name="nombre" value="<%=nombre%>" required>
-                <div id="nombreError" class="text-danger" style="display:none;">Nombre inválido. Debe tener al menos 5 caracteres y solo letras.</div>
-            </div>
-            <div class="input-group">
-                <label for="apellidosModal">Apellidos:</label>
-                <input type="text" id="apellidosModal" name="apellidos" value="<%=apellido%>" required>
-                <div id="apellidoError" class="text-danger" style="display:none;">Apellidos inválidos. Debe tener al menos 5 caracteres y solo letras.</div>
-            </div>
-            <div class="input-group">
-                <label for="correoModal">Correo:</label>
-                <input type="email" id="correoModal" name="matricula" value="<%=matricula%>" required>
-                <div id="correoError" class="text-danger" style="display:none;">Campo obligatorio. Debe ser un correo válido con terminación @utez.edu.mx.</div>
-            </div>
-            <div class="modal-buttons">
-                <button type="submit" id="guardarCambios">Guardar Cambios</button>
-            </div>
-        </form>
+            <form id="editarForm" action="<%=context%>/EditarDocente" method="post">
+                <div class="input-group">
+                    <label for="nombreModal">Nombre:</label>
+                    <input type="text" id="nombreModal" name="nombre" value="<%=nombre%>" required>
+                    <div id="nombreError" class="text-danger" style="display:none;">Nombre inválido. Debe tener al menos 5 caracteres y solo letras.</div>
+                </div>
+                <div class="input-group">
+                    <label for="apellidosModal">Apellidos:</label>
+                    <input type="text" id="apellidosModal" name="apellidos" value="<%=apellido%>" required>
+                    <div id="apellidoError" class="text-danger" style="display:none;">Apellidos inválidos. Debe tener al menos 5 caracteres y solo letras.</div>
+                </div>
+                <div class="input-group">
+                    <label for="correoModal">Correo:</label>
+                    <input type="email" id="correoModal" name="matricula" value="<%=matricula%>" required>
+                    <div id="correoError" class="text-danger" style="display:none;">Campo obligatorio. Debe ser un correo válido con terminación @utez.edu.mx.</div>
+                </div>
+                <div class="modal-buttons">
+                    <button type="submit" id="guardarCambios">Guardar Cambios</button>
+                </div>
+            </form>
     </div>
 </div>
 <script>

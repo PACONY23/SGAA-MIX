@@ -46,16 +46,27 @@ public class RegistroDocentesS extends HttpServlet {
         docente.setAdmission(admision);
         docente.setRol(rol);
 
-        // Debug output
-        System.out.println("Parametros recibidos - Matricula: " + matricula + ", Contraseña: " + password + ", Nombre: " + nombre + ", Apellido: " + apellido + ", Rol: " + rol);
+        // Verificar si la matrícula ya existe
+        if (daoDocente.existeDocente(matricula)) {
+            // Si la matrícula ya existe, mostrar un mensaje de error
+            request.setAttribute("message", "La matrícula ya está registrada.");
+            request.setAttribute("alertType", "error");
+            request.getRequestDispatcher("/vistas/Docente/RegistroDocente.jsp").forward(request, response);
+            return;
+        }
 
         try {
             int result = daoDocente.RegistrarDocente(docente);
             if (result > 0) {
-                response.sendRedirect(request.getContextPath() + "/vistas/Docente/LoginDocente.jsp");
-                response.getWriter().println("Docente registrado exitosamente.");
+                // Redirigir al login en caso de éxito
+                request.setAttribute("message", "Docente registrado exitosamente.");
+                request.setAttribute("alertType", "success");
+                request.getRequestDispatcher("/vistas/Docente/LoginDocente.jsp").forward(request, response);
             } else {
-                response.getWriter().println("Error al registrar docente.");
+                // Mostrar mensaje de error si el registro falla
+                request.setAttribute("message", "Error al registrar docente.");
+                request.setAttribute("alertType", "error");
+                request.getRequestDispatcher("/vistas/Docente/RegistroDocente.jsp").forward(request, response);
             }
         } catch (Exception e) {
             e.printStackTrace();

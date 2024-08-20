@@ -173,7 +173,6 @@
     <h2>DOCENTE</h2>
     <form id="loginForm" action="<%= context %>/LoginDocentesS" method="post">
         <input type="text" id="matricula" name="matricula" placeholder="Correo electronico" required>
-        <div class="error-msg">Campo obligatorio</div>
         <input type="password" id="password" name="password" placeholder="Contraseña" required>
         <div class="error-msg">Campo obligatorio</div>
         <button type="submit" disabled>Iniciar sesión</button>
