@@ -16,6 +16,10 @@
 %>
 <%
     String matricula = (String) session.getAttribute("matricula");
+    String idDocenteString = (String) session.getAttribute("idD");
+    int idDocente = Integer.parseInt(idDocenteString);
+    System.out.println(idDocente);
+    System.out.println(matricula);
     if (matricula != null) {
 %>
 
@@ -240,9 +244,13 @@
                     .then(response => response.json())
                     .then(data => {
                         console.log('Asesorías:', data);
+                        console.log('ID Docente:', '<%=idDocente%>');
+                        const idDocente = parseInt('<%=idDocente%>',10);
 
                         // Transformar los datos al formato esperado por FullCalendar
-                        const events = data.map(asesoria => ({
+                        const events = data
+                            .filter(asesoria => asesoria.idDocente === idDocente) // Filtrar las asesorías del docente actual
+                            .map(asesoria => ({
                             id: asesoria.idAsesoria,
                             title: asesoria.materia.nombre,
                             start: new Date(asesoria.fecha).toISOString(), // Convertir la fecha al formato ISO
