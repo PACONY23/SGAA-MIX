@@ -16,6 +16,8 @@
 %>
 <%
     String matricula = (String) session.getAttribute("matricula");
+    String successMessage = (String) request.getAttribute("successMessage");
+    String errorMessage = (String) request.getAttribute("errorMessage");
     if (matricula != null) {
 %>
 
@@ -40,6 +42,8 @@
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js'></script>
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales/es.js'></script>
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Crea tu Horario</title>
     <style>
         :root {
@@ -158,6 +162,29 @@
     </style>
 </head>
 <body>
+<% if (successMessage != null) { %>
+<script defer>
+    Swal.fire({
+        icon: 'success',
+        title: 'Éxito',
+        text: '<%= successMessage %>',
+        showConfirmButton: false,
+        timer: 2000
+    });
+</script>
+<% } %>
+
+<% if (errorMessage != null) { %>
+<script defer>
+    Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: '<%= errorMessage %>',
+        showConfirmButton: false,
+        timer: 2000
+    });
+</script>
+<% } %>
 <div class="barra-lateral">
     <div class="nombre-pagina">
         <img src="<%=context%>/IMG/logoCalendario.png" id="cloud" class="img-fluid" style="height: 40px; width: auto"/>
@@ -328,8 +355,7 @@
     </div>
 </div>
 
-
-<!-- Modal para visualizar materias docentes -->
+<!-- Modal para agendar asesorias -->
 <div class="modal fade" id="materiasDocentesModal" tabindex="-1" aria-labelledby="materiasDocentesModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -345,7 +371,7 @@
                         <!-- Opciones de materias se cargarán aquí -->
                     </select>
                 </div>
-                <form id="asesoriaForm" method="post">
+                <form id="asesoriaForm" action="<%=context%>/CrearAsesoriaS" method="post">
                     <input type="hidden" id="idDocente" name="idDocente">
                     <input type="hidden" id="idMateria" name="idMateria">
                     <div class="mb-3">
@@ -360,11 +386,11 @@
                         <label for="hora" class="form-label">Hora (HH:mm:ss)</label>
                         <input type="text" class="form-control" id="hora" name="hora" pattern="\d{2}:\d{2}:\d{2}" placeholder="HH:mm:ss" required>
                     </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" onclick="submitAsesoria()">Crear Asesoría</button>
+                        <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
                 </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" onclick="submitAsesoria()">Crear Asesoría</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>

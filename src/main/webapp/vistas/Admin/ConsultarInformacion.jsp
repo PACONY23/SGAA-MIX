@@ -1,6 +1,11 @@
-<%@ page import="mx.edu.utez.sgaa.model.Docente" %>
+<%@ page import="mx.edu.utez.sgaa.dao.DaoMateria" %>
 <%@ page import="java.util.List" %>
+<%@ page import="mx.edu.utez.sgaa.model.Materia" %>
+<%@ page import="mx.edu.utez.sgaa.dao.DaoDocente" %>
+<%@ page import="mx.edu.utez.sgaa.model.Docente" %>
 <%@ page import="mx.edu.utez.sgaa.model.Estudiante" %>
+<%@ page import="mx.edu.utez.sgaa.dao.DaoEstudiante" %>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%String context = request.getContextPath();
     if(request.getSession(false) != null && session.getAttribute("matricula") != null){
@@ -13,39 +18,42 @@
         return;
     }
 %>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <%--<link rel="stylesheet" href="<%=context%>/css/cssPlantillaBarra.css" />--%>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link href="<%=context%>/css/cssFuenteLetra.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <title>Consulta Información</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="<%=context%>/css/cssFuenteLetra.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css" rel="stylesheet">
+
+    <title>Gestión de usuarios</title>
     <style>
-        :root {
+        /* ESTILO DE PLANTILLABARRA*/
+        :root{
             --bs-body-font-family: 'Poppins', sans-serif !important;
         }
-        * {
+        *{
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Poppins', sans-serif;
         }
-        body {
+        body{
             margin: 0;
             height: 100vh;
             width: 100%;
             background-color: white;
-            display: flex;
+            display: flex; /* Usar flexbox para el diseño */
             font-family: 'Poppins', sans-serif;
         }
         .contenido {
             width: calc(100% - 300px);
-            margin-top: 100px;
-            height: auto;
-            margin-left: 270px;
+            margin-top: 100px; /* Ajusta según sea necesario */
+            height: 600px; /* Ajusta según sea necesario */
+            margin-left: 270px; /* Ajusta para evitar solapamiento con la barra lateral */
         }
         .barra-lateral {
             width: 250px;
@@ -56,40 +64,43 @@
             position: fixed;
             top: 0;
         }
-        .barra-lateral .nombre-pagina {
+        /*nombre de la pagina*/
+        .barra-lateral .nombre-pagina{
             width: 100%;
             height: 45px;
             display: flex;
             align-items: center;
             margin-top: 35px;
         }
-        .barra-lateral .nombre-pagina img {
+        .barra-lateral .nombre-pagina img{
             margin-left: 15px;
             font-size: 50px;
         }
-        .barra-lateral .nombre-pagina span {
+        .barra-lateral .nombre-pagina span{
             font-size: larger;
             opacity: 1;
             color: white;
             margin-left: 12px;
             transition: opacity 0.5s ease;
         }
-        .barra-lateral .navegacion {
+
+        /*Menu de navegacion*/
+        .barra-lateral .navegacion{
             margin-top: 50px;
             margin-right: 0;
             margin-left: 20px;
         }
-        .barra-lateral .navegacion li {
+        .barra-lateral .navegacion li{
             margin-top: 20px;
             list-style: none;
             display: flex;
             margin-bottom: 5px;
             margin-right: 0;
         }
-        .barra-lateral .navegacion span {
+        .barra-lateral .navegacion span{
             margin-left: 25px;
         }
-        .barra-lateral .navegacion a {
+        .barra-lateral .navegacion a{
             width: 100%;
             height: 50px;
             margin-left: 10px;
@@ -99,152 +110,149 @@
             color: white;
             transition: background-color 0.3s ease, color 0.3s ease, border-radius 0.3s ease;
         }
-        .barra-lateral .navegacion a:hover {
+        .barra-lateral .navegacion a:hover{
             margin-right: 0;
             background-color: white;
             color: #141C32;
-            border-top-right-radius: 0;
-            border-bottom-right-radius: 0;
+            border-top-right-radius: 0; /* Quitar radio del borde superior derecho */
+            border-bottom-right-radius: 0; /* Quitar radio del borde inferior derecho */
         }
+
         .barra-lateral .navegacion a:hover #perfil-img {
-            content: url('<%=context%>/IMG/perfil_v.png');
+            content: url('<%=context%>/IMG/perfil_v.png'); /* Cambia la imagen al hacer hover */
         }
         .barra-lateral .navegacion a:hover #materias-img {
-            content: url('<%=context%>/IMG/materias_v.png');
+            content: url('<%=context%>/IMG/materias_v.png'); /* Cambia la imagen al hacer hover */
         }
-        .barra-lateral .navegacion a:hover #solicitud-acceso {
-            content: url('<%=context%>/IMG/solicitud_v.png');
+        .barra-lateral .navegacion a:hover #solicitud-acceso{
+            content: url('<%=context%>/IMG/solicitud_v.png'); /* Cambia la imagen al hacer hover */
         }
-        .barra-lateral .navegacion a:hover #asesorias-img {
-            content: url('<%=context%>/IMG/asesorias_v.png');
+        .barra-lateral .navegacion a:hover #asesorias-img{
+            content: url('<%=context%>/IMG/asesorias_v.png'); /* Cambia la imagen al hacer hover */
         }
         .barra-lateral .navegacion a:hover #historial-img {
-            content: url('<%=context%>/IMG/historial_v.png');
+            content: url('<%=context%>/IMG/historial_v.png'); /* Cambia la imagen al hacer hover */
         }
         .barra-lateral .navegacion a:hover #logout-img {
             content: url('<%=context%>/IMG/logout_v.png'); /* Cambia la imagen al hacer hover */
         }
 
-        .barra-lateral .navegacion img {
+
+        .barra-lateral .navegacion img{
             margin-left: 15px;
         }
-        .contenido-superior {
-            width: calc(100% - 250px);
-            height: 100px;
+        .contenido-superior{
+            width: calc(100% - 250px); /* Resto del ancho de barra-lateral */
+            height: 100px; /* Ajustar la altura según se necesite */
             overflow: hidden;
             background-color: white;
             padding: 32px 15px;
             margin-left: 250px;
             position: fixed;
         }
-        .titulo-interfaz {
+        .titulo-interfaz{
             width: 400px;
             height: 100px;
             font-weight: bold;
         }
-        .titulo-interfaz span {
+        .titulo-interfaz span{
             font-size: xx-large;
-            color: #141C32;
+            color: #141C32; /* Añadir color para que el texto sea visible */
         }
-        .rol-actual {
-            position: fixed;
-            top: 15px;
-            right: 15px;
-            padding: 10px 15px;
+        .rol-actual{
+            position: fixed; /* Posiciona este div de manera absoluta */
+            top: 15px; /* Ajusta según la necesidad */
+            right: 15px; /* Ajusta según la necesidad */
+            padding: 10px 15px; /* Añadir padding si es necesario */
             border-radius: 5px;
             display: flex;
             align-items: center;
         }
-        .rol-actual img {
+        .rol-actual img{
             width: 40px;
             height: 40px;
         }
-        .rol-actual span {
+        .rol-actual span{
             color: #141C32;
             font-size: small;
             margin-right: 10px;
+            top: 0;
             margin-bottom: 20px;
             align-items: center;
         }
-        .cuadro-contenido {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        .cuadro {
-            background-color: #141C32;
+
+
+
+
+        /*DISEÑO INTERFAZ*/
+        .tarjeta {
+            background-color: #13AC80;
+            border-radius: 10px;
             padding: 20px;
-            border-radius: 20px;
-            color: white;
-            width: 100%;
-            max-width: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            margin-top: 20px;
-        }
-        .cuadro h2 {
-            margin: 0 0 20px 0;
-            font-size: 1.5em;
-        }
-        .cuadro input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            background-color: #141C32;
-            color: white;
-            border: 1px solid #fff;
-            border-radius: 5px;
-        }
-        .cuadro .botones-container {
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-            gap: 10px;
-        }
-        .cuadro .botones-container button {
-            padding: 8px 16px;
-            border: none;
-            border-radius: 20px;
-            background-color: #1D815A;
-            color: white;
-            cursor: pointer;
-            width: 100%;
-            text-align: center;
-        }
-        .cuadro .botones-container button:hover {
-            background-color: #145A42;
-        }
-        .cuadro .lista-usuarios {
-            width: 100%;
-            margin-top: 20px;
-        }
-        .cuadro .lista-usuarios ul {
-            list-style: none;
-            padding: 0;
-        }
-        .cuadro .lista-usuarios ul li {
-            background-color: #f8f9fa;
-            color: #333;
-            padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 5px;
             display: flex;
             justify-content: space-between;
+            align-items: center;
+            margin: 20px 0;
+            margin-left: 20px;
+            margin-right: 20px;
+            color: white;
         }
-        .cuadro .lista-usuarios ul li span.estatus {
-            font-weight: bold;
-            color: red;
+        .tarjeta .info {
+            display: flex;
+            flex-direction: column;
+        }
+        .tarjeta .info h2 {
+            margin: 0;
+            font-size: 18px;
+        }
+        .tarjeta .info p {
+            margin: 5px 0 0 0;
+            font-size: 14px;
+        }
+        .tarjeta .agregar {
+            background-color: #141C32;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            color: white;
+        }
+        #agregar-btn {
+            background-color: rgba(0, 0, 0, 0.05); /* Mismo fondo que la caja de simbología */
+            border: 1px solid #dee2e6;
+            border-radius: 0.25rem;
+            color: #141C32; /* Color del texto */
+            transition: background-color 0.3s ease;
+        }
+
+        #agregar-btn:hover {
+            background-color: #5393d5; /* Hover recomendado: azul */
+            color: white; /* Color de texto blanco en hover */
+        }
+        .table-bordered {
+            border: 1px solid #dee2e6;
+            border-radius: 15px;
+            overflow: hidden; /* Para que las celdas dentro de la tabla también se adapten al borde redondeado */
+        }
+
+        .table-bordered th, .table-bordered td {
+            border: 1px solid #dee2e6;
+        }
+
+        .table-responsive {
+            border-radius: 15px;
+            overflow: hidden; /* Para mantener los bordes redondeados si hay contenido adicional */
+            border-top: 2px solid #141C32; /* Borde más grueso o más oscuro en la parte superior */
         }
     </style>
 </head>
 <body>
-<!-- Barra lateral -->
 <div class="barra-lateral">
     <div class="nombre-pagina">
-        <img src="<%=context%>/IMG/logoCalendario.png" id="cloud" class="img-fluid" style="height: 40px; width: auto" />
+        <img src="<%=context%>/IMG/logoCalendario.png" id="cloud" class="img-fluid" style="height: 40px; width: auto"/>
         <span>UTEZORATE</span>
     </div>
     <nav class="navegacion">
@@ -262,13 +270,13 @@
                 </a>
             </li>
             <li>
-                <a href="<%=context%>/vistas/Admin/AprobarRegistro.jsp" class="d-flex align-items-center">
+                <a href="<%=context%>/vistas/Admin/AprobarRegistro.jsp" class="d-flex align-items-center" >
                     <img id="solicitud-acceso" src="<%=context%>/IMG/solicitud_b.png" class="img-fluid" style="width: auto; height: 35px;" />
                     <span>Solicitud de acceso</span>
                 </a>
             </li>
             <li>
-                <a href="<%=context%>/vistas/Admin/ConsultarInformacion.jsp" class="d-flex align-items-center">
+                <a href="<%=context%>/vistas/Admin/ConsultarInformacion.jsp" class="d-flex align-items-center" >
                     <img id="historial-img" src="<%=context%>/IMG/historial_b.png" class="img-fluid" style="width: auto; height: 35px;" />
                     <span>Información de usuarios</span>
                 </a>
@@ -284,7 +292,7 @@
 </div>
 <div class="contenido-superior">
     <div class="titulo-interfaz">
-        <span></span>
+        <span>Gestión de usuarios</span>
     </div>
     <div class="rol-actual">
         <span class="rol" id="asigna_rol">Administrador</span>
@@ -292,363 +300,446 @@
 </div>
 
 <div class="contenido">
-    <div class="cuadro-contenido">
-        <div class="cuadro">
-            <h2>Consulta de Docentes</h2>
-            <input id="matricula-docente" type="text" placeholder="Matrícula del docente">
-            <div class="botones-container">
-                <button id="consultar-docente-btn" data-toggle="modal" data-target="#consultarDocenteModal">Consultar</button>
-                <button id="editar-docente-btn" data-toggle="modal" data-target="#editarDocenteModal">Editar</button>
-                <button id="desactivar-docente-btn">Deshabilitar</button>
-                <button id="activar-docente-btn">Habilitar</button>
-            </div>
-            <div class="lista-usuarios">
-                <ul id="lista-docentes"></ul>
-            </div>
-        </div>
-        <div class="cuadro">
-            <h2>Consulta de Estudiantes</h2>
-            <input id="matricula-estudiante" type="text" placeholder="Matrícula del estudiante">
-            <div class="botones-container">
-                <button id="consultar-estudiante-btn" data-toggle="modal" data-target="#consultarEstudianteModal">Consultar</button>
-                <button id="editar-estudiante-btn" data-toggle="modal" data-target="#editarEstudianteModal">Editar</button>
-                <button id="desactivar-estudiante-btn">Deshabilitar</button>
-                <button id="activar-estudiante-btn">Habilitar</button>
-            </div>
-            <div class="lista-usuarios">
-                <ul id="lista-estudiantes"></ul>
-            </div>
-        </div>
+    <!-- Título DOCENTES -->
+    <div class="text-center mb-4">
+        <h5 class="fw-bold" style="font-family: 'Poppins', sans-serif; color: #141C32;">Docentes</h5>
+        <hr style="width: 50px; border: 2px solid #141C32; margin: auto;">
     </div>
 
+    <div class="table-responsive mb-5">
+        <table class="table table-bordered table-hover">
+            <thead>
+            <tr>
+                <th scope="col">Correo</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Apellido</th>
+                <th scope="col" style="text-align: center">Editar</th>
+                <th scope="col" style="text-align: center">Estado</th>
+            </tr>
+            </thead>
+            <tbody id="materiasTableBody">
+            <%
+                DaoDocente docentesLista = new DaoDocente();
+                List<Docente> docentes = docentesLista.listarDocentes();
+                for (Docente docente : docentes) {
+                    String rowClass = !docente.isEstatus() ? "table-active" : "table-primary";
+            %>
+            <tr id="materia-<%=docente.getId()%>" class="<%= rowClass %>">
+                <td><%=docente.getMatricula() %></td>
+                <td><%=docente.getNombres() %></td>
+                <td><%=docente.getApellidos() %></td>
+                <td style="text-align: center">
+                    <button id="materia-<%=docente.getId()%>" onclick="cargarDatosDocente(<%=docente.getId()%>, '<%=docente.getNombres()%>', '<%=docente.getApellidos()%>', '<%=docente.getContrasena()%>')" class="btn p-0">
+                        <i class="bi bi-pencil-fill" style="font-size: 25px; color: black;" data-bs-toggle="modal" data-bs-target="#editarDocente"></i>
+                    </button>
+                </td>
+
+                <td style="text-align: center">
+                    <button id="estado-<%=docente.isEstatus()%>" onclick="estadoDocente(<%=docente.getId()%>)" class="btn btn-outline-secondary ms-4" data-bs-toggle="modal" data-bs-target="#estadoDocente">
+                         <span class="small">
+                              <%= !docente.isEstatus() ? "Habilitar" : "Deshabilitar" %>
+                         </span>
+                    </button>
+                </td>
+            </tr>
+            <%
+                }
+            %>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Título ESTUDIANTES -->
+    <div class="text-center mb-4">
+        <h5 class="fw-bold" style="font-family: 'Poppins', sans-serif; color: #141C32;">Estudiantes</h5>
+        <hr style="width: 50px; border: 2px solid #141C32; margin: auto;">
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead>
+            <tr>
+                <th scope="col">Correo</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Apellido</th>
+                <th scope="col">Grupo</th>
+                <th scope="col">Cuatrimestre</th>
+                <th scope="col" style="text-align: center">Editar</th>
+                <th scope="col" style="text-align: center">Estado</th>
+            </tr>
+            </thead>
+            <tbody id="estudiantesTableBody">
+            <%
+                DaoEstudiante estudiantesLista  = new DaoEstudiante();
+                List<Estudiante> estudiantes = estudiantesLista.listarEstudiantes();
+                for (Estudiante estudiante : estudiantes) {
+                    String rowClass = !estudiante.isEstatus() ? "table-active" : "table-primary";
+                    System.out.println("ID del estudiante: " + estudiante.getId());
+            %>
+            <tr id="materia-<%=estudiante.getId()%>" class="<%= rowClass %>">
+                <td><%=estudiante.getMatricula() %></td>
+                <td><%=estudiante.getNombre() %></td>
+                <td><%=estudiante.getApellido() %></td>
+                <td><%=estudiante.getGrupo() %></td>
+                <td><%=estudiante.getCuatrimestre()%></td>
+                <td style="text-align: center">
+                    <button id="materia-<%=estudiante.getId()%>" onclick="cargarDatosDocente(<%=estudiante.getId()%>, '<%=estudiante.getNombre()%>', '<%=estudiante.getApellido()%>', '<%=estudiante.getGrupo()%>', '<%=estudiante.getContrasena()%>', '<%=estudiante.getCuatrimestre()%>')" class="btn p-0">
+                        <i class="bi bi-pencil-fill" style="font-size: 25px; color: black;" data-bs-toggle="modal" data-bs-target="#alertaeditarEstudiante"></i>
+                    </button>
+                </td>
+                <td style="text-align: center">
+                    <button id="estado-<%=estudiante.isEstatus()%>" onclick="estadoEstudiante(<%=estudiante.getId()%>)" class="btn btn-outline-secondary ms-4" data-bs-toggle="modal" data-bs-target="#alertaestadoEstudiante">
+                         <span class="small">
+                              <%= !estudiante.isEstatus() ? "Habilitar" : "Deshabilitar" %>
+                         </span>
+                    </button>
+                </td>
+            </tr>
+            <%
+                }
+            %>
+            </tbody>
+        </table>
+    </div>
 </div>
 
-<!-- Modal de consulta Docente -->
-<div class="modal fade" id="consultarDocenteModal" tabindex="-1" role="dialog" aria-labelledby="consultarDocenteModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+
+
+
+<%-- modal cambio estado docente --%>
+<div class="modal fade" id="estadoDocente" data-bs-backdrop="static" tabindex="-1" aria-labelledby="confirmarEstadoModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="consultarDocenteModalLabel">Información del Docente</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <h5 class="modal-title" id="confirmarEstadoModalLabel">Cambio del estado</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="<%=context%>/EstadoDocenteS" method="post">
+                <div class="modal-body">
+                    <input type="hidden" id="ch_id" name="ch_id">
+                    ¿Estás seguro de que deseas realizar este cambio?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-danger">Cambiar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<%-- modal editar docente --%>
+<div class="modal fade" id="editarDocente" data-bs-backdrop="static" tabindex="-1" aria-labelledby="confirmarBorrarModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmarBorrarModalLabel">Editar docente</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="formEditarDocente" action="<%=context%>/ActualizarDocenteAdmin" method="post">
+                <div class="modal-body">
+                    <input type="hidden" id="u_id" name="u_id"> <!-- Campo oculto para el ID del docente -->
+                    <div class="mb-3">
+                        <label for="nombres" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" name="nombres" id="nombres" placeholder="nombre" required>
+                        <div id="nombresError" class="text-danger" style="display:none;">El nombre debe tener al menos 3 letras y no puede contener números.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="apellidos" class="form-label">Apellido</label>
+                        <input type="text" class="form-control" name="apellidos" id="apellidos" placeholder="apellido" required>
+                        <div id="apellidosError" class="text-danger" style="display:none;">El apellido debe tener al menos 3 letras y no puede contener números.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="contrasena" class="form-label">Contraseña</label>
+                        <input type="password" class="form-control" name="contrasena" id="contrasena" placeholder="Contraseña" required>
+                        <div id="contrasenaError" class="text-danger" style="display:none;">La contraseña debe tener al menos 3 caracteres.</div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger" id="guardarCambiosBtn" disabled>Confirmar cambios</button>
+                    <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal Alerta Editar Docente -->
+<div class="modal fade" id="alertaeditarEstudiante" tabindex="-1" aria-labelledby="modalAlertaEditarDocenteLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalAlertaEditarDocenteLabel">Alerta</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <label for="modalDocenteNombre">Nombre:</label>
-                            <input type="text" id="modalDocenteNombre" class="form-control" readonly>
-                        </div>
-                        <div class="col-md-4">
-                            <label for="modalDocenteApellido">Apellido:</label>
-                            <input type="text" id="modalDocenteApellido" class="form-control" readonly>
-                        </div>
-                        <div class="col-md-4">
-                            <label for="modalDocenteCorreo">Email:</label>
-                            <input type="email" id="modalDocenteCorreo" class="form-control" readonly>
-                        </div>
-                    </div>
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>ALERTA</strong> Esta función sigue en proceso.
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Modal de consulta Estudiante -->
-<div class="modal fade" id="consultarEstudianteModal" tabindex="-1" role="dialog" aria-labelledby="consultarEstudianteModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+
+<!-- Modal Alerta Estado Docente -->
+<div class="modal fade" id="alertaestadoEstudiante" tabindex="-1" aria-labelledby="modalAlertaEstadoDocenteLabel" aria-hidden="true">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="consultarEstudianteModalLabel">Información del Estudiante</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <h5 class="modal-title" id="modalAlertaEstadoDocenteLabel">Alerta</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <label for="modalEstudianteNombre">Nombre:</label>
-                            <input type="text" id="modalEstudianteNombre" class="form-control" readonly>
-                        </div>
-                        <div class="col-md-4">
-                            <label for="modalEstudianteApellido">Apellido:</label>
-                            <input type="text" id="modalEstudianteApellido" class="form-control" readonly>
-                        </div>
-                        <div class="col-md-4">
-                            <label for="modalEstudianteCorreo">Email:</label>
-                            <input type="email" id="modalEstudianteCorreo" class="form-control" readonly>
-                        </div>
-                        <div class="col-md-4">
-                            <label for="modalEstudianteGrupo">Grupo:</label>
-                            <input type="text" id="modalEstudianteGrupo" class="form-control" readonly>
-                        </div>
-                        <div class="col-md-4">
-                            <label for="modalEstudianteCuatrimestre">Cuatrimestre:</label>
-                            <input type="text" id="modalEstudianteCuatrimestre" class="form-control" readonly>
-                        </div>
-                    </div>
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>ALERTA</strong> Esta función sigue en proceso.
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Modal de edición Docente -->
-<div class="modal fade" id="editarDocenteModal" tabindex="-1" role="dialog" aria-labelledby="editarDocenteModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+
+
+<%-- modal cambio estado estudiante
+<div class="modal fade" id="estadoEstudiante" data-bs-backdrop="static" tabindex="-1" aria-labelledby="confirmarrEstadoModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editarDocenteModalLabel">Editar Información del Docente</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <h5 class="modal-title" id="confirmarrEstadoModalLabel">Cambio del estado</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <label for="editDocenteNombre">Nombre:</label>
-                            <input type="text" id="editDocenteNombre" class="form-control">
-                        </div>
-                        <div class="col-md-4">
-                            <label for="editDocenteApellido">Apellido:</label>
-                            <input type="text" id="editDocenteApellido" class="form-control">
-                        </div>
-                        <div class="col-md-4">
-                            <label for="editDocenteCorreo">Email:</label>
-                            <input type="email" id="editDocenteCorreo" class="form-control">
-                        </div>
-                    </div>
+            <form action="<%=context%>/EstadoEstudianteS" method="post">
+                <div class="modal-body">
+                    <input type="hidden" id="ch_id_e" name="ch_id_e">
+                    ¿Estás seguro de que deseas realizar este cambio?
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary" id="guardar-docente-btn">Guardar cambios</button>
-            </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-danger">Cambiar</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
-
-<!-- Modal de edición Estudiante -->
-<div class="modal fade" id="editarEstudianteModal" tabindex="-1" role="dialog" aria-labelledby="editarEstudianteModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+ --%>
+<!-- Modal editar estudiante
+<div class="modal fade" id="editarEstudiante" data-bs-backdrop="static" tabindex="-1" aria-labelledby="confirmarrBorrarModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editarEstudianteModalLabel">Editar Información del Estudiante</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <h5 class="modal-title" id="confirmarrBorrarModalLabel">Editar estudiante</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <label for="editEstudianteNombre">Nombre:</label>
-                            <input type="text" id="editEstudianteNombre" class="form-control">
-                        </div>
-                        <div class="col-md-4">
-                            <label for="editEstudianteApellido">Apellido:</label>
-                            <input type="text" id="editEstudianteApellido" class="form-control">
-                        </div>
-                        <div class="col-md-4">
-                            <label for="editEstudianteCorreo">Email:</label>
-                            <input type="email" id="editEstudianteCorreo" class="form-control">
-                        </div>
-                        <div class="col-md-4">
-                            <label for="editEstudianteGrupo">Grupo:</label>
-                            <input type="text" id="editEstudianteGrupo" class="form-control">
-                        </div>
-                        <div class="col-md-4">
-                            <label for="editEstudianteCuatrimestre">Cuatrimestre:</label>
-                            <input type="text" id="editEstudianteCuatrimestre" class="form-control">
-                        </div>
+            <form id="formEditarEstudiante" action=" <%--<%=context%> --%>/ActualizarEstudianteAdmin" method="post">
+                <div class="modal-body">
+                    <input type="hidden" id="u_id_e" name="id">Campo oculto para el ID del estudiante
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Nombre" required>
+                        <div id="nombreError" class="text-danger" style="display:none;">El nombre debe tener al menos 3 letras y no puede contener números.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="apellido" class="form-label">Apellido</label>
+                        <input type="text" class="form-control" name="apellido" id="apellido" placeholder="Apellido" required>
+                        <div id="apellidoError" class="text-danger" style="display:none;">El apellido debe tener al menos 3 letras y no puede contener números.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="grupo" class="form-label">Grupo</label>
+                        <select class="form-control" name="grupo" id="grupo" required>
+                            <option value="" disabled selected>Seleccione un grupo</option>
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="D">D</option>
+                            <option value="E">E</option>
+                            <option value="F">F</option>
+                            <option value="G">G</option>
+                        </select>
+                        <div id="grupoError" class="text-danger" style="display:none;">Debe seleccionar un grupo.</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="cuatrimestre" class="form-label">Cuatrimestre</label>
+                        <select class="form-control" name="cuatrimestre" id="cuatrimestre" required>
+                            <option value="" disabled selected>Seleccione un cuatrimestre</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                        </select>
+                        <div id="cuatrimestreError" class="text-danger" style="display:none;">Debe seleccionar un cuatrimestre.</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="contrasena_e" class="form-label">Contraseña</label>
+                        <input type="text" class="form-control" name="contrasena" id="contrasena_e" placeholder="Contraseña" required>
+                        <div id="contrasenaError_e" class="text-danger" style="display:none;">La contraseña debe tener al menos 3 caracteres.</div>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary" id="guardar-estudiante-btn">Guardar cambios</button>
-            </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger" id="guardarCambiosBtn_e" disabled>Confirmar cambios</button>
+                    <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+            </form>
         </div>
     </div>
-</div>
-</body>
+</div> -->
 
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 <script>
-    $(document).ready(function () {
-        function fetchDocentes() {
-            $.ajax({
-                url: '<%=context%>/consultarInformacionS',
-                method: 'GET',
-                data: {action: 'listarDocentes'},
-                success: function (response) {
-                    let lista = $('#lista-docentes');
-                    lista.empty();
-                    response.forEach(function (docente) {
-                        let estatus = docente.estatus ? '' : ' - <span class="estatus">Deshabilitado</span>';
-                        lista.append('<li>' + docente.matricula + estatus + '</li>');
-                    });
-                }
-            });
-        }
+    function materiasBorrado(id) {
+        document.getElementById('d_id').value = id;
+    }
 
-        function fetchEstudiantes() {
-            $.ajax({
-                url: '<%=context%>/consultarInformacionS',
-                method: 'GET',
-                data: {action: 'listarEstudiantes'},
-                success: function (response) {
-                    let lista = $('#lista-estudiantes');
-                    lista.empty();
-                    response.forEach(function (estudiante) {
-                        let estatus = estudiante.estatus ? '' : ' - <span class="estatus">Deshabilitado</span>';
-                        lista.append('<li>' + estudiante.matricula + estatus + '</li>');
-                    });
-                }
-            });
-        }
+    function estadoDocente(id) {
+        document.getElementById('ch_id').value = id;
+    }
+    function estadoEstudiante(id) {
+        document.getElementById('ch_id_e').value = id;
+    }
 
-        fetchDocentes();
-        fetchEstudiantes();
+    //parte del docente
+    function cargarDatosDocente(id, nombres, apellidos, matricula) {
+        document.getElementById('u_id').value = id;  // Asigna el ID del docente al campo oculto
+        document.getElementById('nombres').value = nombres;  // Asigna los nombres al input
+        document.getElementById('apellidos').value = apellidos;  // Asigna los apellidos al input
+        document.getElementById('contrasena').value = matricula;  // Puedes modificar esto para otro dato si es necesario
+    }
 
-        $('#consultar-docente-btn').on('click', function () {
-            let matricula = $('#matricula-docente').val();
-            $.ajax({
-                url: '<%=context%>/consultarInformacionS',
-                method: 'GET',
-                data: {matricula: matricula, tipo: 'docente'},
-                success: function (response) {
-                    $('#modalDocenteNombre').val(response.nombres);
-                    $('#modalDocenteApellido').val(response.apellidos);
-                    $('#modalDocenteCorreo').val(response.correoElectronico);
-                }
-            });
-        });
+    document.addEventListener('DOMContentLoaded', () => {
+        const form = document.getElementById('formEditarDocente');
+        const nombresInput = document.getElementById('nombres');
+        const apellidosInput = document.getElementById('apellidos');
+        const contrasenaInput = document.getElementById('contrasena');
+        const submitButton = document.getElementById('guardarCambiosBtn');
 
-        $('#consultar-estudiante-btn').on('click', function () {
-            let matricula = $('#matricula-estudiante').val();
-            $.ajax({
-                url: '<%=context%>/consultarInformacionS',
-                method: 'GET',
-                data: {matricula: matricula, tipo: 'estudiante'},
-                success: function (response) {
-                    $('#modalEstudianteNombre').val(response.nombre);
-                    $('#modalEstudianteApellido').val(response.apellido);
-                    $('#modalEstudianteCorreo').val(response.correoElectronico);
-                    $('#modalEstudianteGrupo').val(response.grupo);
-                    $('#modalEstudianteCuatrimestre').val(response.cuatrimestre);
-                }
-            });
-        });
+        const nombresError = document.getElementById('nombresError');
+        const apellidosError = document.getElementById('apellidosError');
+        const contrasenaError = document.getElementById('contrasenaError');
 
-        $('#guardar-docente-btn').on('click', function () {
-            let matricula = $('#matricula-docente').val();
-            let nombres = $('#editDocenteNombre').val();
-            let apellidos = $('#editDocenteApellido').val();
-            let correoElectronico = $('#editDocenteCorreo').val();
+        const validateForm = () => {
+            let isValid = true;
 
-            $.ajax({
-                url: '<%=context%>/consultarInformacionS',
-                method: 'POST',
-                data: {
-                    action: 'updateDocente',
-                    matricula: matricula,
-                    nombres: nombres,
-                    apellidos: apellidos,
-                    correoElectronico: correoElectronico
-                },
-                success: function () {
-                    fetchDocentes();
-                    $('#editarDocenteModal').modal('hide');
-                }
-            });
-        });
+            // Validar nombres (mínimo 3 letras, solo letras y acentos permitidos)
+            const namePattern = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]{3,}$/;
+            if (!namePattern.test(nombresInput.value.trim())) {
+                nombresError.style.display = 'block';
+                isValid = false;
+            } else {
+                nombresError.style.display = 'none';
+            }
 
-        $('#guardar-estudiante-btn').on('click', function () {
-            let matricula = $('#matricula-estudiante').val();
-            let nombre = $('#editEstudianteNombre').val();
-            let apellido = $('#editEstudianteApellido').val();
-            let correoElectronico = $('#editEstudianteCorreo').val();
-            let grupo = $('#editEstudianteGrupo').val();
-            let cuatrimestre = $('#editEstudianteCuatrimestre').val();
+            // Validar apellidos (mínimo 3 letras, solo letras y acentos permitidos)
+            if (!namePattern.test(apellidosInput.value.trim())) {
+                apellidosError.style.display = 'block';
+                isValid = false;
+            } else {
+                apellidosError.style.display = 'none';
+            }
 
-            $.ajax({
-                url: '<%=context%>/consultarInformacionS',
-                method: 'POST',
-                data: {
-                    action: 'updateEstudiante',
-                    matricula: matricula,
-                    nombre: nombre,
-                    apellido: apellido,
-                    correoElectronico: correoElectronico,
-                    grupo: grupo,
-                    cuatrimestre: cuatrimestre
-                },
-                success: function () {
-                    fetchEstudiantes();
-                    $('#editarEstudianteModal').modal('hide');
-                }
-            });
-        });
+            // Validar que la contraseña tenga al menos 3 caracteres
+            if (contrasenaInput.value.trim().length < 3) {
+                contrasenaError.style.display = 'block';
+                isValid = false;
+            } else {
+                contrasenaError.style.display = 'none';
+            }
 
-        $('#desactivar-docente-btn').on('click', function () {
-            let matricula = $('#matricula-docente').val();
-            $.ajax({
-                url: '<%=context%>/consultarInformacionS',
-                method: 'POST',
-                data: {action: 'desactivarDocente', matricula: matricula},
-                success: function () {
-                    fetchDocentes();
-                }
-            });
-        });
+            submitButton.disabled = !isValid;
+        };
 
-        $('#desactivar-estudiante-btn').on('click', function () {
-            let matricula = $('#matricula-estudiante').val();
-            $.ajax({
-                url: '<%=context%>/consultarInformacionS',
-                method: 'POST',
-                data: {action: 'desactivarEstudiante', matricula: matricula},
-                success: function () {
-                    fetchEstudiantes();
-                }
-            });
-        });
+        form.addEventListener('input', validateForm);
+    });
 
-        $('#activar-docente-btn').on('click', function () {
-            let matricula = $('#matricula-docente').val();
-            $.ajax({
-                url: '<%=context%>/consultarInformacionS',
-                method: 'POST',
-                data: {action: 'activarDocente', matricula: matricula},
-                success: function () {
-                    fetchDocentes();
-                }
-            });
-        });
 
-        $('#activar-estudiante-btn').on('click', function () {
-            let matricula = $('#matricula-estudiante').val();
-            $.ajax({
-                url: '<%=context%>/consultarInformacionS',
-                method: 'POST',
-                data: {action: 'activarEstudiante', matricula: matricula},
-                success: function () {
-                    fetchEstudiantes();
-                }
-            });
-        });
+    function cargarDatosEstudiante(id, nombre, apellido, contrasena, grupo, cuatrimestre) {
+        document.getElementById('u_id_e').value = id;  // Asigna el ID del estudiante al campo oculto
+        document.getElementById('nombre').value = nombre;  // Asigna el nombre al input
+        document.getElementById('apellido').value = apellido;  // Asigna el apellido al input
+        document.getElementById('contrasena_e').value = contrasena;  // Asigna la contraseña al input
+        document.getElementById('grupo').value = grupo;  // Asigna el grupo al select
+        document.getElementById('cuatrimestre').value = cuatrimestre;  // Asigna el cuatrimestre al select
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const form = document.getElementById('formEditarEstudiante');
+        const nombreInput = document.getElementById('nombre');
+        const apellidoInput = document.getElementById('apellido');
+        const contrasenaInput = document.getElementById('contrasena_e');
+        const grupoSelect = document.getElementById('grupo');
+        const cuatrimestreSelect = document.getElementById('cuatrimestre');
+        const submitButton = document.getElementById('guardarCambiosBtn_e');
+
+        const nombreError = document.getElementById('nombreError');
+        const apellidoError = document.getElementById('apellidoError');
+        const contrasenaError = document.getElementById('contrasenaError_e');
+        const grupoError = document.getElementById('grupoError');
+        const cuatrimestreError = document.getElementById('cuatrimestreError');
+
+        const validateForm = () => {
+            let isValid = true;
+
+            // Validar nombre (mínimo 3 letras, solo letras y acentos permitidos)
+            const namePattern = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]{3,}$/;
+            if (!namePattern.test(nombreInput.value.trim())) {
+                nombreError.style.display = 'block';
+                isValid = false;
+            } else {
+                nombreError.style.display = 'none';
+            }
+
+            // Validar apellido (mínimo 3 letras, solo letras y acentos permitidos)
+            if (!namePattern.test(apellidoInput.value.trim())) {
+                apellidoError.style.display = 'block';
+                isValid = false;
+            } else {
+                apellidoError.style.display = 'none';
+            }
+
+            // Validar que la contraseña tenga al menos 3 caracteres
+            if (contrasenaInput.value.trim().length < 3) {
+                contrasenaError.style.display = 'block';
+                isValid = false;
+            } else {
+                contrasenaError.style.display = 'none';
+            }
+
+            // Validar que se haya seleccionado un grupo
+            if (grupoSelect.value === "") {
+                grupoError.style.display = 'block';
+                isValid = false;
+            } else {
+                grupoError.style.display = 'none';
+            }
+
+            // Validar que se haya seleccionado un cuatrimestre
+            if (cuatrimestreSelect.value === "") {
+                cuatrimestreError.style.display = 'block';
+                isValid = false;
+            } else {
+                cuatrimestreError.style.display = 'none';
+            }
+
+            submitButton.disabled = !isValid;
+        };
+
+        form.addEventListener('input', validateForm);
     });
 </script>
 
+</body>
 </html>

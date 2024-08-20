@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 @WebServlet("/CrearAsesoriaS")
 public class CrearAsesoriaServlet extends HttpServlet {
@@ -13,9 +14,31 @@ public class CrearAsesoriaServlet extends HttpServlet {
     private DaoAsesoria2 daoAsesoria = new DaoAsesoria2();
 
     @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Boolean flag = (Boolean) request.getAttribute("flag");
+
+        if (flag != null && flag) {
+            request.setAttribute("successMessage", "Asesoria creado exitosamente.");
+        } else if (flag != null && !flag) {
+            request.setAttribute("errorMessage", "Error al crear la asesoria. Inténtalo de nuevo.");
+        }
+        request.getRequestDispatcher("/vistas/Docente/CrearHorario.jsp").forward(request, response);
+    }
+
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Configurar el tipo de contenido de la solicitud
         request.setCharacterEncoding("UTF-8");
+
+        LocalDateTime fechaHoraAsesoria = LocalDateTime.parse(request.getParameter("fecha") + "T" + request.getParameter("hora"));
+        LocalDateTime fechaHoraActual = LocalDateTime.now();
+
+        if (fechaHoraAsesoria.isBefore(fechaHoraActual)) {
+            request.setAttribute("flag", false);
+            doGet(request, response);
+            return;
+        }
+
 
         try {
             // Leer los parámetros de la solicitud
@@ -29,12 +52,18 @@ public class CrearAsesoriaServlet extends HttpServlet {
             boolean success = daoAsesoria.crearAsesoria(idDocente, idMateria, titulo, fecha, hora);
 
             // Configurar la respuesta
-            response.setContentType("application/json");
-            response.getWriter().write("{\"status\":\"" + (success ? "success" : "error") + "\"}");
+            if(success){
+                request.setAttribute("flag", true);
+
+            }else{
+                request.setAttribute("flag", false);
+            }
+            doGet(request, response);
         } catch (Exception e) {
             e.printStackTrace();
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            response.getWriter().write("{\"status\":\"error\", \"message\":\"" + e.getMessage() + "\"}");
+            request.setAttribute("flag", false);
+            doGet(request, response);
         }
+
     }
 }
