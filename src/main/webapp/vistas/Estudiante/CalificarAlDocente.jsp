@@ -377,6 +377,12 @@ if(request.getSession(false) != null && session.getAttribute("matricula") != nul
           </a>
         </li>
         <li>
+          <a href="<%=context%>/vistas/Estudiante/GestionAsesoriaEstudiante.jsp" class="d-flex align-items-center" >
+            <img id="asesorias-img" src="<%=context%>/IMG/asesorias_b.png" class="img-fluid" style="width: auto; height: 35px;" />
+            <span>Gestion asesorías</span>
+          </a>
+        </li>
+        <li>
           <a href="<%=request.getContextPath()%>/LogoutS" class="d-flex align-items-center" >
             <img id="logout-img" src="<%=context%>/IMG/logout_b.png" class="img-fluid" style="width: auto; height: 35px;" />
             <span>Cerrar sesión</span>
