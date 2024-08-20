@@ -7,7 +7,6 @@
         <entry key="file://$PROJECT_DIR$/src/main/webapp/vistas/Admin/ConsultarInformacion.jsp" value="file://$PROJECT_DIR$/src/main/webapp/vistas/Admin" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/vistas/Admin/GestionAsesorias.jsp" value="file://$PROJECT_DIR$/src/main/webapp/vistas/Admin" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/vistas/Admin/PaginaPrincipalAdmin.jsp" value="file://$PROJECT_DIR$/src/main/webapp/vistas/Admin" />
-        <entry key="file://$PROJECT_DIR$/src/main/webapp/vistas/Docente/CalificarEstudiante.jsp" value="file://$PROJECT_DIR$/src/main/webapp/vistas/Docente" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/vistas/Estudiante/modalCancelarAsesoria.jsp" value="file://$PROJECT_DIR$/src/main/webapp/vistas/Estudiante" />
       </map>
     </option>

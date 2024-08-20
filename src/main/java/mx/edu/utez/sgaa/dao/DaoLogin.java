@@ -8,8 +8,6 @@ import mx.edu.utez.sgaa.database.DatabaseConnection;
 
 public class DaoLogin {
     private final DatabaseConnection DB_Connection  = new DatabaseConnection();
-
-
     public String findAdminByMatriculaAndContraseña(String matricula, String contraseña) {
         String role = null;
         Connection con = null;
@@ -42,8 +40,6 @@ public class DaoLogin {
 
         return role;
     }
-
-
 
     public Boolean findAdmin(String matricula, String contraseña) {
         Boolean found = false;
@@ -78,5 +74,6 @@ public class DaoLogin {
         return found;
     }
 }
+
 
 

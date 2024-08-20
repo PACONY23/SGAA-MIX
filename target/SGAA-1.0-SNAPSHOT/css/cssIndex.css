@@ -1,0 +1,122 @@
+:root{
+    --bs-body-font-family: 'Poppins', sans-serif !important;
+}
+body {
+    margin: 0;
+    font-family:'Poppins', sans-serif;
+    background-color: #141C32;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.header {
+    background: linear-gradient(to right, #1b294e 15%, #16284e 28%, #1d2f5a 40%, #a1b3d1 100%); /* Ajuste del gradiente para una transición más suave */
+    padding: 10px 20px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+.header img {
+    height: 50px;
+}
+.header nav {
+    margin-left: auto;
+    margin-right: 10px;
+    text-align: right;
+    width: 150px;
+    align-items: center;
+    display: flex; /* Utiliza flexbox para una mejor alineación */
+    justify-content: flex-end; /* Alinea el contenido al final (derecha) */
+}
+.header a {
+    color: white;
+    font-size: 18px;
+}
+.content {
+    background-color: #1b294e;
+    padding: 35px;
+    padding-bottom: 50px; /* Añadido para asegurar espacio suficiente para el enlace del administrador */
+    border-radius: 20px; /* Redondez en las esquinas */
+    box-shadow: 0 8px 16px 4px rgba(0, 0, 0, 0.4);
+    margin-top: 65px; /* Margen superior reducido */
+    position: relative; /* Añadido para posicionamiento absoluto del enlace del administrador */
+}
+
+h1 {
+    margin-bottom: 35px;
+    color: white;
+    font-size:xx-large;
+    margin-top: 15px;
+    font-weight: bold;
+}
+.main-content {
+    display: flex;
+    flex-wrap: wrap; /* Asegura que los elementos se envuelvan en pantallas pequeñas */
+    justify-content:space-around;
+    align-items: center;
+}
+.left-section {
+    flex: 1;
+    display: flex;
+    margin-left: 10px;
+    justify-content: center;
+    margin-bottom: 20px; /* Espacio inferior para separar los elementos */
+}
+.left-section img {
+    max-width: 100%; /* Ajusta el tamaño máximo de la imagen */
+    height: auto; /* Asegura que la imagen se ajuste proporcionalmente */
+}
+.right-section {
+    flex:1;
+    background-color: #3DB080;
+    border-radius: 20px;
+    margin-right: 25px; /* Espacio lateral */
+    box-shadow: 0 6px 16px 6px rgba(0, 0, 0, 0.4);
+    color: white;
+    padding: 45px 70px;
+}
+.right-section h2 {
+    margin-bottom: 20px;
+    font-size:x-large;
+    font-weight: bold;
+}
+.right-section .button-container {
+    display: flex;
+    gap: 25px; /* Espacio entre los botones */
+    justify-content: space-around;
+    padding: 15px;
+}
+.right-section button {
+    background-color: #fff;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%; /* Ancho completo en dispositivos pequeños */
+    max-width: 140px; /* Ancho máximo */
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+}
+.right-section button:hover {
+    background-color: rgb(16, 158, 99);
+    box-shadow: 0 6px 16px 6px rgba(0, 0, 0, 0.4);
+}
+.button-container a{
+    text-decoration-line: none;
+}
+.contenedor-admin{
+    position: absolute; /* Posicionamiento absoluto */
+    bottom: 10px; /* Ajusta según sea necesario */
+    right: 20px; /* Ajusta según sea necesario */
+    margin: 0; /* Elimina márgenes */
+}
+.contenedor-admin a{
+    color: #a1a1a1;
+}
