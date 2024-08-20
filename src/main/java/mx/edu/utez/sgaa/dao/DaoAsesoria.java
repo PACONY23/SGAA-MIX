@@ -6,6 +6,9 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import mx.edu.utez.sgaa.database.DatabaseConnection;
+import mx.edu.utez.sgaa.model.AsesoriaCalendar;
+import mx.edu.utez.sgaa.model.Materia;
+
 public class DaoAsesoria {
     private Connection connection;
 
@@ -31,6 +34,28 @@ public class DaoAsesoria {
             stmt.setTime(5, asesoria.getHora());
             stmt.executeUpdate();
         }
+    }
+
+    public List<AsesoriaCalendar> obtenerAsesoriasC() throws SQLException {
+        List<AsesoriaCalendar> asesoriasC = new ArrayList<>();
+        String query = "SELECT * FROM Asesorias";
+        DaoMateria daoMateria = new DaoMateria();
+        try (Statement stmt = connection.createStatement(); ResultSet rs = stmt.executeQuery(query)) {
+            while (rs.next()) {
+                AsesoriaCalendar asesoria = new AsesoriaCalendar();
+                asesoria.setIdAsesoria(rs.getInt("idAsesoria"));
+                asesoria.setIdDocente(rs.getInt("idDocente"));
+                asesoria.setMateria(daoMateria.findMateriaById(rs.getLong("idMateria")));
+                asesoria.setTitulo(rs.getString("titulo"));
+
+                // Convertir java.sql.Date a java.util.Date
+                asesoria.setFecha(new java.util.Date(rs.getDate("fecha").getTime()));
+                asesoria.setHora(rs.getTime("hora"));
+
+                asesoriasC.add(asesoria);
+            }
+        }
+        return asesoriasC;
     }
 
     public List<Asesoria> obtenerAsesorias() throws SQLException {

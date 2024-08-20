@@ -332,7 +332,9 @@
                             Asesoria asesoria = asesorias.get(i);
                             String start = new java.text.SimpleDateFormat("yyyy-MM-dd").format(asesoria.getFecha()) + "T" +
                                            new java.text.SimpleDateFormat("HH:mm:ss").format(asesoria.getHora());
-                            String title = asesoria.getTitulo();
+                            Long idMat = asesoria.getIdMateria();
+                            DaoMateria daoMateria = new DaoMateria();
+                            String title = daoMateria.findMateriaById(idMat).getNombre();
                             int idAsesoria = asesoria.getIdAsesoria();
                 %>
                 {

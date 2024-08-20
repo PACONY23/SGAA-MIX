@@ -10,6 +10,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import mx.edu.utez.sgaa.model.AsesoriaCalendar;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -42,9 +43,9 @@ public class AgendaDocente extends HttpServlet {
         PrintWriter out = response.getWriter();
 
         try {
-            List<Asesoria> asesorias = daoAsesoria.obtenerAsesorias();
+            List<AsesoriaCalendar> asesorias = daoAsesoria.obtenerAsesoriasC();
             Gson gson = new Gson();
-            Type asesoriasType = new TypeToken<List<Asesoria>>(){}.getType();
+            Type asesoriasType = new TypeToken<List<AsesoriaCalendar>>(){}.getType();
             String json = gson.toJson(asesorias, asesoriasType);
             out.print(json);
         } catch (SQLException e) {
