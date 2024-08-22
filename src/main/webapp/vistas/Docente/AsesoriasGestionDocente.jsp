@@ -2,6 +2,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="mx.edu.utez.sgaa.model.Materia" %>
 <%@ page import="mx.edu.utez.sgaa.dao.DaoAsesoria" %>
+<%@ page import="mx.edu.utez.sgaa.dao.DaoEstudianteAsesoria" %>
 <%@ page import="mx.edu.utez.sgaa.model.Asesoria" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -313,6 +314,7 @@
             <thead>
             <tr style="background-color: #0d6efd; color: white;">
                 <th scope="col" style="text-align: center">Materia</th>
+                <th scope="col">Estudiantes en esta asesoría</th>
                 <th scope="col">Fecha</th>
                 <th scope="col">Hora</th>
                 <th scope="col" style="text-align: center">Acciones</th> <!-- Columna para los botones -->
@@ -326,21 +328,56 @@
 
                     for (Asesoria asesoria : asesoriasNoIniciadas) {
             %>
+            <%
+                int asesoriaID = asesoria.getIdAsesoria();
+                DaoEstudianteAsesoria dao = new DaoEstudianteAsesoria();
+                int estudiantesPorAsesoria =dao.contarEstudiantesPorAsesoria(asesoriaID);
+                int estudiantesPorAsesoriaReagenda = dao.contarEstudiantesPorAsesoriaYReagenda(asesoriaID);
+
+            %>
             <tr style="background-color: #ffffff; color: #000000;">
                 <td style="background-color: #ffffff; color: #000000; text-align: center;"><%=asesoria.getNombreMateria() %></td>
+                <td style="background-color: #ffffff; color: #000000;"><%=estudiantesPorAsesoria %></td>
                 <td style="background-color: #ffffff; color: #000000;"><%=asesoria.getFecha() %></td>
                 <td style="background-color: #ffffff; color: #000000;"><%=asesoria.getHora() %></td>
                 <td style="background-color: #ffffff; color: #000000; text-align: center;">
                     <div class="d-flex justify-content-center">
-                        <button id="estado-<%=asesoria.getIdAsesoria()%>" onclick="setAsesoriaId(<%=asesoria.getIdAsesoria()%>)" class="btn p-0 ms-2" style="display: flex; flex-direction: column; align-items: center; background-color: #ffffff; color: #000000;" data-bs-toggle="modal" data-bs-target="#iniciarAsesoria">
+                        <button id="estado-<%=asesoria.getIdAsesoria()%>"
+                                <% if (estudiantesPorAsesoria <= 0 || estudiantesPorAsesoriaReagenda > 0) { %>
+                                onclick="handleButtonClick(this)"
+                                data-estudiantes="<%=estudiantesPorAsesoria%>"
+                                data-estudiantes-reagenda="<%=estudiantesPorAsesoriaReagenda%>"
+                                <% } else { %>
+                                data-bs-target="#iniciarAsesoria"
+                                data-bs-toggle="modal"
+                                onclick="setAsesoriaId(<%=asesoria.getIdAsesoria()%>)"
+                                <% } %>
+                                class="btn p-0 ms-2" style="display: flex; flex-direction: column; align-items: center; background-color: #ffffff; color: #000000;">
                             <i class="bi bi-play-fill" style="font-size: 20px;"></i>
                             <span class="small text-muted">Iniciar</span>
                         </button>
-                        <button id="materia-<%=asesoria.getIdAsesoria()%>" onclick="openReagendarModal(<%=asesoria.getIdAsesoria()%>)" class="btn p-0 ms-2" style="display: flex; flex-direction: column; align-items: center; background-color: #ffffff; color: #000000;">
+
+                        <% if (estudiantesPorAsesoria == 0 && estudiantesPorAsesoriaReagenda == 0) { %>
+                        <button id="borrar-<%=asesoria.getIdAsesoria()%>"
+                                data-bs-target="#borrarAsesoria"
+                                data-bs-toggle="modal"
+                                onclick="borrarAsesoriaId(<%=asesoria.getIdAsesoria()%>)"
+                                class="btn p-0 ms-2" style="display: flex; flex-direction: column; align-items: center; background-color: #ffffff; color: #000000;">
+                            <i class="bi bi-trash-fill" style="font-size: 20px;"></i>
+                            <span class="small text-muted">Borrar</span>
+                        </button>
+                        <% } %>
+
+                        <% if (estudiantesPorAsesoria > 0) { %>
+                        <button id="materia-<%=asesoria.getIdAsesoria()%>"
+                                onclick="openReagendarModal(<%=asesoria.getIdAsesoria()%>)"
+                                class="btn p-0 ms-2" style="display: flex; flex-direction: column; align-items: center; background-color: #ffffff; color: #000000;">
                             <i class="bi bi-calendar-event-fill" style="font-size: 20px;"></i>
                             <span class="small text-muted">Reagendar</span>
                         </button>
+                        <% } %>
                     </div>
+
                 </td>
             </tr>
             <%
@@ -401,12 +438,6 @@
 
 
 
-
-
-
-
-
-
 <!-- Modal para reagendar asesoría -->
 <div class="modal fade" id="reagendarAsesoria" tabindex="-1" aria-labelledby="reagendarModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -438,7 +469,6 @@
 </div>
 
 
-<%-- modal inicar asesoria --%>
 <div class="modal fade" id="iniciarAsesoria" data-bs-backdrop="static" tabindex="-1" aria-labelledby="iniciarALabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -483,11 +513,61 @@
 </div>
 
 
+<%-- modal borrar asesoria --%>
+<div class="modal fade" id="borrarAsesoria" data-bs-backdrop="static" tabindex="-1" aria-labelledby="finalizarALabelSin" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="finalizarALabelSin">Borrar asesoría</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="<%=context%>/" method="post">
+                <div class="modal-body">
+                    <input type="hidden" id="b_id" name="b_id">
+                    Esta asesoría no cuenta con ningún estudiante
+                    ¿Estás seguro que deseas borrar la asesoría?
+                </div>
+                <div class="modal-footer">
+                    <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-danger">Borrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de Error -->
+<div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="errorModalLabel">Error</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                No hay estudiantes en esta asesoría o no han aceptado la reagenda.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 <script>
-    function materiasBorrado(id) {
-        document.getElementById('d_id').value = id;
+    function handleButtonClick(button) {
+        const estudiantesPorAsesoria = parseInt(button.getAttribute('data-estudiantes'), 10);
+        const estudiantesPorAsesoriaReagenda = parseInt(button.getAttribute('data-estudiantes-reagenda'), 10);
+        const idAsesoria = button.getAttribute('id').split('-')[1]; // Obtener el ID de la asesoría del ID del botón
+
+        if (estudiantesPorAsesoria <= 0 || estudiantesPorAsesoriaReagenda > 0) {
+            // Mostrar el modal de error si se cumple la condición
+            const errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
+            errorModal.show();
+        }
     }
 
     function setAsesoriaId(idAsesoria) {
@@ -495,9 +575,40 @@
     }
 </script>
 <script>
+    function materiasBorrado(id) {
+        document.getElementById('d_id').value = id;
+    }
+    /*function setAsesoriaId(idAsesoria) {
+        document.getElementById('ch_id').value = idAsesoria;
+    }*/
+
+</script>
+<script>
+    function borrarAsesoriaId(id){
+        document.getElementById('b_id').value = id;
+    }
+</script>
+
+<script>
     function openFinalizarModal(idAsesoria) {
         // Asignar el ID de la asesoría al campo oculto del modal
         document.getElementById('f_id').value = idAsesoria;
+    }
+</script>
+<script>
+    function openReagendarModal(idAsesoria) {
+        // Obtener los datos del botón usando el ID
+        const button = document.getElementById('materia-' + idAsesoria);
+        const estudiantesPorAsesoria = parseInt(button.getAttribute('data-estudiantes'), 10);
+
+        if (estudiantesPorAsesoria > 0) {
+            // Abrir el modal de reagendar si hay estudiantes inscritos
+            const reagendarModal = new bootstrap.Modal(document.getElementById('reagendarModal'));
+            reagendarModal.show();
+        } else {
+            // Mostrar un mensaje o manejar el caso cuando no hay estudiantes
+            alert('No hay estudiantes inscritos en esta asesoría.');
+        }
     }
 </script>
 <script>

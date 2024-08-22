@@ -321,13 +321,32 @@
                         <%
                             DaoMateria materiasExistentes = new DaoMateria();
                             List<Materia> materias = materiasExistentes.getAllMaterias(matricula);
+                            int materiasDisponibles = 0;
+
+                            // Contamos cuántas materias están disponibles
                             for (Materia materia : materias) {
+                                if (materia.isMateria_estado()) {
+                                    materiasDisponibles++;
+                                }
+                            }
+
+                            // Si no hay materias disponibles, mostramos el mensaje
+                            if (materiasDisponibles == 0) {
+                        %>
+                        <h3>No hay materias por seleccionar</h3>
+                        <%
+                        } else {
+                            // Si hay materias disponibles, las mostramos
+                            for (Materia materia : materias) {
+                                if (materia.isMateria_estado()) {
                         %>
                         <div class="d-flex justify-content-between align-items-center mb-2">
                             <span><%=materia.getNombre() %></span>
                             <button class="btn btn-sm btn-primary" type="button" onclick="agregarMateria('<%=materia.getId()%>', '<%=matricula%>')">Agregar</button>
                         </div>
                         <%
+                                    }
+                                }
                             }
                         %>
                     </div>
@@ -379,7 +398,7 @@
                         <!-- Opciones de materias se cargarán aquí -->
                     </select>
                 </div>
-                <form id="asesoriaForm" action="<%=context%>/CrearAsesoriaS" method="post">
+                <form id="asesoriaForm">
                     <input type="hidden" id="idDocente" name="idDocente">
                     <input type="hidden" id="idMateria" name="idMateria">
                     <div class="mb-3">
@@ -457,7 +476,7 @@
         console.log('Datos enviados en la solicitud POST:', params.toString());
 
         // Enviar solicitud POST
-        fetch('<%=request.getContextPath()%>/CrearAsesoriaS', {
+        fetch('<%=request.getContextPath()%>/CrearAsesoriaS', {   //AQUI PUSIMOS ESTOS PARA QUE CARGARA BIEN
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'

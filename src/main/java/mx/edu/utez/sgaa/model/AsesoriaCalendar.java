@@ -10,6 +10,7 @@ public class AsesoriaCalendar {
     private String titulo;
     private Date fecha;
     private Time hora;
+    private String Nombremateria;
 
     public AsesoriaCalendar() {
     }
@@ -29,6 +30,23 @@ public class AsesoriaCalendar {
         this.titulo = titulo;
         this.fecha = fecha;
         this.hora = hora;
+    }
+
+    public AsesoriaCalendar(int idAsesoria, int idDocente, String titulo, Date fecha, Time hora, String nombremateria) {
+        this.idAsesoria = idAsesoria;
+        this.idDocente = idDocente;
+        this.titulo = titulo;
+        this.fecha = fecha;
+        this.hora = hora;
+        this.Nombremateria = nombremateria;
+    }
+
+    public String getNombremateria() {
+        return Nombremateria;
+    }
+
+    public void setNombremateria(String nombremateria) {
+        this.Nombremateria = nombremateria;
     }
 
     public int getIdAsesoria() {

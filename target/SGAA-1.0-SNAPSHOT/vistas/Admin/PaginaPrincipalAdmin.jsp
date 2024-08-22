@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="mx.edu.utez.sgaa.model.Administrador" %>
 <%String context = request.getContextPath();
     if(request.getSession(false) != null && session.getAttribute("matricula") != null){
         if (!(request.getSession().getAttribute("role").toString().toLowerCase().equals("admin"))){
@@ -9,6 +10,7 @@
         response.sendRedirect(context + "/index.jsp");
         return;
     }
+    System.out.println("P1 Correo"+session.getAttribute("matricula"));
 %>
 <!DOCTYPE html>
 <html lang="es">
@@ -415,23 +417,16 @@
         <span class="rol" id="asigna_rol">Administrador</span>
     </div>
 </div>
-
+<% System.out.println("P2 Correo administrador: "+session.getAttribute("matricula"));%>
 <!-- Contenedor principal -->
 <div class="contenedor-perfil">
     <div class="perfil">
         <div class="informacion">
             <div class="dato">
-                <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" value="ADMINISTRADOR" readonly>
-            </div>
-            <div class="dato">
-                <label for="apellidos">Apellidos:</label>
-                <input type="text" id="apellidos" value="ADMINISTRADOR" readonly>
-            </div>
-            <div class="dato">
                 <label for="correo">Correo:</label>
-                <input type="email" id="correo" value="ADMINISTRADOR@utez.edu.mx" readonly>
+                <input type="email" id="correo" value="<%= session.getAttribute("matricula") %>" readonly>
             </div>
+            <% System.out.println("P3 Correo administrador2: "+session.getAttribute("matricula"));%>
         </div>
     </div>
 </div>

@@ -20,7 +20,7 @@ public class EstadoEstudianteS extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html; charset=UTF-8");
 
-        /*int id = Integer.parseInt(request.getParameter("ch_id_e"));
+        int id = Integer.parseInt(request.getParameter("ch_id_e"));
         System.out.println("ID del estudiante para cambiar estado: " + id);
 
         DaoEstudiante estudianteDao = new DaoEstudiante();
@@ -32,7 +32,7 @@ public class EstadoEstudianteS extends HttpServlet {
             System.out.println("Error al cambiar el estado del estudiante");
         }
 
-        request.setAttribute("success", success);*/
+        request.setAttribute("success", success);
 
         doGet(request, response);
     }

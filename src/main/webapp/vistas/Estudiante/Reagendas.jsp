@@ -426,7 +426,6 @@
                     <input type="hidden" id="r_id" name="r_id" required>
                     <input type="hidden" id="e_id" name="e_id" required>
                     ¿Estás seguro de rechazar esta reagenda?
-                    <label id="r_name" style="font-weight: bold"></label>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-danger">Rechazar</button>

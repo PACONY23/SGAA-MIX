@@ -69,7 +69,8 @@ public class Estudiante {
         return matricula;
     }
 
-    public void setMatricula(String matricula) {
+    public void setMatricula(String matricula)
+    {
         this.matricula = matricula;
     }
 
@@ -119,5 +120,6 @@ public class Estudiante {
     }
 
     public void setId(int id) {
+        this.id = id;
     }
 }

@@ -70,6 +70,9 @@ public class DaoEstudiante {
             while (rs.next()) {
                 Estudiante estudiante = new Estudiante();
                 estudiante.setId(rs.getInt("idEstudiante")); // Asegúrate de que estás recuperando el ID correctamente
+                int id = rs.getInt("idEstudiante");
+                System.out.println("ID recuperado: " + id);
+                estudiante.setId(id);
                 estudiante.setMatricula(rs.getString("matricula"));
                 estudiante.setNombre(rs.getString("nombre"));
                 estudiante.setApellido(rs.getString("apellido"));
@@ -99,6 +102,29 @@ public class DaoEstudiante {
                 preparedStatement.setString(4, estudiante.getCuatrimestre());
                 preparedStatement.setString(5, estudiante.getCorreoElectronico());
                 preparedStatement.setString(6, estudiante.getMatricula());
+
+                int affectedRows = preparedStatement.executeUpdate();
+                return affectedRows > 0;
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return false;
+            }
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    public boolean actualizarEstudianteJE(Estudiante estudiante) {
+        String UPDATE_SQL = "UPDATE Estudiantes SET nombre = ?, apellido = ?, contraseña = ? WHERE matricula = ?;";
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            try (Connection connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD)) {
+                PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_SQL);
+                preparedStatement.setString(1, estudiante.getNombre());
+                preparedStatement.setString(2, estudiante.getApellido());
+                preparedStatement.setString(3, estudiante.getContrasena());
+                preparedStatement.setString(4, estudiante.getMatricula());
 
                 int affectedRows = preparedStatement.executeUpdate();
                 return affectedRows > 0;
@@ -262,7 +288,7 @@ public class DaoEstudiante {
     }
 
     public boolean actualizarEstudianteAdmin(Estudiante estudiante) {
-        String UPDATE_SQL = "UPDATE Estudiantes SET nombre = ?, apellido = ?, grupo = ?, cuatrimestre = ?, correoElectronico = ? WHERE matricula = ?;";
+        String UPDATE_SQL = "UPDATE Estudiantes SET nombre = ?, apellido = ?, grupo= ?, cuatrimestre = ?, contraseña = ? WHERE idEstudiante = ?;";
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -272,8 +298,9 @@ public class DaoEstudiante {
                 preparedStatement.setString(2, estudiante.getApellido());
                 preparedStatement.setString(3, estudiante.getGrupo());
                 preparedStatement.setString(4, estudiante.getCuatrimestre());
-                preparedStatement.setString(5, estudiante.getCorreoElectronico());
-                preparedStatement.setString(6, estudiante.getMatricula());
+                preparedStatement.setString(5, estudiante.getContrasena());
+
+                preparedStatement.setInt(6, estudiante.getId());
 
                 int affectedRows = preparedStatement.executeUpdate();
                 return affectedRows > 0;
