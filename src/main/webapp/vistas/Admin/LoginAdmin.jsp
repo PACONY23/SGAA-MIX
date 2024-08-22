@@ -171,7 +171,7 @@
     <h1>Bienvenido</h1>
     <h2>Admin</h2>
     <form id="loginForm" action="<%= context %>/LoginS" method="post">
-        <input type="text" id="matricula" name="matricula" placeholder="Matrícula" required>
+        <input type="text" id="matricula" name="matricula" placeholder="Correo" required>
         <div class="error-msg">Campo obligatorio</div>
         <input type="password" id="password" name="password" placeholder="Contraseña" required>
         <div class="error-msg">Campo obligatorio</div>

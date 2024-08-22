@@ -10,25 +10,106 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a139834b-be9f-40a4-a4c8-e1bc4c412130" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Administrador/ActualizarEstudianteAdmin.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Administrador/EstadoDocenteS.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Administrador/EstadoEstudianteS.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/webContexts.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/webContexts.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/dao/DaoDocente.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/dao/DaoDocente.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/dao/DaoAsesoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/dao/DaoAsesoria.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/dao/DaoEstudiante.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/dao/DaoEstudiante.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/dao/DaoEstudianteAsesoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/dao/DaoEstudianteAsesoria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/model/AsesoriaCalendar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/model/AsesoriaCalendar.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/model/Estudiante.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/model/Estudiante.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Administrador/ActualizarDocenteAdmin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Administrador/ActualizarDocenteAdmin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Administrador/ActualizarEstudianteAdmin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Administrador/ActualizarEstudianteAdmin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Administrador/EstadoEstudianteS.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Administrador/EstadoEstudianteS.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Docente/nuevoSV/CrearAsesoriaServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Docente/nuevoSV/CrearAsesoriaServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/vistas/Admin/ConsultarInformacion.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/vistas/Admin/ConsultarInformacion.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/META-INF/MANIFEST.MF" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/vistas/Admin/GestionDeMaterias.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/vistas/Admin/GestionDeMaterias.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/vistas/Admin/LoginAdmin.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/vistas/Admin/LoginAdmin.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/vistas/Docente/AsesoriasGestionDocente.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/vistas/Docente/AsesoriasGestionDocente.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/vistas/Docente/CrearHorario.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/vistas/Docente/CrearHorario.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/vistas/Estudiante/PaginaPrincipalEstudiante.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/vistas/Estudiante/PaginaPrincipalEstudiante.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/vistas/Estudiante/Reagendas.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/vistas/Estudiante/Reagendas.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/dao/DaoAsesoria.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/dao/DaoAsesoria.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/dao/DaoDocente.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/dao/DaoDocente.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/dao/DaoEstudiante.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/dao/DaoEstudiante.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/model/Estudiante.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/model/Estudiante.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/model/MateriasDocentes.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/model/MateriasDocentes.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/servlet/Administrador/AprobarRegistroS.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/servlet/Administrador/AprobarRegistroS.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/servlet/Administrador/EliminarDocenteS.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/servlet/Administrador/EliminarDocenteS.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/servlet/Administrador/LoginAdminS.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/servlet/Administrador/LoginAdminS.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/servlet/Administrador/LoginS.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/servlet/Administrador/LoginS.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/servlet/Administrador/LogoutS.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/servlet/Administrador/LogoutS.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/servlet/Administrador/SessionFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/servlet/Administrador/SessionFilter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/servlet/Administrador/consultarInformacionS.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/servlet/Administrador/consultarInformacionS.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/servlet/CssServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/servlet/CssServlet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/servlet/Docente/AgregarAsesoriaS.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/servlet/Docente/AgregarAsesoriaS.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/servlet/Docente/CrearHorarioS.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/servlet/Docente/CrearHorarioS.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/servlet/Docente/EditarDocente.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/servlet/Docente/EditarDocente.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/servlet/Docente/LoginDocenteS.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/servlet/Docente/LoginDocenteS.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/servlet/Docente/LoginDocentesS.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/servlet/Docente/LoginDocentesS.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/servlet/Docente/LogoutDocenteS.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/servlet/Docente/LogoutDocenteS.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/servlet/Docente/SeleccionMateriasDocenteS.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/servlet/Docente/SeleccionMateriasDocenteS.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/servlet/Docente/SessionFilterDocente.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/servlet/Docente/SessionFilterDocente.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/servlet/Estudiante/ConfirmarAsesoriaS.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/servlet/Estudiante/ConfirmarAsesoriaS.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/servlet/Estudiante/EditarEstudiante.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/servlet/Estudiante/EditarEstudiante.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/servlet/Estudiante/HorarioEstudianteS.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/servlet/Estudiante/HorarioEstudianteS.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/servlet/Estudiante/LoginEstudianteS.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/servlet/Estudiante/LoginEstudianteS.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/servlet/Estudiante/LoginEstudiantesS.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/servlet/Estudiante/LoginEstudiantesS.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/servlet/Estudiante/LogouEstudianteS.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/servlet/Estudiante/LogouEstudianteS.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/servlet/Estudiante/RegistroEstudianteS.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/servlet/Estudiante/RegistroEstudianteS.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/servlet/Estudiante/SessionFilterEstudiante.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/servlet/Estudiante/SessionFilterEstudiante.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/servlet/Estudiante/buscarMateriaS.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/servlet/Estudiante/buscarMateriaS.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/servlet/Materia/EliminarMateria.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/servlet/Materia/EliminarMateria.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/servlet/Materia/EstadoMateriaS.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/WEB-INF/classes/mx/edu/utez/sgaa/servlet/Materia/EstadoMateriaS.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/vistas/Admin/ConsultarInformacion.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/vistas/Admin/ConsultarInformacion.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/vistas/Admin/GestionDeMaterias.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/vistas/Admin/GestionDeMaterias.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/vistas/Admin/LoginAdmin.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/vistas/Admin/LoginAdmin.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/vistas/Admin/PaginaPrincipalAdmin.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/vistas/Admin/PaginaPrincipalAdmin.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/vistas/Docente/CrearHorario.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/vistas/Docente/CrearHorario.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/vistas/Estudiante/HorarioEstudiante.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/vistas/Estudiante/HorarioEstudiante.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/vistas/Estudiante/PaginaPrincipalEstudiante.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/vistas/Estudiante/PaginaPrincipalEstudiante.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/dao/DaoAsesoria.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/dao/DaoAsesoria.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/dao/DaoDocente.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/dao/DaoDocente.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/dao/DaoEstudiante.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/dao/DaoEstudiante.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/dao/DaoEstudianteAsesoria.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/dao/DaoEstudianteAsesoria.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/model/Estudiante.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/model/Estudiante.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/model/EstudiantesAsesoria.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/model/EstudiantesAsesoria.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/model/MateriasDocentes.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/model/MateriasDocentes.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/servlet/Administrador/AprobarRegistroS.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/servlet/Administrador/AprobarRegistroS.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/servlet/Administrador/EliminarDocenteS.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/servlet/Administrador/EliminarDocenteS.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/servlet/Administrador/LoginAdminS.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/servlet/Administrador/LoginAdminS.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/servlet/Administrador/LoginS.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/servlet/Administrador/LoginS.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/servlet/Administrador/LogoutS.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/servlet/Administrador/LogoutS.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/servlet/Administrador/SessionFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/servlet/Administrador/SessionFilter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/servlet/Administrador/consultarInformacionS.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/servlet/Administrador/consultarInformacionS.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/servlet/CssServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/servlet/CssServlet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/servlet/Docente/AgregarAsesoriaS.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/servlet/Docente/AgregarAsesoriaS.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/servlet/Docente/CrearHorarioS.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/servlet/Docente/CrearHorarioS.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/servlet/Docente/EditarDocente.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/servlet/Docente/EditarDocente.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/servlet/Docente/LoginDocenteS.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/servlet/Docente/LoginDocenteS.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/servlet/Docente/LoginDocentesS.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/servlet/Docente/LoginDocentesS.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/servlet/Docente/LogoutDocenteS.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/servlet/Docente/LogoutDocenteS.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/servlet/Docente/SeleccionMateriasDocenteS.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/servlet/Docente/SeleccionMateriasDocenteS.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/servlet/Docente/SessionFilterDocente.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/servlet/Docente/SessionFilterDocente.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/servlet/Estudiante/ConfirmarAsesoriaS.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/servlet/Estudiante/ConfirmarAsesoriaS.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/servlet/Estudiante/EditarEstudiante.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/servlet/Estudiante/EditarEstudiante.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/servlet/Estudiante/HorarioEstudianteS.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/servlet/Estudiante/HorarioEstudianteS.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/servlet/Estudiante/LoginEstudianteS.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/servlet/Estudiante/LoginEstudianteS.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/servlet/Estudiante/LoginEstudiantesS.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/servlet/Estudiante/LoginEstudiantesS.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/servlet/Estudiante/LogouEstudianteS.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/servlet/Estudiante/LogouEstudianteS.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/servlet/Estudiante/RegistroEstudianteS.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/servlet/Estudiante/RegistroEstudianteS.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/servlet/Estudiante/SessionFilterEstudiante.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/servlet/Estudiante/SessionFilterEstudiante.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/servlet/Estudiante/buscarMateriaS.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/servlet/Estudiante/buscarMateriaS.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/servlet/Materia/EliminarMateria.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/servlet/Materia/EliminarMateria.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/servlet/Materia/EstadoMateriaS.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mx/edu/utez/sgaa/servlet/Materia/EstadoMateriaS.class" afterDir="false" />
     </list>
     <list id="93d35109-d88d-440d-aee6-edfc685efac2" name="Changes by EKT9962" comment="" />
+    <list id="4127c621-55f7-44ef-9035-8d3c8a0ce461" name="Changes by Isaac" comment="">
+      <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Administrador/LoginAdminS.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Administrador/LoginAdminS.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Estudiante/EditarEstudiante.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Estudiante/EditarEstudiante.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Estudiante/LoginEstudiantesS.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Estudiante/LoginEstudiantesS.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/vistas/Admin/PaginaPrincipalAdmin.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/vistas/Admin/PaginaPrincipalAdmin.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/vistas/Estudiante/PaginaPrincipalEstudiante.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/vistas/Estudiante/PaginaPrincipalEstudiante.jsp" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -45,6 +126,21 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/src/main/webapp/vistas/Estudiante/PaginaPrincipalEstudiante.jsp">
+      <ranges>
+        <range start1="19" end1="19" start2="19" end2="20" changelist="4127c621-55f7-44ef-9035-8d3c8a0ce461" />
+        <range start1="465" end1="465" start2="466" end2="467" changelist="4127c621-55f7-44ef-9035-8d3c8a0ce461" />
+        <range start1="466" end1="468" start2="468" end2="469" changelist="4127c621-55f7-44ef-9035-8d3c8a0ce461" />
+        <range start1="471" end1="472" start2="472" end2="473" changelist="4127c621-55f7-44ef-9035-8d3c8a0ce461" />
+        <range start1="475" end1="476" start2="476" end2="477" changelist="4127c621-55f7-44ef-9035-8d3c8a0ce461" />
+        <range start1="485" end1="489" start2="486" end2="486" changelist="a139834b-be9f-40a4-a4c8-e1bc4c412130" />
+        <range start1="491" end1="492" start2="488" end2="489" changelist="4127c621-55f7-44ef-9035-8d3c8a0ce461" />
+        <range start1="522" end1="523" start2="519" end2="520" changelist="4127c621-55f7-44ef-9035-8d3c8a0ce461" />
+        <range start1="538" end1="538" start2="535" end2="536" changelist="4127c621-55f7-44ef-9035-8d3c8a0ce461" />
+      </ranges>
+    </file>
   </component>
   <component name="LogFilters">
     <option name="FILTER_ERRORS" value="false" />
@@ -64,30 +160,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.DaoAsesoria.executor": "Run",
-    "Application.DaoEstudiante.executor": "Run",
-    "Application.DaoEstudianteAsesoria.executor": "Run",
-    "Application.DatabaseConnection.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "Tomcat Server.Tomcat 10.1.26.executor": "Run",
-    "Tomcat Server.Tomcat 9.0.90.executor": "Run",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/16844/OneDrive/Escritorio/clonSGAA/SGAA1",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.DaoAsesoria.executor&quot;: &quot;Run&quot;,
+    &quot;Application.DaoEstudiante.executor&quot;: &quot;Run&quot;,
+    &quot;Application.DaoEstudianteAsesoria.executor&quot;: &quot;Run&quot;,
+    &quot;Application.DatabaseConnection.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;Tomcat Server.Tomcat 10.1.26.executor&quot;: &quot;Run&quot;,
+    &quot;Tomcat Server.Tomcat 9.0.90.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/16844/OneDrive/Documentos/clonCDS/SGAA-MIX&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Tomcat Server.Tomcat 10.1.26">
     <configuration name="DaoAsesoria" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="mx.edu.utez.sgaa.dao.DaoAsesoria" />
@@ -273,6 +369,8 @@
       <workItem from="1724077877741" duration="9553000" />
       <workItem from="1724105260135" duration="25808000" />
       <workItem from="1724163247286" duration="14806000" />
+      <workItem from="1724198033603" duration="21807000" />
+      <workItem from="1724254508690" duration="10364000" />
     </task>
     <servers />
   </component>

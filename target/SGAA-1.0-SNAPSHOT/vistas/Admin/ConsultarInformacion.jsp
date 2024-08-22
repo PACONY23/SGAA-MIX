@@ -18,6 +18,7 @@
         return;
     }
 %>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -382,12 +383,12 @@
                 <td><%=estudiante.getGrupo() %></td>
                 <td><%=estudiante.getCuatrimestre()%></td>
                 <td style="text-align: center">
-                    <button id="materia-<%=estudiante.getId()%>" onclick="cargarDatosDocente(<%=estudiante.getId()%>, '<%=estudiante.getNombre()%>', '<%=estudiante.getApellido()%>', '<%=estudiante.getGrupo()%>', '<%=estudiante.getContrasena()%>', '<%=estudiante.getCuatrimestre()%>')" class="btn p-0">
-                        <i class="bi bi-pencil-fill" style="font-size: 25px; color: black;" data-bs-toggle="modal" data-bs-target="#alertaeditarEstudiante"></i>
+                    <button id="materia-<%=estudiante.getId()%>" onclick="cargarDatosEstudiante(<%=estudiante.getId()%>, '<%=estudiante.getNombre()%>', '<%=estudiante.getApellido()%>', '<%=estudiante.getGrupo()%>', '<%=estudiante.getCuatrimestre()%>', '<%=estudiante.getContrasena()%>')" class="btn p-0">
+                        <i class="bi bi-pencil-fill" style="font-size: 25px; color: black;" data-bs-toggle="modal" data-bs-target="#editarEstudiante"></i>
                     </button>
                 </td>
                 <td style="text-align: center">
-                    <button id="estado-<%=estudiante.isEstatus()%>" onclick="estadoEstudiante(<%=estudiante.getId()%>)" class="btn btn-outline-secondary ms-4" data-bs-toggle="modal" data-bs-target="#alertaestadoEstudiante">
+                    <button id="estado-<%=estudiante.isEstatus()%>" onclick="estadoEstudiante(<%=estudiante.getId()%>)" class="btn btn-outline-secondary ms-4" data-bs-toggle="modal" data-bs-target="#estadoEstudiante">
                          <span class="small">
                               <%= !estudiante.isEstatus() ? "Habilitar" : "Deshabilitar" %>
                          </span>
@@ -437,7 +438,7 @@
             </div>
             <form id="formEditarDocente" action="<%=context%>/ActualizarDocenteAdmin" method="post">
                 <div class="modal-body">
-                    <input type="hidden" id="u_id" name="u_id"> <!-- Campo oculto para el ID del docente -->
+                    <input type="hidden" id="u_id" name="u_id">
                     <div class="mb-3">
                         <label for="nombres" class="form-label">Nombre</label>
                         <input type="text" class="form-control" name="nombres" id="nombres" placeholder="nombre" required>
@@ -463,51 +464,7 @@
     </div>
 </div>
 
-
-<!-- Modal Alerta Editar Docente -->
-<div class="modal fade" id="alertaeditarEstudiante" tabindex="-1" aria-labelledby="modalAlertaEditarDocenteLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalAlertaEditarDocenteLabel">Alerta</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                    <strong>ALERTA</strong> Esta función sigue en proceso.
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<!-- Modal Alerta Estado Docente -->
-<div class="modal fade" id="alertaestadoEstudiante" tabindex="-1" aria-labelledby="modalAlertaEstadoDocenteLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalAlertaEstadoDocenteLabel">Alerta</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                    <strong>ALERTA</strong> Esta función sigue en proceso.
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-<%-- modal cambio estado estudiante
+<%-- modal cambio estado estudiante --%>
 <div class="modal fade" id="estadoEstudiante" data-bs-backdrop="static" tabindex="-1" aria-labelledby="confirmarrEstadoModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -528,8 +485,8 @@
         </div>
     </div>
 </div>
- --%>
-<!-- Modal editar estudiante
+
+<!-- Modal editar estudiante -->
 <div class="modal fade" id="editarEstudiante" data-bs-backdrop="static" tabindex="-1" aria-labelledby="confirmarrBorrarModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -537,9 +494,9 @@
                 <h5 class="modal-title" id="confirmarrBorrarModalLabel">Editar estudiante</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form id="formEditarEstudiante" action=" <%--<%=context%> --%>/ActualizarEstudianteAdmin" method="post">
+            <form id="formEditarEstudiante" action="<%=context%>/ActualizarEstudianteAdmin" method="post">
                 <div class="modal-body">
-                    <input type="hidden" id="u_id_e" name="id">Campo oculto para el ID del estudiante
+                    <input type="hidden" id="u_id_e" name="u_id_e">
                     <div class="mb-3">
                         <label for="nombre" class="form-label">Nombre</label>
                         <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Nombre" required>
@@ -550,7 +507,7 @@
                         <input type="text" class="form-control" name="apellido" id="apellido" placeholder="Apellido" required>
                         <div id="apellidoError" class="text-danger" style="display:none;">El apellido debe tener al menos 3 letras y no puede contener números.</div>
                     </div>
-                    <div class="mb-3">
+                     <div class="mb-3">
                         <label for="grupo" class="form-label">Grupo</label>
                         <select class="form-control" name="grupo" id="grupo" required>
                             <option value="" disabled selected>Seleccione un grupo</option>
@@ -569,22 +526,18 @@
                         <label for="cuatrimestre" class="form-label">Cuatrimestre</label>
                         <select class="form-control" name="cuatrimestre" id="cuatrimestre" required>
                             <option value="" disabled selected>Seleccione un cuatrimestre</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
+                            <option value="1">1er Cuatrimestre</option>
+                            <option value="2">2do Cuatrimestre</option>
+                            <option value="3">3er Cuatrimestre</option>
+                            <option value="4">4to Cuatrimestre</option>
+                            <option value="5">5to Cuatrimestre</option>
                         </select>
                         <div id="cuatrimestreError" class="text-danger" style="display:none;">Debe seleccionar un cuatrimestre.</div>
                     </div>
 
                     <div class="mb-3">
                         <label for="contrasena_e" class="form-label">Contraseña</label>
-                        <input type="text" class="form-control" name="contrasena" id="contrasena_e" placeholder="Contraseña" required>
+                        <input type="password" class="form-control" name="contrasena_e" id="contrasena_e" placeholder="Contraseña" required>
                         <div id="contrasenaError_e" class="text-danger" style="display:none;">La contraseña debe tener al menos 3 caracteres.</div>
                     </div>
                 </div>
@@ -595,15 +548,11 @@
             </form>
         </div>
     </div>
-</div> -->
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 <script>
-    function materiasBorrado(id) {
-        document.getElementById('d_id').value = id;
-    }
-
     function estadoDocente(id) {
         document.getElementById('ch_id').value = id;
     }
@@ -669,9 +618,11 @@
         document.getElementById('u_id_e').value = id;  // Asigna el ID del estudiante al campo oculto
         document.getElementById('nombre').value = nombre;  // Asigna el nombre al input
         document.getElementById('apellido').value = apellido;  // Asigna el apellido al input
+        document.getElementById('grupo').value = grupo;
+        document.getElementById('cuatrimestre').value = cuatrimestre;
         document.getElementById('contrasena_e').value = contrasena;  // Asigna la contraseña al input
-        document.getElementById('grupo').value = grupo;  // Asigna el grupo al select
-        document.getElementById('cuatrimestre').value = cuatrimestre;  // Asigna el cuatrimestre al select
+        console.log("Datos recibidos:", id, nombre, apellido, contrasena, grupo, cuatrimestre); // Para verificar los datos
+
     }
 
     document.addEventListener('DOMContentLoaded', () => {

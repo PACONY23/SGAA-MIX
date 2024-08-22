@@ -64,6 +64,7 @@ public class CrearAsesoriaServlet extends HttpServlet {
             request.setAttribute("flag", false);
             doGet(request, response);
         }
+        doGet(request, response);
 
     }
 }

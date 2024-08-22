@@ -56,6 +56,7 @@ public class LoginEstudiantesS extends HttpServlet {
             session.setAttribute("apellido", apellido);
             session.setAttribute("grupo", grupo);
             session.setAttribute("cuatrimestre", cuatrimestre);
+            session.setAttribute("contrasena", contraseña);
             session.setAttribute("role", "estudiante"); // Guardar el rol en la sesión
             session.setAttribute("flag", true);
 

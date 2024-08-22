@@ -21,13 +21,19 @@ public class EditarEstudiante extends HttpServlet {
         String matricula = request.getParameter("matricula");
         String nombre = request.getParameter("nombre");
         String apellidos = request.getParameter("apellidos");
+        String contrasena = request.getParameter("contrasena");
 
         Estudiante estudiante = new Estudiante();
         estudiante.setMatricula(matricula);
         estudiante.setNombre(nombre);
         estudiante.setApellido(apellidos);
+        estudiante.setContrasena(contrasena);
+        System.out.println("Est Ma: " +estudiante.getMatricula());
+        System.out.println("Est No: " +estudiante.getNombre());
+        System.out.println("Est Ap: " +estudiante.getApellido());
+        System.out.println("Est Co: " +estudiante.getContrasena());
 
-        boolean actualizado = daoEstudiante.actualizarEstudiante(estudiante);
+        boolean actualizado = daoEstudiante.actualizarEstudianteJE(estudiante);
 
         if (actualizado) {
             response.sendRedirect(request.getContextPath() + "/vistas/Estudiante/PaginaPrincipalEstudiante.jsp");

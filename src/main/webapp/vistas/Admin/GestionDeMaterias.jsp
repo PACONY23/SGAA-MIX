@@ -442,8 +442,8 @@
         const validateForm = () => {
             let isValid = true;
 
-            // Validar nombre de la materia (al menos 5 letras, números solo al final, permite acentos)
-            const materiaPattern = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ]{5,}[0-9]*$/;
+            // Validar nombre de la materia (al menos 3 letras, permite espacios, números solo al final, permite acentos)
+            const materiaPattern = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]{3,}[0-9]*$/;
             if (!materiaPattern.test(nombreMateriaInput.value.trim())) {
                 document.getElementById('materiaError').style.display = 'block';
                 isValid = false;
@@ -456,6 +456,7 @@
 
         form.addEventListener('input', validateForm);
     });
+
 
 </script>
 

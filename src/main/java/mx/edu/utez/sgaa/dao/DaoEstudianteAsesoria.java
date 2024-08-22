@@ -160,7 +160,47 @@ public class DaoEstudianteAsesoria {
         return historialAsesorias;
     }
 
+    public int contarEstudiantesPorAsesoria(int idAsesoria) {
+        int count = 0;
+        String sql = "SELECT count(*) FROM EstudiantesAsesoria WHERE idAsesoria = ?";
 
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            stmt.setInt(1, idAsesoria);
+
+            try (ResultSet resultSet = stmt.executeQuery()) {
+                if (resultSet.next()) {
+                    count = resultSet.getInt(1);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return count;
+    }
+
+
+
+    public int contarEstudiantesPorAsesoriaYReagenda(int idAsesoria) {
+        int count = 0;
+        String sql = "select count(*) from EstudiantesAsesoria where idAsesoria = ? and reagenda =true;";
+
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            stmt.setInt(1, idAsesoria);
+
+            try (ResultSet resultSet = stmt.executeQuery()) {
+                if (resultSet.next()) {
+                    count = resultSet.getInt(1);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return count;
+    }
 
 
 

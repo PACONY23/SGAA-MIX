@@ -32,8 +32,10 @@ public class LoginAdminS extends HttpServlet {
 
         try {
             Administrador admin = daoAdmin.loginAdmin(matricula, password);
+            HttpSession session = request.getSession();
             if (admin != null) {
                 // Redirigir a una página de éxito o al dashboard del administrador
+                session.setAttribute("administrador", admin);
                 response.sendRedirect(request.getContextPath() + "/vistas/Admin/PaginaPrincipalAdmin.jsp");
             } else {
                 // Volver a la página de inicio de sesión con un mensaje de error

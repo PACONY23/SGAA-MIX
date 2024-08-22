@@ -17,6 +17,7 @@
     String correo = (String) session.getAttribute("correo");
     String grupo = (String) session.getAttribute("grupo");
     String cuatrimeestre = (String) session.getAttribute("cuatrimestre");
+    String contrasena = (String) session.getAttribute("contrasena");
 %>
 <!DOCTYPE html>
 <html lang="es">
@@ -463,17 +464,17 @@
         <span class="close">&times;</span>
         <h2>Editar Perfil</h2>
         <form id="editarForm" method="post" action="<%=request.getContextPath()%>/EditarEstudiante">
+
             <div class="input-group">
-                <label for="matriculaModal">Matrícula:</label>
-                <input type="text" id="matriculaModal" name="matricula" value="<%=matricula%>">
+                <input type="hidden" id="matriculaModal" name="matricula" value="<%=matricula%>" required>
             </div>
             <div class="input-group">
                 <label for="nombreModal">Nombre:</label>
-                <input type="text" id="nombreModal" name="nombre" value="<%=nombre%>">
+                <input type="text" id="nombreModal" name="nombre" value="<%=nombre%>" required>
             </div>
             <div class="input-group">
                 <label for="apellidosModal">Apellidos:</label>
-                <input type="text" id="apellidosModal" name="apellidos" value="<%=apellido%>">
+                <input type="text" id="apellidosModal" name="apellidos" value="<%=apellido%>" required>
             </div>
             <div class="input-group">
                 <label for="grupoModal">Grupo:</label>
@@ -484,12 +485,8 @@
                 <input type="text" id="cuatrimestreModal" name="cuatrimestre" value="<%=cuatrimeestre%>">
             </div>
             <div class="input-group">
-                <label for="correoModal">Correo:</label>
-                <input type="email" id="correoModal" name="correoElectronico" value="">
-            </div>
-            <div class="input-group">
                 <label for="contrasenaModal">Contraseña:</label>
-                <input type="password" id="contrasenaModal" name="contrasena" value="">
+                <input type="text" id="contrasenaModal" name="contrasena" value="<%=contrasena%>" required>
             </div>
             <div class="modal-buttons">
                 <button type="submit" id="guardarCambios">Guardar Cambios</button>
@@ -520,7 +517,7 @@
                 modal.style.display = 'none';
             }
         }
-
+        /*
         // Guardar cambios (simulado)
         var btnGuardar = document.getElementById('guardarCambios');
         btnGuardar.onclick = function() {
@@ -536,6 +533,7 @@
             // Simular cierre del modal
             modal.style.display = 'none';
         }
+        */
     });
 </script>
 </body>
