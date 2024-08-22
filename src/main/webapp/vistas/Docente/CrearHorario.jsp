@@ -423,6 +423,8 @@
     </div>
 </div>
 
+
+
 <script>
     function loadMaterias() {
         const matricula = '<%=matricula%>';

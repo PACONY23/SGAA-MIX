@@ -147,10 +147,11 @@ public class DaoAsesoria {
         return asesorias;
     }
 
-    public void aceptarReagenda(int idAsesoria) throws SQLException {
-        String sql = "UPDATE EstudiantesAsesoria SET reagenda = false WHERE idAsesoria = ?";
+    public void aceptarReagenda(int idAsesoria, int idEstudiante) throws SQLException {
+        String sql = "UPDATE EstudiantesAsesoria SET reagenda = false WHERE idAsesoria = ? and idEstudiante = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setInt(1, idAsesoria);
+            preparedStatement.setInt(2, idEstudiante);
             preparedStatement.executeUpdate();
         }
     }

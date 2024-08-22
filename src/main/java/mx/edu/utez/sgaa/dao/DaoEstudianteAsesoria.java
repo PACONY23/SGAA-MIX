@@ -202,6 +202,27 @@ public class DaoEstudianteAsesoria {
         return count;
     }
 
+    public int contarEstudiantesEnAsesoria(int idAsesoria) {
+        int count = 0;
+        String sql = "SELECT count(*) FROM EstudiantesAsesoria EA " +
+                "JOIN Asesorias A ON A.idAsesoria = EA.idAsesoria " +
+                "WHERE A.idAsesoria = ? AND A.Estado = 1";
+
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, idAsesoria);
+
+            try (ResultSet resultSet = stmt.executeQuery()) {
+                if (resultSet.next()) {
+                    count = resultSet.getInt(1);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return count;
+    }
+
 
 
 }

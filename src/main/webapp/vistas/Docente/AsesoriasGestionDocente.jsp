@@ -315,6 +315,7 @@
             <tr style="background-color: #0d6efd; color: white;">
                 <th scope="col" style="text-align: center">Materia</th>
                 <th scope="col">Estudiantes en esta asesoría</th>
+                <th scope="col">Estudiantes sin aceptar reagenda</th>
                 <th scope="col">Fecha</th>
                 <th scope="col">Hora</th>
                 <th scope="col" style="text-align: center">Acciones</th> <!-- Columna para los botones -->
@@ -338,6 +339,7 @@
             <tr style="background-color: #ffffff; color: #000000;">
                 <td style="background-color: #ffffff; color: #000000; text-align: center;"><%=asesoria.getNombreMateria() %></td>
                 <td style="background-color: #ffffff; color: #000000;"><%=estudiantesPorAsesoria %></td>
+                <td style="background-color: #ffffff; color: #000000;"><%=estudiantesPorAsesoriaReagenda %></td>
                 <td style="background-color: #ffffff; color: #000000;"><%=asesoria.getFecha() %></td>
                 <td style="background-color: #ffffff; color: #000000;"><%=asesoria.getHora() %></td>
                 <td style="background-color: #ffffff; color: #000000; text-align: center;">
@@ -400,6 +402,7 @@
             <thead>
             <tr style="background-color: #0d6efd; color: white;">
                 <th scope="col" style="text-align: center">Materia</th>
+                <th scope="col" style="text-align: center">Total de participantes</th>
                 <th scope="col">Fecha</th>
                 <th scope="col">Hora</th>
                 <th scope="col" style="text-align: center">Acciones</th> <!-- Columna para los botones -->
@@ -413,8 +416,14 @@
 
                     for (Asesoria asesoria : asesoriasIniciadas) {
             %>
+            <%
+                int asesoriaID = asesoria.getIdAsesoria();
+                DaoEstudianteAsesoria dao = new DaoEstudianteAsesoria();
+                int estudiantesEnAsesoria = dao.contarEstudiantesEnAsesoria(asesoriaID);
+            %>
             <tr>
                 <td style="text-align: center;"><%=asesoria.getNombreMateria() %></td>
+                <td style="text-align: center;"><%=estudiantesEnAsesoria %></td>
                 <td><%=asesoria.getFecha() %></td>
                 <td><%=asesoria.getHora() %></td>
                 <td style="text-align: center;">
@@ -521,7 +530,7 @@
                 <h5 class="modal-title" id="finalizarALabelSin">Borrar asesoría</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="<%=context%>/" method="post">
+            <form action="<%=context%>/EliminarAsesoriaS" method="post">
                 <div class="modal-body">
                     <input type="hidden" id="b_id" name="b_id">
                     Esta asesoría no cuenta con ningún estudiante

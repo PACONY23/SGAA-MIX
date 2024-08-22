@@ -19,8 +19,10 @@ public class AceptarReagendaS extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String idAsesoriaStr = request.getParameter("d_id");
-        if (idAsesoriaStr != null && !idAsesoriaStr.isEmpty()) {
+        String idEstudianteStr = request.getParameter("es_id");
+        if (idAsesoriaStr != null && !idAsesoriaStr.isEmpty() && idEstudianteStr != null && !idEstudianteStr.isEmpty()) {
             int idAsesoria = Integer.parseInt(idAsesoriaStr);
+            int idEstudiante = Integer.parseInt(idEstudianteStr);
             System.out.println("Se recibio idasesoria para la reagenda " + idAsesoria);
 
             Connection connection = null;
@@ -30,7 +32,7 @@ public class AceptarReagendaS extends HttpServlet {
 
                 // Llama al método adecuado en DaoAsesoria para manejar la aceptación
                 // (Este método debe ser implementado en DaoAsesoria)
-                dao.aceptarReagenda(idAsesoria);
+                dao.aceptarReagenda(idAsesoria,idEstudiante);
 
                 // Redirige a la página deseada después de aceptar la reagenda
                 response.sendRedirect(request.getContextPath() + "/vistas/Estudiante/Reagendas.jsp");

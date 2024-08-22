@@ -24,7 +24,68 @@ public class DaoMateria {
             "UPDATE Materias SET materia_estado = ? WHERE idMateria = ?"
     };
 
+   /* public boolean agregarMateria(Materia materia) {
+        Connection con = null;
+        CallableStatement callableStatement = null;
+
+        try {
+            // Obtener la conexión
+            con = DATA_BASE_CONNECTION.getConnection();
+
+            // Preparar la llamada al procedimiento almacenado
+            String sql = "{CALL agregarMateria(?)}";
+            callableStatement = con.prepareCall(sql);
+
+            // Establecer el parámetro de entrada (nombre de la materia)
+            callableStatement.setString(1, materia.getNombre());
+
+            // Ejecutar el procedimiento almacenado
+            boolean hasResultSet = callableStatement.execute();
+
+            // Procesar el resultado
+            if (hasResultSet) {
+                ResultSet rs = callableStatement.getResultSet();
+                if (rs.next()) {
+                    String mensaje = rs.getString("mensaje");
+                    System.out.println(mensaje);
+                    // Si el mensaje indica éxito, retornamos true
+                    return mensaje.equals("Materia agregada exitosamente.");
+                }
+            }
+
+            return false;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+
+        } finally {
+            // Cerrar el CallableStatement y la conexión
+            if (callableStatement != null) {
+                try {
+                    callableStatement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+    */
+
     public boolean agregarMateria(Materia materia) {
+        // Validación del nombre de la materia
+        if (materia.getNombre() == null || materia.getNombre().trim().length() <= 0) {
+            System.out.println("Nombre de materia inválido.");
+            return false;
+        }
+
         Connection con = null;
         CallableStatement callableStatement = null;
 

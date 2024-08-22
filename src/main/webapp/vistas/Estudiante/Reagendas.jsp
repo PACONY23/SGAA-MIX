@@ -447,6 +447,7 @@
             <form action="<%=context%>/AceptarReagendaS" method="post">
                 <div class="modal-body">
                     <input type="hidden" id="d_id" name="d_id" required>
+                    <input type="hidden" id="es_id" name="es_id" required>
                     ¿Estás seguro de aceptar esta reagenda?
                     <label id="d_name" style="font-weight: bold"></label>
                 </div>
@@ -465,6 +466,10 @@
     function aceptarReagenda(idAsesoria) {
         // Configurar el ID de la asesoría en el campo oculto
         document.getElementById('d_id').value = idAsesoria;
+
+        const idEstudiante = '<%= idEstudiante %>'; // Asegúrate de que `idEstudiante` esté disponible en el JSP
+
+        document.getElementById('es_id').value = idEstudiante;
 
         // Opcional: Configurar el nombre de la asesoría en el modal
         const label = document.getElementById('d_name');
