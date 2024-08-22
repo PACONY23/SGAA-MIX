@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: pilih
-  Date: 24/07/2024
-  Time: 10:18 p. m.
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%String context = request.getContextPath();%>
 <%@ page import="java.util.List" %>
@@ -15,19 +8,20 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.sql.SQLException" %>
 <%if(request.getSession(false) != null && session.getAttribute("matricula") != null){
-    if (!(request.getSession().getAttribute("role").toString().toLowerCase().equals("docente"))){
-      response.sendRedirect(context + "/index.jsp");
-      return;
-    }
-  } else {
+  if (!(request.getSession().getAttribute("role").toString().toLowerCase().equals("docente"))){
     response.sendRedirect(context + "/index.jsp");
     return;
   }
+} else {
+  response.sendRedirect(context + "/index.jsp");
+  return;
+}
 %>
 <%
   // Obtener el atributo de la sesión
   String idDocenteStr = (String) session.getAttribute("idDocente");
   Integer idDocente = null;
+  int calificacion=0;
 
   if (idDocenteStr != null) {
     try {
@@ -48,11 +42,31 @@
   <%--<link rel="stylesheet" href="<%=context%>/css/cssPlantillaBarra.css" >--%>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="<%=context%>/css/cssFuenteLetra.css">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <%--<link rel="stylesheet" href="<%=context%>/css/cssBarraDocente.css" /> --%>
+  <!-- CDN Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
+  <!-- CDN Botstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <!-- Mis Estilos CSS -->
+  <link rel="stylesheet" href="<%=context%>/css/styles.css">
   <title>Historial docente</title>
   <style>
-    /* ESTILO DE PLANTILLABARRA*/
+    .rating {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .star {
+      font-size: 32px;
+      color: #ddd;
+      transition: color 0.3s;
+      cursor: pointer;
+    }
+
+    .star:hover,
+    .star.checked {
+      color: gold;
+    }
+
     :root{
       --bs-body-font-family: 'Poppins', sans-serif !important;
     }
@@ -198,35 +212,11 @@
     }
 
 
-
-    /*DISEÑO INTERFAZ*/
-    .table-responsive {
-      background-color: #13AC80;
-      border-radius: 10px;
-      padding: 20px;
-      color: white;
-    }
-
-    .table th, .table td {
-      color: white;
-    }
     .table a{
       text-decoration: none;
 
     }
-    .table .agregar {
-      background-color: #141C32;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 24px;
-      color: white;
-      cursor: pointer;
-      margin-left: 17px;
-    }
+
     .boton-cerrar-sesion:hover {
       background-color: #fff;
       color: #141C32;
@@ -285,15 +275,14 @@
 
 <div class="contenido">
   <div class="table-responsive">
-    <table class="table">
+    <table class="table table-success table-striped">
       <thead>
       <tr>
         <th>Estudiante</th>
         <th>Materia</th>
         <th>Fecha</th>
         <th>Hora</th>
-        <th>Calificación</th>
-        <th></th>
+        <th>Acciones</th>
       </tr>
       </thead>
       <%
@@ -320,10 +309,7 @@
         <td><%= asesoria.getFecha() %></td>
         <td><%= asesoria.getHora() %></td>
         <td>
-          <!-- Aquí puedes agregar el enlace o el formulario para calificar -->
-          <a href="<%=request.getContextPath()%>/vistas/Docente/CalificarEstudiante.jsp">
-            <div class="agregar">+</div>
-          </a>
+          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="putId('<%=asesoria.getId_asesoria() %>','<%=asesoria.getId_estudiante() %>')">Calificar</button>
         </td>
       </tr>
       <%
@@ -340,8 +326,42 @@
     </table>
   </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Calificar alumno</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form id="ratingForm">
+        <div class="modal-body">
+          <div class="rating">
+            <i class="bi bi-star-fill star"></i>
+            <i class="bi bi-star-fill star"></i>
+            <i class="bi bi-star-fill star"></i>
+            <i class="bi bi-star-fill star"></i>
+            <i class="bi bi-star-fill star"></i>
+          </div>
+          <!-- Campo oculto para la calificación -->
+          <input type="hidden" id="calificacion" name="calificacion" value="0">
+          <!-- Campo oculto para el ID de la asesoría -->
+          <input type="hidden" id="asesoriaId" name="asesoriaId" value="">
+          <!-- Campo oculto para el ID del estudiante -->
+          <input type="hidden" id="estudianteId" name="estudianteId" value="">
+        </div>
+        <div class="modal-footer">
+          <button type="reset" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-warning">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<script src="<%=context%>/JS/app.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

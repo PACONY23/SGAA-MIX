@@ -5,6 +5,7 @@
 <%@ page import="mx.edu.utez.sgaa.model.Docente" %>
 <%@ page import="mx.edu.utez.sgaa.model.Estudiante" %>
 <%@ page import="mx.edu.utez.sgaa.dao.DaoEstudiante" %>
+<%@ page import="mx.edu.utez.sgaa.dao.DaoEstudianteAsesoria" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%String context = request.getContextPath();
@@ -315,6 +316,7 @@
                 <th scope="col">Apellido</th>
                 <th scope="col" style="text-align: center">Editar</th>
                 <th scope="col" style="text-align: center">Estado</th>
+                <th scope="col" style="text-align: center">Calificación</th>
             </tr>
             </thead>
             <tbody id="materiasTableBody">
@@ -324,6 +326,7 @@
                 for (Docente docente : docentes) {
                     String rowClass = !docente.isEstatus() ? "table-active" : "table-primary";
             %>
+
             <tr id="materia-<%=docente.getId()%>" class="<%= rowClass %>">
                 <td><%=docente.getMatricula() %></td>
                 <td><%=docente.getNombres() %></td>
@@ -341,6 +344,11 @@
                          </span>
                     </button>
                 </td>
+                <%
+                    DaoEstudianteAsesoria dao1 = new DaoEstudianteAsesoria();
+                    float calificacion =dao1.verDocentesCalificacio(docente.getId());
+                %>
+                <td><%=calificacion%></td>
             </tr>
             <%
                 }
@@ -366,6 +374,8 @@
                 <th scope="col">Cuatrimestre</th>
                 <th scope="col" style="text-align: center">Editar</th>
                 <th scope="col" style="text-align: center">Estado</th>
+                <th scope="col" style="text-align: center">Calificacion</th>
+
             </tr>
             </thead>
             <tbody id="estudiantesTableBody">
@@ -375,6 +385,10 @@
                 for (Estudiante estudiante : estudiantes) {
                     String rowClass = !estudiante.isEstatus() ? "table-active" : "table-primary";
                     System.out.println("ID del estudiante: " + estudiante.getId());
+            %>
+            <%
+                DaoEstudianteAsesoria dao1 = new DaoEstudianteAsesoria();
+                float calificacionE =dao1.verEstudianteCalificacio(estudiante.getId());
             %>
             <tr id="materia-<%=estudiante.getId()%>" class="<%= rowClass %>">
                 <td><%=estudiante.getMatricula() %></td>
@@ -394,6 +408,8 @@
                          </span>
                     </button>
                 </td>
+                <td><%=calificacionE%>  </td>
+
             </tr>
             <%
                 }

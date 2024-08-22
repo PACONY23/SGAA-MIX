@@ -1,4 +1,4 @@
-package mx.edu.utez.sgaa.servlet.Docente;
+package mx.edu.utez.sgaa.servlet.Estudiante;
 
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
@@ -7,11 +7,11 @@ import mx.edu.utez.sgaa.dao.DaoCalificacion;
 
 import java.io.IOException;
 
-@WebServlet(name = "CalificarEstuditeS", value = "/CalificarEstuditeS")
-public class CalificarEstuditeS extends HttpServlet {
+@WebServlet(name = "CalificarDocente", value = "/CalificarDocente")
+public class CalificarDocente extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/vistas/Docente/HistorialDocente.jsp").forward(request, response);
+        request.getRequestDispatcher("/vistas/Estudiante/HistorialEstudiante.jsp").forward(request, response);
     }
 
     @Override
@@ -21,11 +21,15 @@ public class CalificarEstuditeS extends HttpServlet {
 
         int calificacion = Integer.parseInt(request.getParameter("calificacion"));
         int id_asesoria= Integer.parseInt(request.getParameter("asesoriaId"));
-        int id_estudiante = Integer.parseInt(request.getParameter("estudianteId"));
+        int id_docente = Integer.parseInt(request.getParameter("docenteId"));
 
 
         DaoCalificacion dao = new DaoCalificacion();
-        dao.agregarCalificacion(id_asesoria, calificacion, id_estudiante);
+        dao.agregarCalificacionD(id_asesoria, calificacion, id_docente);
+
+        System.out.println("asesoria" + id_asesoria);
+        System.out.println("calificacion" + calificacion);
+        System.out.println("docente" + id_docente);
 
         doGet(request, response);
     }

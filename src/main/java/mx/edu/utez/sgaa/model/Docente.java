@@ -10,6 +10,7 @@ public class Docente {
     private boolean estatus; // Asegúrate de agregar este campo
     private boolean admission;
     private String rol;
+    private float calificacion;
 
     public Docente() {
     }
@@ -24,6 +25,16 @@ public class Docente {
         this.estatus = estatus;
         this.admission = admission;
         this.rol = rol;
+    }
+
+    public Docente(int id, String nombres, String apellidos, String matricula, String contrasena, boolean estatus, float calificacion) {
+        this.id = id;
+        this.nombres = nombres;
+        this.apellidos = apellidos;
+        this.matricula = matricula;
+        this.contrasena = contrasena;
+        this.estatus = estatus;
+        this.calificacion = calificacion;
     }
 
     // Agrega getters y setters para 'estatus'
@@ -105,4 +116,11 @@ public class Docente {
 
     public void setRol(String rol) {}
 
+    public float getCalificacion() {
+        return calificacion;
+    }
+
+    public void setCalificacion(float calificacion) {
+        this.calificacion = calificacion;
+    }
 }
