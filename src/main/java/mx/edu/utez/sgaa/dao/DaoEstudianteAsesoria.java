@@ -2,10 +2,14 @@ package mx.edu.utez.sgaa.dao;
 import mx.edu.utez.sgaa.model.Asesoria;
 import mx.edu.utez.sgaa.model.EstudiantesAsesoria;
 import java.sql.*;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import mx.edu.utez.sgaa.database.DatabaseConnection;
 import mx.edu.utez.sgaa.model.HistorialAsesoria;
+import mx.edu.utez.sgaa.model.Docente;
+
+import javax.print.Doc;
 
 public class DaoEstudianteAsesoria {
     private Connection connection;
@@ -95,7 +99,7 @@ public class DaoEstudianteAsesoria {
     public List<HistorialAsesoria> obtenerHistorialAsesoriasPorEstudiante(int idEstudiante) throws SQLException {
         List<HistorialAsesoria> historialAsesorias = new ArrayList<>();
 
-        String query = "SELECT D.Nombre AS Nombre_docente, " +
+        String query = "SELECT D.Nombre AS Nombre_docente, " + "HA.id_Asesoria,"+ "HA.id_Docente,"+
                 "M.Nombre_Materia, A.Fecha, A.Hora " +
                 "FROM Historial_asesorias HA " +
                 "JOIN Docentes D ON HA.id_Docente = D.idDocente " +
@@ -112,6 +116,8 @@ public class DaoEstudianteAsesoria {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     HistorialAsesoria historialAsesoria = new HistorialAsesoria();
+                    historialAsesoria.setId_asesoria(resultSet.getLong("id_asesoria"));
+                    historialAsesoria.setId_docente(resultSet.getLong("id_Docente"));
                     historialAsesoria.setNombreDocente(resultSet.getString("Nombre_docente"));
                     historialAsesoria.setNombreMateria(resultSet.getString("Nombre_Materia"));
                     historialAsesoria.setFecha(resultSet.getDate("Fecha"));
@@ -128,7 +134,7 @@ public class DaoEstudianteAsesoria {
     public List<HistorialAsesoria> obtenerHistorialAsesoriasPorDocente(int idDocente) throws SQLException {
         List<HistorialAsesoria> historialAsesorias = new ArrayList<>();
 
-        String query = "SELECT E.Nombre AS Nombre_estudiante, " +
+        String query = "SELECT E.Nombre AS Nombre_estudiante," +"HA.id_Asesoria,"+ "HA.id_Estudiante,"+
                 "M.Nombre_Materia, " +
                 "A.Fecha, " +
                 "A.Hora " +
@@ -147,6 +153,8 @@ public class DaoEstudianteAsesoria {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     HistorialAsesoria historial = new HistorialAsesoria();
+                    historial.setId_asesoria(resultSet.getLong("id_asesoria"));
+                    historial.setId_estudiante(resultSet.getLong("id_estudiante"));
                     historial.setNombreEstudiante(resultSet.getString("Nombre_estudiante"));
                     historial.setNombreMateria(resultSet.getString("Nombre_Materia"));
                     historial.setFecha(resultSet.getDate("Fecha"));
@@ -221,6 +229,53 @@ public class DaoEstudianteAsesoria {
         }
 
         return count;
+    }
+
+
+    public float verDocentesCalificacio(int idDocente) {
+        float calificacion = 0.0f;  // Variable para almacenar la calificación
+        String sql = "select (AVG(CalificacionDocente)*2) AS Calificacion from Historial_asesorias where id_Docente = ?;";
+
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            stmt.setInt(1, idDocente);
+
+            try (ResultSet resultSet = stmt.executeQuery()) {
+                if (resultSet.next()) {
+                    DecimalFormat df = new DecimalFormat("#.#");
+                    calificacion = resultSet.getFloat("Calificacion");
+                    calificacion = Float.parseFloat(df.format(calificacion));  // Formatea la calificación
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return calificacion;  // Retorna la calificación calculada
+    }
+
+
+
+    public float verEstudianteCalificacio(int idEstudiante) {
+        float calificacion = 0.0f;  // Variable para almacenar la calificación
+        String sql = "select (AVG(CalificacionDocente)*2) AS Calificacion from Historial_asesorias where id_Estudiante = ?;";
+
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            stmt.setInt(1, idEstudiante);
+
+            try (ResultSet resultSet = stmt.executeQuery()) {
+                if (resultSet.next()) {
+                    DecimalFormat df = new DecimalFormat("#.#");
+                    calificacion = resultSet.getFloat("Calificacion");
+                    calificacion = Float.parseFloat(df.format(calificacion));  // Formatea la calificación
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return calificacion;  // Retorna la calificación calculada
     }
 
 

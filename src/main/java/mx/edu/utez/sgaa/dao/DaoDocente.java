@@ -5,6 +5,7 @@ import mx.edu.utez.sgaa.model.Docente;
 import mx.edu.utez.sgaa.model.Materia;
 
 import java.sql.*;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -286,6 +287,8 @@ public class DaoDocente {
              PreparedStatement stmt = connection.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
 
+            DecimalFormat df = new DecimalFormat("#.#");
+
             while (rs.next()) {
                 Docente docente = new Docente();
                 docente.setId(rs.getInt("idDocente"));
@@ -294,6 +297,10 @@ public class DaoDocente {
                 docente.setApellidos(rs.getString("apellido"));
                 docente.setContrasena(rs.getString("contraseña"));
                 docente.setEstatus(rs.getBoolean("estatus"));
+
+                /*float calificacion = rs.getFloat("Calificacion");
+                docente.setCalificacion(Float.parseFloat(df.format(calificacion)));*/
+
                 docentes.add(docente);
             }
         } catch (SQLException e) {
@@ -415,5 +422,8 @@ public class DaoDocente {
             e.printStackTrace();
             return false;
         }
+
+
+
     }
 }
