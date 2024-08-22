@@ -148,6 +148,12 @@
         .barra-lateral .navegacion a:hover #asesorias-img {
             content: url('<%=context%>/IMG/asesorias_v.png'); /* Cambia la imagen al hacer hover */
         }
+        .barra-lateral .navegacion a:hover #buscador-img {
+            content: url('<%=context%>/IMG/buscador_v.png'); /* Cambia la imagen al hacer hover */
+        }
+        .barra-lateral .navegacion a:hover #materias-img {
+            content: url('<%=context%>/IMG/materias_v.png'); /* Cambia la imagen al hacer hover */
+        }
         .barra-lateral .navegacion a:hover #logout-img {
             content: url('<%=context%>/IMG/logout_v.png'); /* Cambia la imagen al hacer hover */
         }
@@ -325,6 +331,9 @@
     <div class="table-responsive">
         <table class="table table-bordered table-hover table-primary">
             <thead>
+            <tr>
+                <th colspan="5" style="text-align: center; background-color: #f8f9fa;">Pendientes</th>
+            </tr>
             <tr style="background-color: #0d6efd; color: white;">
                 <th scope="col">Titulo asesoría</th>
                 <th scope="col" style="text-align: center">Materia</th>
@@ -368,6 +377,9 @@
     <div class="table-responsive">
         <table class="table table-bordered table-hover table-primary">
             <thead>
+            <tr>
+                <th colspan="5" style="text-align: center; background-color: #f8f9fa;">En curso</th>
+            </tr>
             <tr style="background-color: #0d6efd; color: white;">
                 <th scope="col">Titulo asesoría</th>
                 <th scope="col" style="text-align: center">Materia</th>

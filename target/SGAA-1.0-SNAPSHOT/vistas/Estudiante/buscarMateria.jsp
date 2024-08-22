@@ -325,7 +325,7 @@
                 <!-- Campo oculto para almacenar el nombre de la materia -->
                 <input type="hidden" id="materiaNombre" name="materiaNombre" value="">
                 <!-- Botón para enviar el formulario -->
-                <button type="submit" class="btn btn-primary mt-2">Enviar Materia</button>
+                <button type="submit" class="btn btn-primary mt-2" style="display: none;"></button>
             </form>
         </div>
     </div>
