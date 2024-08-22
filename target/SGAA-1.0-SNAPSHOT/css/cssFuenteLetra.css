@@ -1,0 +1,17 @@
+:root{
+    --bs-body-font-family: 'Poppins', sans-serif !important;
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+body{
+    margin: 0;
+    height: 100vh;
+    width: 100%;
+    background-color: white;
+    display: flex; /* Usar flexbox para el diseño */
+    font-family: 'Poppins', sans-serif;
+}
