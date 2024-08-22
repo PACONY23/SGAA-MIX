@@ -309,7 +309,7 @@
     // Definir la variable idEstudiante en JavaScript
     var idEstudiante = '<%= idEstudiante %>'; // Convertir el idEstudiante a string para evitar problemas en el lado del cliente
 </script>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- Importar SweetAlert2 -->
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
@@ -384,8 +384,29 @@
                         })
                     })
                         .then(response => response.text())
-                        .then(data => {
-                            console.log('Inscripción realizada:', data);
+                        .then(status => {
+                            if (status == 'registerOk') {
+                                Swal.fire({
+                                    icon: "success",
+                                    title: "Registro realizado con éxito",
+                                    confirmButtonText: "Ok",
+                                    confirmButtonColor: "#208c7d",
+                                });
+                            } else if (status == 'registerErrorDuplicate') {
+                                Swal.fire({
+                                    icon: "error",
+                                    title: "Error, ya te encuentras inscrito en esta asesoría",
+                                    confirmButtonText: "Ok",
+                                    confirmButtonColor: "#208c7d",
+                                });
+                            } else if (status == 'registerError') {
+                                Swal.fire({
+                                    icon: "error",
+                                    title: "Error, no se pudo realizar la inscripción",
+                                    confirmButtonText: "Ok",
+                                    confirmButtonColor: "#208c7d",
+                                });
+                            }
                         })
                         .catch(error => console.error('Error en la inscripción:', error));
 
@@ -398,6 +419,7 @@
 
         calendar.render();
     });
+
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

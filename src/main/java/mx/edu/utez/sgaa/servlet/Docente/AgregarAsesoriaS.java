@@ -1,5 +1,6 @@
 package mx.edu.utez.sgaa.servlet.Docente;
 
+import jakarta.servlet.http.HttpSession;
 import mx.edu.utez.sgaa.dao.DaoAsesoria;
 import mx.edu.utez.sgaa.dao.DaoEstudianteAsesoria;
 import mx.edu.utez.sgaa.model.EstudiantesAsesoria;
@@ -33,13 +34,22 @@ public class AgregarAsesoriaS extends HttpServlet {
         EstudiantesAsesoria estudiantesAsesoria = new EstudiantesAsesoria(idEstudiante, idAsesoria, tema);
         try (Connection connection = DatabaseConnection.getConnection()) {
             DaoEstudianteAsesoria daoEstudianteAsesoria = new DaoEstudianteAsesoria();
+
+            if(daoEstudianteAsesoria.isAsesoriaRegistrada(idEstudiante, idAsesoria)){
+                response.setStatus(HttpServletResponse.SC_CONFLICT);
+                //Enviamos un mensaje de error al status
+                response.getWriter().write("registerErrorDuplicate");
+                return;
+            }
             daoEstudianteAsesoria.agregarAsesoriaEstudiante(estudiantesAsesoria);
             response.setStatus(HttpServletResponse.SC_CREATED);
-            response.getWriter().write("Asesoría agregada con éxito");
+            //Enviamos un mensaje de éxito al status
+            response.getWriter().write("registerOk");
         } catch (SQLException e) {
             e.printStackTrace();
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            response.getWriter().write("Error al agregar la asesoría");
+            //Enviamos un mensaje de error al status
+            response.getWriter().write("registerError");
         }
     }
 }

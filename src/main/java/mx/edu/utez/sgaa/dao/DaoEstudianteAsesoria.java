@@ -277,6 +277,20 @@ public class DaoEstudianteAsesoria {
 
         return calificacion;  // Retorna la calificación calculada
     }
+    public boolean isAsesoriaRegistrada(int idEstudiante, int idAsesoria) throws SQLException {
+        String query = "SELECT COUNT(*) FROM EstudiantesAsesoria WHERE idEstudiante = ? AND idAsesoria = ?";
+        try(Connection connection = DatabaseConnection.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, idEstudiante);
+            preparedStatement.setInt(2, idAsesoria);
+            try(ResultSet resultSet = preparedStatement.executeQuery()) {
+                if(resultSet.next()) {
+                    return resultSet.getInt(1) > 0;
+                }
+            }
+        }
+        return false;
+    }
 
 
 

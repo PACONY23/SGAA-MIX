@@ -447,7 +447,6 @@ public class DaoAsesoria {
         return asesorias;
     }
 
-
     public static void main(String[] args) {
         // Suponiendo que tienes un DAO que contiene el método obtenerAsesoriasIniciadasPorEstudiante
         DaoAsesoria daoAsesoria = new DaoAsesoria();
