@@ -11,16 +11,13 @@
   <component name="ChangeListManager">
     <list default="true" id="a139834b-be9f-40a4-a4c8-e1bc4c412130" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/dao/DaoDocente.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/dao/DaoDocente.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/dao/DaoEstudianteAsesoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/dao/DaoEstudianteAsesoria.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/model/Docente.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/model/Docente.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/model/HistorialAsesoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/model/HistorialAsesoria.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Docente/CalificarEstuditeS.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Docente/CalificarEstuditeS.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/vistas/Admin/ConsultarInformacion.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/vistas/Admin/ConsultarInformacion.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/vistas/Docente/HistorialDocente.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/vistas/Docente/HistorialDocente.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/vistas/Estudiante/HistorialEstudiante.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/vistas/Estudiante/HistorialEstudiante.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/vistas/Estudiante/HorarioEstudiante.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/vistas/Estudiante/HorarioEstudiante.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/vistas/Admin/ConsultarInformacion.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/SGAA-1.0-SNAPSHOT/vistas/Admin/ConsultarInformacion.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Administrador/AgregarDocenteAdminS.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Administrador/AgregarDocenteAdminS.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Docente/RegistroDocentesS.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Docente/RegistroDocentesS.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Materia/AgregarMateriasS.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Materia/AgregarMateriasS.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Materia/EliminarMateria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Materia/EliminarMateria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/JS/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/JS/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/vistas/Admin/AprobarRegistro.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/vistas/Admin/AprobarRegistro.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/vistas/Admin/GestionDeMaterias.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/vistas/Admin/GestionDeMaterias.jsp" afterDir="false" />
     </list>
     <list id="93d35109-d88d-440d-aee6-edfc685efac2" name="Changes by EKT9962" comment="" />
     <list id="4127c621-55f7-44ef-9035-8d3c8a0ce461" name="Changes by Isaac" comment="" />
@@ -71,7 +68,7 @@
     "Tomcat Server.Tomcat 9.0.90.executor": "Run",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/16844/Downloads/SGAA-MIX20/SGAA-MIX",
+    "last_opened_file_path": "C:/Users/luisa/OneDrive/Escritorio/PILAR/SGAA-MIX",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -137,7 +134,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Tomcat 10.1.26" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 10.1.26" ALTERNATIVE_JRE_ENABLED="false">
+    <configuration name="Tomcat 10.1.26" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 10.1.28" ALTERNATIVE_JRE_ENABLED="true" ALTERNATIVE_JRE_PATH="21">
       <option name="UPDATING_POLICY" value="restart-server" />
       <deployment>
         <artifact name="SGAA:war exploded">
@@ -148,7 +145,7 @@
       </deployment>
       <server-settings>
         <option name="BASE_DIRECTORY_NAME" value="73cef2de-8c34-4bf4-9929-89e9266b2818" />
-        <option name="HTTP_PORT" value="8081" />
+        <option name="HTTP_PORT" value="8083" />
       </server-settings>
       <predefined_log_file enabled="true" id="Tomcat" />
       <predefined_log_file enabled="true" id="Tomcat Catalina" />
@@ -244,8 +241,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.18034.62" />
-        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.18034.62" />
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.15989.150" />
+        <option value="bundled-js-predefined-1d06a55b98c1-91d5c284f522-JavaScript-IU-241.15989.150" />
       </set>
     </attachedChunks>
   </component>
@@ -275,6 +272,7 @@
       <workItem from="1724292530297" duration="13849000" />
       <workItem from="1724313414632" duration="28000" />
       <workItem from="1724336584457" duration="12889000" />
+      <workItem from="1724371584621" duration="4159000" />
     </task>
     <servers />
   </component>

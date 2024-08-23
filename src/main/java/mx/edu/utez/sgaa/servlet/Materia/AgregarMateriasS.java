@@ -34,7 +34,21 @@ public class AgregarMateriasS extends HttpServlet {
 
         DaoMateria dao = new DaoMateria();
 
-        dao.agregarMateria(materia);
+        String message;
+        String alertType;
+
+        boolean isAdded = dao.agregarMateria(materia);
+
+        if (isAdded) {
+            message = "Materia agregada exitosamente.";
+            alertType = "success";
+        } else {
+            message = "La materia no se pudo agregar. Es posible que ya esté registrada.";
+            alertType = "error";
+        }
+
+        request.setAttribute("message", message);
+        request.setAttribute("alertType", alertType);
         doGet(request, response);
     }
 }

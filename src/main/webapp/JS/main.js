@@ -2,7 +2,7 @@ let data = {
 };
 
 const getMaterias = async id => {
-    await fetch(`http://localhost:8083/SGI_war_exploded/GetMateriaS?id=${id}`,{
+    await fetch(`http://localhost:8083/SGAA_war_exploded/GetMateriaS?id=${id}`,{
         method: 'GET',
         headers: {
             'Accept': 'application/json',

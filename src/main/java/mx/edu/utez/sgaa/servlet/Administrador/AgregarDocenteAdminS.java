@@ -38,20 +38,31 @@ public class AgregarDocenteAdminS extends HttpServlet {
         docente.setAdmission(admision);
         docente.setRol(rol);
 
-        // Debug output
-        System.out.println("Parametros recibidos - Matricula: " + matricula + ", Contraseña: " + password + ", Nombre: " + nombre + ", Apellido: " + apellido +", Rol: " + rol);
+        String message;
+        String alertType;
 
         try {
-            int result = daoDocente.RegistrarDocente(docente);
-            if (result > 0) {
-                System.out.println("Docente registrado exitosamente");
+            if (daoDocente.existeDocente(matricula)) {
+                message = "El docente ya está registrado.";
+                alertType = "error";
             } else {
-                System.out.println("Docente no registrado");
+                int result = daoDocente.RegistrarDocente(docente);
+                if (result > 0) {
+                    message = "Docente registrado exitosamente.";
+                    alertType = "success";
+                } else {
+                    message = "Error al registrar el docente.";
+                    alertType = "error";
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
-            throw new ServletException("Error al registrar docente.", e);
+            message = "Error al registrar docente: " + e.getMessage();
+            alertType = "error";
         }
+
+        request.setAttribute("message", message);
+        request.setAttribute("alertType", alertType);
         doGet(request, response);
     }
 }

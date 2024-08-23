@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="<%=context%>/css/cssFuenteLetra.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css" rel="stylesheet">
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Aprobar docente</title>
     <style>
         /* ESTILO DE PLANTILLABARRA*/
@@ -262,6 +262,21 @@
     </style>
 </head>
 <body>
+<%
+    String message = (String) request.getAttribute("message");
+    String alertType = (String) request.getAttribute("alertType");
+    if (message != null) {
+%>
+<script defer>
+    Swal.fire({
+        icon: '<%= alertType %>',
+        title: '<%= alertType.equals("success") ? "Acción completada" : "Error" %>',
+        text: '<%= message %>',
+        showConfirmButton: false,
+        timer: 2000
+    });
+</script>
+<% } %>
 <!-- Barra lateral -->
 <div class="barra-lateral">
     <div class="nombre-pagina">

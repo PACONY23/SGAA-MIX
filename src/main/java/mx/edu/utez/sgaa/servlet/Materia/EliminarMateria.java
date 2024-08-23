@@ -24,14 +24,26 @@ public class EliminarMateria extends HttpServlet {
         Long id = Long.parseLong(request.getParameter("d_id"));
         System.out.println("Id a eliminar: " + id);
 
-        boolean isDeleted = materiaDao.eliminarMateria(id);
-        if (isDeleted) {
-            System.out.println("Materia eliminada exitosamente");
-        } else {
-            System.out.println("Error al eliminar la materia");
+        String message;
+        String alertType;
+
+        try {
+            boolean isDeleted = materiaDao.eliminarMateria(id);
+            if (isDeleted) {
+                message = "Materia eliminada exitosamente.";
+                alertType = "success";
+            } else {
+                message = "No se pudo eliminar la materia. Puede estar en uso.";
+                alertType = "error";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            message = "Error al eliminar la materia: " + e.getMessage();
+            alertType = "error";
         }
 
-        request.setAttribute("success", isDeleted);
+        request.setAttribute("message", message);
+        request.setAttribute("alertType", alertType);
         doGet(request, response);
     }
 }

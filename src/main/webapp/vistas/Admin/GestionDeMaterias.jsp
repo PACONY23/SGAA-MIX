@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="<%=context%>/css/cssFuenteLetra.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <title>Agregar materias</title>
     <style>
@@ -245,6 +246,21 @@
     </style>
 </head>
 <body>
+<%
+    String message = (String) request.getAttribute("message");
+    String alertType = (String) request.getAttribute("alertType");
+    if (message != null) {
+%>
+<script defer>
+    Swal.fire({
+        icon: '<%= alertType %>',
+        title: '<%= alertType.equals("success") ? "Acción completada" : "Error" %>',
+        text: '<%= message %>',
+        showConfirmButton: false,
+        timer: 3000
+    });
+</script>
+<% } %>
 <div class="barra-lateral">
     <div class="nombre-pagina">
         <img src="<%=context%>/IMG/logoCalendario.png" id="cloud" class="img-fluid" style="height: 40px; width: auto"/>
