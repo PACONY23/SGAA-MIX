@@ -115,7 +115,7 @@ public class DaoEstudiante {
         }
     }
     public boolean actualizarEstudianteJE(Estudiante estudiante) {
-        String UPDATE_SQL = "UPDATE Estudiantes SET nombre = ?, apellido = ?, contraseña = ? WHERE matricula = ?;";
+        String UPDATE_SQL = "UPDATE Estudiantes SET nombre = ?, apellido = ?, grupo =?, cuatrimestre=? WHERE matricula = ?;";
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -123,8 +123,9 @@ public class DaoEstudiante {
                 PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_SQL);
                 preparedStatement.setString(1, estudiante.getNombre());
                 preparedStatement.setString(2, estudiante.getApellido());
-                preparedStatement.setString(3, estudiante.getContrasena());
-                preparedStatement.setString(4, estudiante.getMatricula());
+                preparedStatement.setString(3, estudiante.getGrupo());
+                preparedStatement.setString(4, estudiante.getCuatrimestre());
+                preparedStatement.setString(5, estudiante.getMatricula());
 
                 int affectedRows = preparedStatement.executeUpdate();
                 return affectedRows > 0;
@@ -313,6 +314,46 @@ public class DaoEstudiante {
             return false;
         }
     }
+    //modificado
+    public List<Estudiante> encontrarEstudiantePaginaPrincipal(int idEstudiante) {
+        List<Estudiante> estudiantes = new ArrayList<>();
+
+        try {
+            con = DATA_BASE_CONNECTION.getConnection();
+            String sql = "SELECT  matricula, nombre, apellido, correoElectronico, grupo, cuatrimestre FROM Estudiantes WHERE idEstudiante = ?";
+            pstm = con.prepareStatement(sql);
+            pstm.setInt(1, idEstudiante);
+            rs = pstm.executeQuery();
+
+            while (rs.next()) {
+                Estudiante estudiante = new Estudiante();
+                estudiante.setMatricula(rs.getString("matricula"));
+                estudiante.setNombre(rs.getString("nombre"));
+                estudiante.setApellido(rs.getString("apellido"));
+                estudiante.setCorreoElectronico(rs.getString("correoElectronico"));
+                estudiante.setGrupo(rs.getString("grupo"));
+                estudiante.setCuatrimestre(rs.getString("cuatrimestre"));
+
+
+
+                estudiantes.add(estudiante);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (pstm != null) pstm.close();
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return estudiantes;
+    }
+
 
     public static void main(String[] args) {
         DaoEstudiante daoEstudiante = new DaoEstudiante();

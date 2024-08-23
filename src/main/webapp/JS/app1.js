@@ -62,6 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
         asesoriaIdInput.value = ''; // Limpia el valor del input de id de asesoría
         docenteIdInput.value = ''; // Limpia el valor del input de id de estudiante
         document.getElementById("calificacion").value = 0;
+        //document.getElementById('miBoton').disabled = true;
     });
 });
 

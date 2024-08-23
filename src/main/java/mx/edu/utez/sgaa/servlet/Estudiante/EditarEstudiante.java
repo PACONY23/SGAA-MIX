@@ -21,17 +21,21 @@ public class EditarEstudiante extends HttpServlet {
         String matricula = request.getParameter("matricula");
         String nombre = request.getParameter("nombre");
         String apellidos = request.getParameter("apellidos");
-        String contrasena = request.getParameter("contrasena");
+        String grupo = request.getParameter("grupo");
+        String cuatrimestre = request.getParameter("cuatrimestre");
 
         Estudiante estudiante = new Estudiante();
         estudiante.setMatricula(matricula);
         estudiante.setNombre(nombre);
         estudiante.setApellido(apellidos);
-        estudiante.setContrasena(contrasena);
+        estudiante.setGrupo(grupo);
+        estudiante.setCuatrimestre(cuatrimestre);
         System.out.println("Est Ma: " +estudiante.getMatricula());
         System.out.println("Est No: " +estudiante.getNombre());
         System.out.println("Est Ap: " +estudiante.getApellido());
-        System.out.println("Est Co: " +estudiante.getContrasena());
+        System.out.println("Est Grupo: " +estudiante.getGrupo());
+        System.out.println("Est Cuat: " +estudiante.getCuatrimestre());
+
 
         boolean actualizado = daoEstudiante.actualizarEstudianteJE(estudiante);
 

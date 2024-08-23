@@ -11,11 +11,12 @@ public class Estudiante {
     private String correoElectronico;
     private boolean estatus;
     private String rol;
+    private float calificacion;
 
     public Estudiante() {
     }
 
-    public Estudiante(int id, String nombre, String apellido, String contrasena, String matricula, String grupo, String cuatrimestre, boolean estatus) {
+    public Estudiante(int id, String nombre, String apellido, String contrasena, String matricula, String grupo, String cuatrimestre, boolean estatus, float calificacion) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -24,6 +25,7 @@ public class Estudiante {
         this.grupo = grupo;
         this.cuatrimestre = cuatrimestre;
         this.estatus = estatus;
+        this.calificacion = calificacion;
     }
 
     public Estudiante(int id, String nombre, String apellido, String contrasena, String matricula, String grupo, String cuatrimestre, String correoElectronico, boolean estatus, String rol) {
@@ -40,6 +42,15 @@ public class Estudiante {
     }
 
     // Getters y setters para todos los campos, incluyendo estatus
+
+
+    public float getCalificacion() {
+        return calificacion;
+    }
+
+    public void setCalificacion(float calificacion) {
+        this.calificacion = calificacion;
+    }
 
     public String getNombre() {
         return nombre;

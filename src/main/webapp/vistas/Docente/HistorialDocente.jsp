@@ -309,7 +309,7 @@
         <td><%= asesoria.getFecha() %></td>
         <td><%= asesoria.getHora() %></td>
         <td>
-          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="putId('<%=asesoria.getId_asesoria() %>','<%=asesoria.getId_estudiante() %>')">Calificar</button>
+          <button id="miBoton" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="putId('<%=asesoria.getId_asesoria() %>','<%=asesoria.getId_estudiante() %>')">Calificar</button>
         </td>
       </tr>
       <%

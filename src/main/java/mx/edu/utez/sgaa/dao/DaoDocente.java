@@ -179,9 +179,9 @@ public class DaoDocente {
         }
     }
 
-
+    //cambiado apenas
     public boolean actualizarDocente(Docente docente) {
-        String UPDATE_SQL = "UPDATE Docentes SET nombre = ?, apellido = ?, correoElectronico = ? WHERE matricula = ?;";
+        String UPDATE_SQL = "UPDATE Docentes SET nombre = ?, apellido = ? WHERE matricula = ?;";
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -189,8 +189,7 @@ public class DaoDocente {
                 PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_SQL);
                 preparedStatement.setString(1, docente.getNombres());
                 preparedStatement.setString(2, docente.getApellidos());
-                preparedStatement.setString(3, docente.getCorreoElectronico());
-                preparedStatement.setString(4, docente.getMatricula());
+                preparedStatement.setString(3, docente.getMatricula());
 
                 int affectedRows = preparedStatement.executeUpdate();
                 return affectedRows > 0;
@@ -425,5 +424,40 @@ public class DaoDocente {
 
 
 
+    }
+    //cambiado apenas
+    public List<Docente> encontrarDocentePaginaPrincipal(int idDocente) {
+        List<Docente> docentes = new ArrayList<>();
+
+        try {
+            con = DATA_BASE_CONNECTION.getConnection();
+            String sql = "SELECT  matricula, nombre, apellido FROM Docentes WHERE idDocente = ?";
+            pstm = con.prepareStatement(sql);
+            pstm.setInt(1, idDocente);
+            rs = pstm.executeQuery();
+
+            while (rs.next()) {
+                Docente docente = new Docente();
+                docente.setMatricula(rs.getString("matricula"));
+                docente.setNombres(rs.getString("nombre"));
+                docente.setApellidos(rs.getString("apellido"));
+
+
+                docentes.add(docente);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (pstm != null) pstm.close();
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return docentes;
     }
 }

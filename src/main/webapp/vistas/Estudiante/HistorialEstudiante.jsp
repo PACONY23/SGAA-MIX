@@ -7,7 +7,6 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.sql.SQLException" %>
-
 <%if(request.getSession(false) != null && session.getAttribute("matricula") != null){
     if (!(request.getSession().getAttribute("role").toString().toLowerCase().equals("estudiante"))){
         response.sendRedirect(context + "/index.jsp");
@@ -344,7 +343,7 @@
                 <td><%= asesoria.getFecha() %></td>
                 <td><%= asesoria.getHora() %></td>
                 <td>
-                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="putId('<%=asesoria.getId_asesoria() %>','<%=asesoria.getId_docente()%>')">Calificar</button>
+                    <button id="miBoton" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="putId('<%=asesoria.getId_asesoria() %>','<%=asesoria.getId_docente()%>')">Calificar</button>
 
                 </td>
             </tr>

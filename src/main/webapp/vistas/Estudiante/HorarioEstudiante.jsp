@@ -295,7 +295,7 @@
             </div>
             <div class="modal-body">
                 <p id="modalDate">Fecha y Hora</p>
-                <label for="inputTema">Tema:</label>
+                <label for="inputTema" >Tema:</label>
                 <input type="text" class="form-control" id="inputTema" placeholder="Tema de la asesoría">
             </div>
             <div class="modal-footer">

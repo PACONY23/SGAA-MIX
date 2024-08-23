@@ -81,14 +81,15 @@ public class DaoAsesoria {
         return asesorias;
     }
 
-    public void eliminarAsesoria(int idAsesoria) throws SQLException {
+    //cambiado apenas
+    public boolean eliminarAsesoria(int idAsesoria) throws SQLException {
         String query = "DELETE FROM Asesorias WHERE idAsesoria = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setInt(1, idAsesoria);
             stmt.executeUpdate();
+            return true;
         }
     }
-
     public void actualizarAsesoria(Asesoria asesoria) throws SQLException {
         String query = "UPDATE Asesorias SET idDocente = ?, idMateria = ?, titulo = ?, fecha = ?, hora = ? WHERE idAsesoria = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
@@ -396,6 +397,7 @@ public class DaoAsesoria {
         }
         return asesorias;
     }
+
 
 
     public List<Asesoria> obtenerAsesoriasIniciadasPorEstudiante(int idEstudiante) throws SQLException {

@@ -15,17 +15,18 @@ public class EditarDocente extends HttpServlet {
     public EditarDocente() {
         super();
     }
-
+    //cambiado apenas
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String matricula = request.getParameter("matricula");
         String nombre = request.getParameter("nombre");
         String apellidos = request.getParameter("apellidos");
+        System.out.println("matricula docente "+matricula+" nombre "+nombre+" apellidos "+apellidos);
 
         Docente docente = new Docente();
-        docente.setMatricula(matricula);
         docente.setNombres(nombre);
         docente.setApellidos(apellidos);
+        docente.setMatricula(matricula);
 
         boolean actualizado = daoDocente.actualizarDocente(docente);
 

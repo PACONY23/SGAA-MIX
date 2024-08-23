@@ -10,14 +10,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a139834b-be9f-40a4-a4c8-e1bc4c412130" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/webContexts.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/webContexts.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Administrador/AgregarDocenteAdminS.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Administrador/AgregarDocenteAdminS.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Docente/RegistroDocentesS.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Docente/RegistroDocentesS.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Materia/AgregarMateriasS.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Materia/AgregarMateriasS.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Materia/EliminarMateria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Materia/EliminarMateria.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/JS/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/JS/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/vistas/Admin/AprobarRegistro.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/vistas/Admin/AprobarRegistro.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/vistas/Admin/GestionDeMaterias.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/vistas/Admin/GestionDeMaterias.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/dao/DaoAsesoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/dao/DaoAsesoria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/dao/DaoDocente.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/dao/DaoDocente.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/dao/DaoEstudiante.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/dao/DaoEstudiante.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/dao/DaoEstudianteAsesoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/dao/DaoEstudianteAsesoria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/model/Estudiante.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/model/Estudiante.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Docente/EditarDocente.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Docente/EditarDocente.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Docente/EliminarAsesoriaS.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Docente/EliminarAsesoriaS.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Estudiante/EditarEstudiante.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/sgaa/servlet/Estudiante/EditarEstudiante.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/JS/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/JS/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/JS/app1.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/JS/app1.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/vistas/Admin/ConsultarInformacion.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/vistas/Admin/ConsultarInformacion.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/vistas/Docente/AsesoriasGestionDocente.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/vistas/Docente/AsesoriasGestionDocente.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/vistas/Docente/HistorialDocente.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/vistas/Docente/HistorialDocente.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/vistas/Docente/PaginaPrincipalDocente.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/vistas/Docente/PaginaPrincipalDocente.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/vistas/Estudiante/HistorialEstudiante.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/vistas/Estudiante/HistorialEstudiante.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/vistas/Estudiante/HorarioEstudiante.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/vistas/Estudiante/HorarioEstudiante.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/vistas/Estudiante/PaginaPrincipalEstudiante.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/vistas/Estudiante/PaginaPrincipalEstudiante.jsp" afterDir="false" />
     </list>
     <list id="93d35109-d88d-440d-aee6-edfc685efac2" name="Changes by EKT9962" comment="" />
     <list id="4127c621-55f7-44ef-9035-8d3c8a0ce461" name="Changes by Isaac" comment="" />
@@ -57,30 +68,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.DaoAsesoria.executor": "Run",
-    "Application.DaoEstudiante.executor": "Run",
-    "Application.DaoEstudianteAsesoria.executor": "Run",
-    "Application.DatabaseConnection.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "Tomcat Server.Tomcat 10.1.26.executor": "Run",
-    "Tomcat Server.Tomcat 9.0.90.executor": "Run",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/luisa/OneDrive/Escritorio/PILAR/SGAA-MIX",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.DaoAsesoria.executor&quot;: &quot;Run&quot;,
+    &quot;Application.DaoEstudiante.executor&quot;: &quot;Run&quot;,
+    &quot;Application.DaoEstudianteAsesoria.executor&quot;: &quot;Run&quot;,
+    &quot;Application.DatabaseConnection.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;Tomcat Server.Tomcat 10.1.26.executor&quot;: &quot;Run&quot;,
+    &quot;Tomcat Server.Tomcat 9.0.90.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/16844/Downloads/clon 21.08.24/SGAA clon SIN BUG/SGAA-MIX&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Tomcat Server.Tomcat 10.1.26">
     <configuration name="DaoAsesoria" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="mx.edu.utez.sgaa.dao.DaoAsesoria" />
@@ -134,7 +145,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Tomcat 10.1.26" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 10.1.28" ALTERNATIVE_JRE_ENABLED="true" ALTERNATIVE_JRE_PATH="21">
+    <configuration name="Tomcat 10.1.26" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 10.1.26" ALTERNATIVE_JRE_ENABLED="true" ALTERNATIVE_JRE_PATH="21">
       <option name="UPDATING_POLICY" value="restart-server" />
       <deployment>
         <artifact name="SGAA:war exploded">
@@ -145,7 +156,7 @@
       </deployment>
       <server-settings>
         <option name="BASE_DIRECTORY_NAME" value="73cef2de-8c34-4bf4-9929-89e9266b2818" />
-        <option name="HTTP_PORT" value="8083" />
+        <option name="HTTP_PORT" value="8081" />
       </server-settings>
       <predefined_log_file enabled="true" id="Tomcat" />
       <predefined_log_file enabled="true" id="Tomcat Catalina" />
@@ -241,8 +252,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.15989.150" />
-        <option value="bundled-js-predefined-1d06a55b98c1-91d5c284f522-JavaScript-IU-241.15989.150" />
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.18034.62" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.18034.62" />
       </set>
     </attachedChunks>
   </component>
@@ -273,6 +284,8 @@
       <workItem from="1724313414632" duration="28000" />
       <workItem from="1724336584457" duration="12889000" />
       <workItem from="1724371584621" duration="4159000" />
+      <workItem from="1724381585415" duration="9392000" />
+      <workItem from="1724391487085" duration="55000" />
     </task>
     <servers />
   </component>
