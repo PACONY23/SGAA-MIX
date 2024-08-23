@@ -12,6 +12,7 @@
         <entry key="file://$PROJECT_DIR$/src/main/webapp/vistas/Docente/PaginaPrincipalDocente.jsp" value="file://$PROJECT_DIR$/src/main/webapp/vistas/Docente" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/vistas/Estudiante/HistorialEstudiante.jsp" value="file://$PROJECT_DIR$/src/main/webapp/vistas/Estudiante" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/vistas/Estudiante/HorarioEstudiante.jsp" value="file://$PROJECT_DIR$/src/main/webapp/vistas/Estudiante" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/vistas/Estudiante/PaginaPrincipalEstudiante.jsp" value="file://$PROJECT_DIR$/src/main/webapp/vistas/Estudiante" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/vistas/Estudiante/Reagendas.jsp" value="file://$PROJECT_DIR$/src/main/webapp/vistas/Estudiante" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/vistas/Estudiante/buscarMateria.jsp" value="file://$PROJECT_DIR$/src/main/webapp/vistas/Estudiante" />
       </map>

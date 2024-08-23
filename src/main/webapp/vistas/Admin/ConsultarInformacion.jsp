@@ -348,7 +348,10 @@
                     DaoEstudianteAsesoria dao1 = new DaoEstudianteAsesoria();
                     float calificacion =dao1.verDocentesCalificacio(docente.getId());
                 %>
-                <td><%=calificacion%></td>
+                    <% if(calificacion==0.0){ %>
+                <td style="align-content: center; text-align: center">S/C</td> <%}else{ %>
+                <td style="align-content: center; text-align: center"><%=calificacion%></td>
+           <% }%>
             </tr>
             <%
                 }
@@ -408,8 +411,10 @@
                          </span>
                     </button>
                 </td>
-                <td><%=calificacionE%>  </td>
-
+                <% if(calificacionE==0.0){ %>
+                <td style="align-content: center; text-align: center">S/C</td> <%}else{ %>
+                <td style="align-content: center; text-align: center"><%=calificacionE%></td>
+                <% }%>
             </tr>
             <%
                 }

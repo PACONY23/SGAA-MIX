@@ -1,4 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="mx.edu.utez.sgaa.dao.DaoDocente"%>
+<%@ page import="mx.edu.utez.sgaa.model.Docente"%>
+<%@ page import="java.util.List"%>
 <%String context = request.getContextPath();%>
 <%
     if(request.getSession(false) != null && session.getAttribute("matricula") != null){
@@ -17,6 +20,23 @@
     String nombre = (String) session.getAttribute("nombre");
     String apellido = (String) session.getAttribute("apellido");
     String correo = (String) session.getAttribute("correo");
+%>
+<%
+    // Obtener el atributo de la sesión
+    String idDocenteStr = (String) session.getAttribute("idDocente");
+    Integer idDocente = null;
+    int calificacion=0;
+
+    if (idDocenteStr != null) {
+        try {
+            idDocente = Integer.parseInt(idDocenteStr);
+        } catch (NumberFormatException e) {
+            e.printStackTrace(); // Manejar el error de conversión si es necesario
+        }
+    } else {
+        idDocente = 0; // Valor por defecto si no está en la sesión
+    }
+
 %>
 <!DOCTYPE html>
 <html lang="es">
@@ -422,20 +442,29 @@
 
 
 
+//cambiado apenas
+<%
+    if (idDocente != null && idDocente > 0) {
+        DaoDocente dao = new DaoDocente();
+        List<Docente> docenteList = dao.encontrarDocentePaginaPrincipal(idDocente);
+
+        for (Docente docente  : docenteList) {
+%>
+
 <div class="contenedor-perfil">
     <div class="perfil">
         <div class="informacion">
             <div class="dato">
                 <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" value="<%=nombre%>" readonly>
+                <input type="text" id="nombre" value="<%=docente.getNombres()%>" readonly>
             </div>
             <div class="dato">
                 <label for="apellidos">Apellidos:</label>
-                <input type="text" id="apellidos" value="<%=apellido%>" readonly>
+                <input type="text" id="apellidos" value="<%=docente.getApellidos()%>" readonly>
             </div>
             <div class="dato">
                 <label for="correo">Correo:</label>
-                <input type="email" id="Correo" name="matricula" value="<%=matricula%>" required>
+                <input type="email" id="Correo" name="matricula" value="<%=docente.getMatricula()%>" required>
             </div>
             <div class="botones">
                 <button id="editar">Editar</button>
@@ -449,28 +478,32 @@
     <div class="modal-content">
         <span class="close">&times;</span>
         <h2>Editar Perfil</h2>
-            <form id="editarForm" action="<%=context%>/EditarDocente" method="post">
-                <div class="input-group">
-                    <label for="nombreModal">Nombre:</label>
-                    <input type="text" id="nombreModal" name="nombre" value="<%=nombre%>" required>
-                    <div id="nombreError" class="text-danger" style="display:none;">Nombre inválido. Debe tener al menos 5 caracteres y solo letras.</div>
-                </div>
-                <div class="input-group">
-                    <label for="apellidosModal">Apellidos:</label>
-                    <input type="text" id="apellidosModal" name="apellidos" value="<%=apellido%>" required>
-                    <div id="apellidoError" class="text-danger" style="display:none;">Apellidos inválidos. Debe tener al menos 5 caracteres y solo letras.</div>
-                </div>
-                <div class="input-group">
-                    <label for="correoModal">Correo:</label>
-                    <input type="email" id="correoModal" name="matricula" value="<%=matricula%>" required>
-                    <div id="correoError" class="text-danger" style="display:none;">Campo obligatorio. Debe ser un correo válido con terminación @utez.edu.mx.</div>
-                </div>
-                <div class="modal-buttons">
-                    <button type="submit" id="guardarCambios">Guardar Cambios</button>
-                </div>
-            </form>
+        <form id="editarForm" action="<%=context%>/EditarDocente" method="post">
+            <div class="input-group">
+                <label for="nombreModal">Nombre:</label>
+                <input type="text" id="nombreModal" name="nombre" value="<%=docente.getNombres()%>" required>
+                <div id="nombreError" class="text-danger" style="display:none;">Nombre inválido. Debe tener al menos 3 caracteres y solo letras.</div>
+            </div>
+            <div class="input-group">
+                <label for="apellidosModal">Apellidos:</label>
+                <input type="text" id="apellidosModal" name="apellidos" value="<%=docente.getApellidos()%>" required>
+                <div id="apellidoError" class="text-danger" style="display:none;">Apellidos inválidos. Debe tener al menos 4 caracteres y solo letras.</div>
+            </div>
+            <div class="input-group">
+                <label for="correoModal">Correo:</label>
+                <input type="email" id="correoModal" name="matricula" value="<%=docente.getMatricula()%>" required readonly>
+                <div id="correoError" class="text-danger" style="display:none;">Campo obligatorio. Debe ser un correo válido con terminación @utez.edu.mx.</div>
+            </div>
+            <div class="modal-buttons">
+                <button type="submit" id="guardarCambios">Guardar Cambios</button>
+            </div>
+        </form>
     </div>
 </div>
+<%
+        }
+    }
+%>
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         // Elementos del modal
@@ -502,7 +535,7 @@
             let isValid = true;
 
             // Validar nombre
-            const nombrePattern = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ]{5,}(?:\s[a-zA-ZáéíóúÁÉÍÓÚñÑ]{5,})?$/;
+            const nombrePattern = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ]{3,}(?:\s[a-zA-ZáéíóúÁÉÍÓÚñÑ]{3,})?$/;
             if (!nombrePattern.test(document.getElementById('nombreModal').value.trim())) {
                 document.getElementById('nombreError').style.display = 'block';
                 isValid = false;
@@ -511,7 +544,7 @@
             }
 
             // Validar apellido
-            const apellidoPattern = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ]{5,}(?:\s[a-zA-ZáéíóúÁÉÍÓÚñÑ]{5,})?$/;
+            const apellidoPattern = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ]{4,}(?:\s[a-zA-ZáéíóúÁÉÍÓÚñÑ]{4,})?$/;
             if (!apellidoPattern.test(document.getElementById('apellidosModal').value.trim())) {
                 document.getElementById('apellidoError').style.display = 'block';
                 isValid = false;

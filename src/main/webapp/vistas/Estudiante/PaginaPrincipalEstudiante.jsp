@@ -1,4 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="mx.edu.utez.sgaa.model.Estudiante"%>
+<%@ page import="mx.edu.utez.sgaa.dao.DaoEstudiante"%>
+<%@ page import="java.util.List"%>
 <%String context = request.getContextPath();%>
 <%if(request.getSession(false) != null && session.getAttribute("matricula") != null){
     if (!(request.getSession().getAttribute("role").toString().toLowerCase().equals("estudiante"))){
@@ -18,6 +21,22 @@
     String grupo = (String) session.getAttribute("grupo");
     String cuatrimeestre = (String) session.getAttribute("cuatrimestre");
     String contrasena = (String) session.getAttribute("contrasena");
+%>
+<%
+    // Obtener el atributo de la sesión
+    String idEstudianteStr = (String) session.getAttribute("idEstudiante");
+    Integer idEstudiante = null;
+
+    if (idEstudianteStr != null) {
+        try {
+            idEstudiante = Integer.parseInt(idEstudianteStr);
+        } catch (NumberFormatException e) {
+            e.printStackTrace(); // Manejar el error de conversión si es necesario
+        }
+    } else {
+        idEstudiante = 0; // Valor por defecto si no está en la sesión
+    }
+
 %>
 <!DOCTYPE html>
 <html lang="es">
@@ -375,6 +394,7 @@
     </style>
 </head>
 <body>
+
 <!-- Barra lateral -->
 <div class="barra-lateral">
     <div class="nombre-pagina">
@@ -428,32 +448,45 @@
         </ul>
     </nav>
 </div>
+<!--cambiado apenas-->
+<%
+    if (idEstudiante != null && idEstudiante > 0) {
+        DaoEstudiante dao = new DaoEstudiante();
+        List<Estudiante> estudianteList = dao.encontrarEstudiantePaginaPrincipal(idEstudiante);
+
+        for (Estudiante estudiante  : estudianteList) {
+%>
+
+
+
 <!-- Contenedor principal -->
 <div class="contenedor-perfil">
     <div class="perfil">
         <div class="informacion">
+
             <div class="dato">
                 <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" value="<%=nombre%>" readonly>
+                <input type="text" id="nombre" value="<%=estudiante.getNombre()%>" readonly>
             </div>
             <div class="dato">
                 <label for="apellidos">Apellidos:</label>
-                <input type="text" id="apellidos" value="<%=apellido%>" readonly>
+                <input type="text" id="apellidos" value="<%=estudiante.getApellido()%>" readonly>
             </div>
             <div class="dato">
                 <label for="correo">Correo:</label>
-                <input type="email" id="correo" value="<%=correo%>" readonly>
+                <input type="email" id="correo" value="<%=estudiante.getCorreoElectronico()%>" readonly>
             </div>
             <div class="dato">
                 <label for="cuatrimestre">Cuatrimestre:</label>
-                <input type="text" id="cuatrimestre" value="<%=cuatrimeestre%>">
+                <input type="text" id="cuatrimestre" value="<%=estudiante.getCuatrimestre()%>">
 
                 <label for="grupo">Grupo:</label>
-                <input type="text" id="grupo" value="<%=grupo%>" readonly>
+                <input type="text" id="grupo" value="<%=estudiante.getGrupo()%>" readonly>
             </div>
             <div class="botones">
                 <button id="editar">Editar</button>
             </div>
+
         </div>
     </div>
 </div>
@@ -466,35 +499,52 @@
         <form id="editarForm" method="post" action="<%=request.getContextPath()%>/EditarEstudiante">
 
             <div class="input-group">
-                <input type="hidden" id="matriculaModal" name="matricula" value="<%=matricula%>" required>
+                <input type="hidden" id="matriculaModal" name="matricula" value="<%=estudiante.getMatricula()%>" required>
             </div>
             <div class="input-group">
                 <label for="nombreModal">Nombre:</label>
-                <input type="text" id="nombreModal" name="nombre" value="<%=nombre%>" required>
+                <input type="text" id="nombreModal" name="nombre" value="<%=estudiante.getNombre()%>" required>
             </div>
             <div class="input-group">
                 <label for="apellidosModal">Apellidos:</label>
-                <input type="text" id="apellidosModal" name="apellidos" value="<%=apellido%>" required>
+                <input type="text" id="apellidosModal" name="apellidos" value="<%=estudiante.getApellido()%>" required>
             </div>
             <div class="input-group">
                 <label for="grupoModal">Grupo:</label>
-                <input type="text" id="grupoModal" name="grupo" value="<%=grupo%>">
+                <select id="grupoModal" name="grupo">
+                    <option value="A" <%= estudiante.getGrupo().equals("A") ? "selected" : "" %>>A</option>
+                    <option value="B" <%= estudiante.getGrupo().equals("B") ? "selected" : "" %>>B</option>
+                    <option value="C" <%= estudiante.getGrupo().equals("C") ? "selected" : "" %>>C</option>
+                    <option value="D" <%= estudiante.getGrupo().equals("D") ? "selected" : "" %>>D</option>
+                    <option value="E" <%= estudiante.getGrupo().equals("E") ? "selected" : "" %>>E</option>
+                    <option value="F" <%= estudiante.getGrupo().equals("F") ? "selected" : "" %>>F</option>
+                    <option value="G" <%= estudiante.getGrupo().equals("G") ? "selected" : "" %>>G</option>
+                </select>
             </div>
             <div class="input-group">
                 <label for="cuatrimestreModal">Cuatrimestre:</label>
-                <input type="text" id="cuatrimestreModal" name="cuatrimestre" value="<%=cuatrimeestre%>">
+                <select id="cuatrimestreModal" name="cuatrimestre">
+                    <option value="1" <%= "1".equals(String.valueOf(estudiante.getCuatrimestre())) ? "selected" : "" %>>1</option>
+                    <option value="2" <%= "2".equals(String.valueOf(estudiante.getCuatrimestre())) ? "selected" : "" %>>2</option>
+                    <option value="3" <%= "3".equals(String.valueOf(estudiante.getCuatrimestre())) ? "selected" : "" %>>3</option>
+                    <option value="4" <%= "4".equals(String.valueOf(estudiante.getCuatrimestre())) ? "selected" : "" %>>4</option>
+                    <option value="5" <%= "5".equals(String.valueOf(estudiante.getCuatrimestre())) ? "selected" : "" %>>5</option>
+                </select>
             </div>
-            <div class="input-group">
-                <label for="contrasenaModal">Contraseña:</label>
-                <input type="text" id="contrasenaModal" name="contrasena" value="<%=contrasena%>" required>
-            </div>
+
+
             <div class="modal-buttons">
                 <button type="submit" id="guardarCambios">Guardar Cambios</button>
             </div>
         </form>
+
     </div>
 </div>
 
+<%
+        }
+    }
+%>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var modal = document.getElementById('modalEditar');
@@ -517,24 +567,32 @@
                 modal.style.display = 'none';
             }
         }
-        /*
-        // Guardar cambios (simulado)
-        var btnGuardar = document.getElementById('guardarCambios');
-        btnGuardar.onclick = function() {
-            var nombre = document.getElementById('nombreModal').value;
-            var apellidos = document.getElementById('apellidosModal').value;
-            var correo = document.getElementById('correoModal').value;
 
-            // Aquí iría la lógica para guardar los cambios
-            console.log('Nombre:', nombre);
-            console.log('Apellidos:', apellidos);
-            console.log('Correo:', correo);
+        // Validación del formulario
+        var form = document.getElementById('editarForm');
+        form.onsubmit = function(event) {
+            var nombre = document.getElementById('nombreModal').value.trim();
+            var apellidos = document.getElementById('apellidosModal').value.trim();
 
-            // Simular cierre del modal
-            modal.style.display = 'none';
+            // Expresión regular para permitir solo letras, acentos y espacios, y requerir al menos 3 caracteres
+            var regex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]{3,}$/;
+
+            if (!regex.test(nombre)) {
+                alert('El nombre debe tener al menos 3 letras, solo puede contener letras y espacios, y no debe incluir números.');
+                event.preventDefault(); // Previene que el formulario se envíe
+                return false;
+            }
+
+            if (!regex.test(apellidos)) {
+                alert('Los apellidos deben tener al menos 3 letras, solo pueden contener letras y espacios, y no deben incluir números.');
+                event.preventDefault();
+                return false;
+            }
+
+            return true; // Permite que el formulario se envíe si pasa la validación
         }
-        */
     });
+
 </script>
 </body>
 </html>
